@@ -73,6 +73,38 @@
       }
     },
     {
+      "id": "bariwala",
+      "name": "Bariwala",
+      "category": "business",
+      "page": "bariwala.html",
+      "icon": "assets/images/bariwala-icon.png",
+      "banner": "assets/images/bariwala-banner.jpg",
+      "navDesc": "Smart property & rental ledger",
+      "navPill": "B2B",
+      "showcaseTag": "B2B",
+      "showcaseMeta": "Landlord & rental management · Flutter, SQLite",
+      "shippedMeta": "Flutter · SQLite · Drive Backup",
+      "audience": "b2b",
+      "shippedCategory": "saas",
+      "cardTitle": "Bariwala: Rental & Property Manager",
+      "bannerAlt": "Bariwala: Rental & Property Management",
+      "badges": [],
+      "description": "Offline-first rental property management for flat owners, building landlords, and operators.",
+      "detailsLabel": "View Details",
+      "link": {
+        "type": "github",
+        "url": "https://github.com/hrud09/Bariwala"
+      },
+      "pendingLabel": "",
+      "show": {
+        "nav": true,
+        "showcase": true,
+        "shipped": true,
+        "grid": false,
+        "footer": true
+      }
+    },
+    {
       "id": "triple-tiles",
       "name": "Triple Tiles",
       "category": "game",
