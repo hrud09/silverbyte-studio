@@ -32,7 +32,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
-    <link rel="stylesheet" href="assets/css/style.css?v=1.9">
+    <link rel="stylesheet" href="assets/css/style.css?v=2.0">
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
@@ -203,71 +203,349 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero hero-split">
+    <section class="hero hero-split" id="hero">
         <div class="container hero-split-grid">
-            <div class="hero-copy">
-                <p class="eyebrow">Independent software studio</p>
-                <h1>Polished apps and games, built and shipped in&#8209;house.</h1>
-                <p class="lead">
-                    Silverbyte Studio designs, builds and maintains its own Android apps, desktop tools and Unity games, and builds custom software for businesses with the same care.
-                </p>
-                <div class="hero-actions">
-                    <a href="#games" class="btn btn-primary">See our work</a>
-                    <a href="business.html" class="btn btn-secondary">Work with us</a>
+            <!-- Left Side: Interactive Question-Answering Session & Matched Studio Profile -->
+            <div class="hero-interactive-container">
+                <!-- View A: Interactive Q&A Session for First-Time Users & Re-tuning -->
+                <div class="hero-interactive-session" id="hero-interactive-session">
+                    <div class="qa-header">
+                        <p class="eyebrow">
+                            <span class="eyebrow-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+                            Studio Algorithm Finder
+                            <span class="qa-status-pill"><span class="dot"></span> Interactive</span>
+                        </p>
+                        <h1>What kind of software do you need built?</h1>
+                        <p class="lead">
+                            Answer 2 quick questions to let our studio algorithm curate the exact products, categories, and business space for your needs.
+                        </p>
+                    </div>
+
+                    <div class="qa-card">
+                        <!-- Step 1: Business Type -->
+                        <div class="qa-step" data-step="1">
+                            <label class="qa-label">
+                                <span class="qa-step-num">01</span>
+                                <span>What kind of business or organization are you in?</span>
+                            </label>
+                            <div class="qa-grid-business" role="radiogroup" aria-label="Business Type">
+                                <button type="button" class="qa-pill" data-name="business" data-val="enterprise" aria-checked="false">
+                                    <span class="qa-pill-icon">🏢</span>
+                                    <span class="qa-pill-text">
+                                        <span class="qa-pill-title">Enterprise &amp; Ops</span>
+                                        <span class="qa-pill-desc">Property, corporate, operations</span>
+                                    </span>
+                                </button>
+                                <button type="button" class="qa-pill" data-name="business" data-val="startup" aria-checked="false">
+                                    <span class="qa-pill-icon">🚀</span>
+                                    <span class="qa-pill-text">
+                                        <span class="qa-pill-title">Startup &amp; Founder</span>
+                                        <span class="qa-pill-desc">MVP, SaaS platform, launch</span>
+                                    </span>
+                                </button>
+                                <button type="button" class="qa-pill" data-name="business" data-val="smallbiz" aria-checked="false">
+                                    <span class="qa-pill-icon">🏪</span>
+                                    <span class="qa-pill-text">
+                                        <span class="qa-pill-title">Small Business</span>
+                                        <span class="qa-pill-desc">Internal tools, management</span>
+                                    </span>
+                                </button>
+                                <button type="button" class="qa-pill" data-name="business" data-val="individual" aria-checked="false">
+                                    <span class="qa-pill-icon">👤</span>
+                                    <span class="qa-pill-text">
+                                        <span class="qa-pill-title">Individual / Consumer</span>
+                                        <span class="qa-pill-desc">Everyday tools, player, apps</span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Software Model (B2B vs B2C) -->
+                        <div class="qa-step" data-step="2">
+                            <label class="qa-label">
+                                <span class="qa-step-num">02</span>
+                                <span>What type of software do you want? (B2B or B2C)</span>
+                            </label>
+                            <div class="qa-grid-type" role="radiogroup" aria-label="Software Model">
+                                <button type="button" class="qa-type-btn" data-name="type" data-val="b2b" aria-checked="false">
+                                    <div class="qa-type-header">
+                                        <span class="qa-type-title">💼 B2B Software</span>
+                                        <span class="qa-type-tag">Business</span>
+                                    </div>
+                                    <span class="qa-type-desc">Real estate &amp; lease OS, internal business tools, automated invoicing &amp; custom software</span>
+                                </button>
+                                <button type="button" class="qa-type-btn" data-name="type" data-val="b2c" aria-checked="false">
+                                    <div class="qa-type-header">
+                                        <span class="qa-type-title">👥 B2C Applications</span>
+                                        <span class="qa-type-tag">Consumer</span>
+                                    </div>
+                                    <span class="qa-type-desc">Mobile utility tools, video editing, personal finance ledgers &amp; casual Unity games</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Every Category We Build -->
+                        <div class="qa-step" data-step="3">
+                            <label class="qa-label">
+                                <span class="qa-step-num">03</span>
+                                <span>Categories we can build for you (select any to highlight):</span>
+                            </label>
+                            <div class="qa-categories-wrap" role="group" aria-label="Software Categories">
+                                <button type="button" class="qa-cat-chip" data-cat="enterprise-saas" data-target="b2b">
+                                    <span class="qa-cat-dot"></span> Real Estate &amp; Lease OS (Realigator)
+                                </button>
+                                <button type="button" class="qa-cat-chip" data-cat="custom-erp" data-target="b2b">
+                                    <span class="qa-cat-dot"></span> Custom B2B Management Systems
+                                </button>
+                                <button type="button" class="qa-cat-chip" data-cat="compose-apps" data-target="b2c">
+                                    <span class="qa-cat-dot"></span> Native Android Apps (Compose)
+                                </button>
+                                <button type="button" class="qa-cat-chip" data-cat="unity-games" data-target="b2c">
+                                    <span class="qa-cat-dot"></span> 3D &amp; Casual Games (Unity Engine)
+                                </button>
+                                <button type="button" class="qa-cat-chip" data-cat="desktop-tools" data-target="b2c b2b">
+                                    <span class="qa-cat-dot"></span> Desktop Tools (Windows &amp; Electron)
+                                </button>
+                                <button type="button" class="qa-cat-chip" data-cat="ai-vision" data-target="b2c b2b">
+                                    <span class="qa-cat-dot"></span> On-Device AI &amp; Video Engines (Clipr)
+                                </button>
+                                <button type="button" class="qa-cat-chip" data-cat="fintech" data-target="b2c b2b">
+                                    <span class="qa-cat-dot"></span> Personal Ledgers &amp; Wallets (Loaney)
+                                </button>
+                                <button type="button" class="qa-cat-chip" data-cat="productivity" data-target="b2c b2b">
+                                    <span class="qa-cat-dot"></span> Link &amp; AI Prompt Vaults (Linko, Prompter)
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Algorithm Status Bar & Action Footer -->
+                        <div class="qa-footer">
+                            <div class="qa-algo-match" id="qa-algo-match">
+                                <span class="algo-icon-pulse"></span>
+                                <span id="qa-algo-status-text">Select your business &amp; software type to activate your tailored portal</span>
+                            </div>
+                            <div class="qa-btn-row">
+                                <button type="button" class="btn btn-primary btn-activate" id="btn-activate-profile" disabled>
+                                    Activate My Studio Space &rarr;
+                                </button>
+                                <button type="button" class="btn-skip-text" id="btn-skip-interactive">
+                                    Skip and browse all products
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <ul class="hero-facts" aria-label="Studio at a glance">
-                    <li><span class="hero-fact-value">8</span> products</li>
-                    <li><span class="hero-fact-value">Android</span> &amp; Windows</li>
-                    <li><span class="hero-fact-value">Unity</span>, Compose, Flutter</li>
-                </ul>
+
+                <!-- View B: Active Matched Profile View (Activated for User) -->
+                <div class="hero-matched-profile" id="hero-matched-profile" hidden>
+                    <div class="matched-badge-bar">
+                        <span class="badge badge-success" id="matched-badge-pill">
+                            <span class="dot"></span>
+                            <span id="matched-badge-text">B2B Business Space Active</span>
+                        </span>
+                        <button type="button" class="btn-retune" id="btn-retune-qa" aria-label="Change answers">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.19"/>
+                            </svg>
+                            <span>Re-tune answers</span>
+                        </button>
+                    </div>
+
+                    <h1 id="matched-headline">Software built for businesses and growing teams.</h1>
+                    <p class="lead" id="matched-description">
+                        Silverbyte Studio builds enterprise platforms like Realigator, custom operational tools, and secure cross-platform systems tailored for modern organizations.
+                    </p>
+
+                    <div class="hero-actions" id="matched-actions">
+                        <a href="#business-space" class="btn btn-primary" id="matched-primary-btn">Explore B2B Solutions</a>
+                        <a href="mailto:silverbytestudio@gmail.com?subject=[B2B%20Project%20Inquiry]%20Silverbyte%20Studio" class="btn btn-secondary" id="matched-secondary-btn">Consult With Studio</a>
+                    </div>
+
+                    <!-- Quick Space Switcher -->
+                    <div class="space-quick-switch">
+                        <span class="space-switch-label">Switch Space:</span>
+                        <button type="button" class="quick-space-pill is-active" data-switch="b2b">🏢 Business (B2B)</button>
+                        <button type="button" class="quick-space-pill" data-switch="b2c">👥 Consumer (B2C)</button>
+                        <button type="button" class="quick-space-pill" data-switch="games">🎮 Games</button>
+                        <button type="button" class="quick-space-pill" data-switch="all">🌐 All Products</button>
+                    </div>
+
+                    <ul class="hero-facts" id="matched-facts" aria-label="Studio at a glance">
+                        <li><span class="hero-fact-value" id="fact-product-count">9</span> products</li>
+                        <li><span class="hero-fact-value" id="fact-platform-focus">Android, Windows &amp; Web</span></li>
+                        <li><span class="hero-fact-value" id="fact-tech-stack">Supabase, Compose, Unity</span></li>
+                    </ul>
+                </div>
             </div>
-            <div class="shipped-panel">
-                <p class="shipped-panel-title"><span>Shipped by us</span><span class="shipped-panel-count">08</span></p>
-                <ul class="shipped-list">
-                        <li><a href="triple-tiles.html" class="shipped-item">
-                            <img src="assets/images/triple-tiles-icon.png" alt="" width="40" height="40" loading="lazy">
-                            <span class="shipped-name">Triple Tiles</span>
-                            <span class="shipped-meta">Unity · Google Play</span>
-                        </a></li>
-                        <li><a href="loaney.html" class="shipped-item">
-                            <img src="assets/images/loaney-icon.png" alt="" width="40" height="40" loading="lazy">
-                            <span class="shipped-name">Loaney</span>
-                            <span class="shipped-meta">Jetpack Compose</span>
-                        </a></li>
-                        <li><a href="gif-maker.html" class="shipped-item">
-                            <img src="assets/images/gif-maker-icon.png" alt="" width="40" height="40" loading="lazy">
-                            <span class="shipped-name">GIF Maker</span>
-                            <span class="shipped-meta">Jetpack Compose</span>
-                        </a></li>
-                        <li><a href="linko.html" class="shipped-item">
-                            <img src="assets/images/linko-icon.png" alt="" width="40" height="40" loading="lazy">
-                            <span class="shipped-name">Linko</span>
-                            <span class="shipped-meta">Jetpack Compose</span>
-                        </a></li>
-                        <li><a href="clipr.html" class="shipped-item">
-                            <img src="assets/images/clipr-icon.png" alt="" width="40" height="40" loading="lazy">
-                            <span class="shipped-name">Clipr</span>
-                            <span class="shipped-meta">Jetpack Compose</span>
-                        </a></li>
-                        <li><a href="prompter.html" class="shipped-item">
-                            <img src="assets/images/prompter-icon.png" alt="" width="40" height="40" loading="lazy">
-                            <span class="shipped-name">Prompter</span>
-                            <span class="shipped-meta">Flutter</span>
-                        </a></li>
-                        <li><a href="video-downloader.html" class="shipped-item">
-                            <img src="assets/images/video-downloader-icon.png" alt="" width="40" height="40" loading="lazy">
-                            <span class="shipped-name">Video Downloader</span>
-                            <span class="shipped-meta">Electron · Windows</span>
-                        </a></li>
-                        <li><a href="fallinko.html" class="shipped-item">
-                            <img src="assets/images/fallinko-icon.png" alt="" width="40" height="40" loading="lazy">
-                            <span class="shipped-name">Fallinko</span>
-                            <span class="shipped-meta">Unity · In development</span>
-                        </a></li>
+
+            <!-- Right Side: Shipped by Us Panel -->
+            <div class="shipped-panel" id="hero-shipped-panel">
+                <p class="shipped-panel-title"><span>Shipped by us</span><span class="shipped-panel-count" id="shipped-count-display">09</span></p>
+                <ul class="shipped-list" id="hero-shipped-list">
+                    <li data-card-audience="b2b" data-card-category="saas"><a href="realigator.html" class="shipped-item shipped-item--b2b" id="shipped-realigator">
+                        <img src="assets/images/realigator-icon.png" alt="Realigator" width="40" height="40" loading="lazy">
+                        <span class="shipped-name">Realigator <span class="shipped-badge-pill">B2B</span></span>
+                        <span class="shipped-meta">Supabase · Expo · Web</span>
+                    </a></li>
+                    <li data-card-audience="b2c" data-card-category="games"><a href="triple-tiles.html" class="shipped-item">
+                        <img src="assets/images/triple-tiles-icon.png" alt="Triple Tiles" width="40" height="40" loading="lazy">
+                        <span class="shipped-name">Triple Tiles</span>
+                        <span class="shipped-meta">Unity · Google Play</span>
+                    </a></li>
+                    <li data-card-audience="b2c" data-card-category="tools"><a href="loaney.html" class="shipped-item">
+                        <img src="assets/images/loaney-icon.png" alt="Loaney" width="40" height="40" loading="lazy">
+                        <span class="shipped-name">Loaney</span>
+                        <span class="shipped-meta">Jetpack Compose</span>
+                    </a></li>
+                    <li data-card-audience="b2c" data-card-category="tools"><a href="gif-maker.html" class="shipped-item">
+                        <img src="assets/images/gif-maker-icon.png" alt="GIF Maker" width="40" height="40" loading="lazy">
+                        <span class="shipped-name">GIF Maker</span>
+                        <span class="shipped-meta">Jetpack Compose</span>
+                    </a></li>
+                    <li data-card-audience="b2c" data-card-category="tools"><a href="linko.html" class="shipped-item">
+                        <img src="assets/images/linko-icon.png" alt="Linko" width="40" height="40" loading="lazy">
+                        <span class="shipped-name">Linko</span>
+                        <span class="shipped-meta">Jetpack Compose</span>
+                    </a></li>
+                    <li data-card-audience="b2c" data-card-category="tools"><a href="clipr.html" class="shipped-item">
+                        <img src="assets/images/clipr-icon.png" alt="Clipr" width="40" height="40" loading="lazy">
+                        <span class="shipped-name">Clipr</span>
+                        <span class="shipped-meta">Jetpack Compose</span>
+                    </a></li>
+                    <li data-card-audience="b2c" data-card-category="tools"><a href="prompter.html" class="shipped-item">
+                        <img src="assets/images/prompter-icon.png" alt="Prompter" width="40" height="40" loading="lazy">
+                        <span class="shipped-name">Prompter</span>
+                        <span class="shipped-meta">Flutter</span>
+                    </a></li>
+                    <li data-card-audience="b2c b2b" data-card-category="desktop"><a href="video-downloader.html" class="shipped-item">
+                        <img src="assets/images/video-downloader-icon.png" alt="Video Downloader" width="40" height="40" loading="lazy">
+                        <span class="shipped-name">Video Downloader</span>
+                        <span class="shipped-meta">Electron · Windows</span>
+                    </a></li>
+                    <li data-card-audience="b2c" data-card-category="games"><a href="fallinko.html" class="shipped-item">
+                        <img src="assets/images/fallinko-icon.png" alt="Fallinko" width="40" height="40" loading="lazy">
+                        <span class="shipped-name">Fallinko</span>
+                        <span class="shipped-meta">Unity · In development</span>
+                    </a></li>
                 </ul>
             </div>
         </div>
     </section>
+
+    <!-- Lower Sections Container: Gated for First-Time Visitors Until Algorithm Activation -->
+    <div id="portal-lower-container" class="portal-lower-container is-gated">
+        <!-- First-Time Visitor Gating Lock Banner -->
+        <div class="container portal-gating-banner" id="portal-gating-banner">
+            <div class="portal-gating-card">
+                <div class="portal-gating-left">
+                    <div class="portal-gating-icon" aria-hidden="true">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <div class="portal-gating-text">
+                        <h3>Studio Portal Calibrating</h3>
+                        <p>Only the top questionnaire is currently active. Answer the questions above so the algorithm can tailor your landing page, or unlock all products directly.</p>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary btn-sm" id="btn-unlock-gating">
+                    Unlock All Products &rarr;
+                </button>
+            </div>
+        </div>
+
+        <div class="portal-sections-content" id="portal-sections-content">
+            <!-- Business / B2B Solutions Section (Dedicated B2B Business Space) -->
+            <section id="business-space" class="section section-b2b" data-space="b2b">
+                <div class="container">
+                    <div class="section-header">
+                        <p class="eyebrow">
+                            B2B Enterprise Portfolio
+                            <span class="space-active-badge" id="b2b-active-badge" hidden>Active Business Space</span>
+                        </p>
+                        <h2 class="section-title">Software Built for Businesses</h2>
+                        <p class="section-subtitle">Custom platforms, management systems, and operational software engineered for companies and growing teams.</p>
+                    </div>
+
+                    <div class="portal-showcase-grid">
+                        <!-- B2B Project 1: Realigator -->
+                        <article class="portal-card portal-card--featured" data-audience="b2b">
+                            <div class="portal-card-banner">
+                                <img src="assets/images/realigator-banner.jpg" alt="Realigator: Real Estate &amp; Rental Management Platform" loading="lazy">
+                            </div>
+                            <div class="portal-card-body">
+                                <div class="portal-card-header">
+                                    <img src="assets/images/realigator-icon.png" alt="Realigator Icon" class="portal-card-icon" width="54" height="54">
+                                    <div>
+                                        <h3 class="portal-card-title">Realigator</h3>
+                                        <div class="tag-list">
+                                            <span class="badge badge-success"><span class="dot"></span> Cross-Platform</span>
+                                            <span class="badge badge-primary">Flagship B2B</span>
+                                            <span class="badge badge-subtle">Property &amp; Lease OS</span>
+                                            <span class="badge badge-subtle">Expo &amp; Supabase</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="portal-card-desc">
+                                    Enterprise-grade real estate and rental management platform for property owners, operators, and landlords. Streamlines multi-unit building hierarchies, tenant KYC registries, automated itemized rent invoicing, printable PDF receipts, and live cashflow telemetry.
+                                </p>
+                                <div class="portal-card-footer">
+                                    <a href="realigator.html" class="btn btn-secondary btn-sm">
+                                        View Details &amp; Specs &rarr;
+                                    </a>
+                                    <a href="https://github.com/hrud09/Realigator" target="_blank" rel="noopener noreferrer" class="btn-badge btn-badge-sm">
+                                        <svg class="btn-badge-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                                        </svg>
+                                        <span class="btn-badge-content">
+                                            <span class="btn-badge-sub">VIEW ON</span>
+                                            <span class="btn-badge-title">GitHub</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Custom B2B Capabilities Card -->
+                        <article class="portal-card" data-audience="b2b">
+                            <div class="portal-card-body portal-card-body--no-banner">
+                                <div class="portal-card-header">
+                                    <div class="portal-card-icon" style="display:flex;align-items:center;justify-content:center;background:var(--bg-surface-elevated);border-radius:var(--radius-md);border:1px solid var(--border-strong);">
+                                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="portal-card-title">Custom Business &amp; Team Software</h3>
+                                        <div class="tag-list">
+                                            <span class="badge badge-amber"><span class="dot"></span> Bespoke Engineering</span>
+                                            <span class="badge badge-subtle">Private Architecture</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="portal-card-desc">
+                                    We build specialized operational workflows, client management platforms, desktop batch utilities, and secure internal tools with the same precision we ship our consumer apps.
+                                </p>
+                                <ul class="b2b-capabilities-list">
+                                    <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Cross-platform mobile (Compose, Flutter, Expo) &amp; desktop (Electron)</li>
+                                    <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Automated invoicing, ledger calculations &amp; PDF generation</li>
+                                    <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Direct engineer partnership — zero agency overhead</li>
+                                </ul>
+                                <div class="portal-card-footer">
+                                    <a href="mailto:silverbytestudio@gmail.com?subject=[Business%20Inquiry]%20Silverbyte%20Studio" class="btn btn-primary btn-sm">
+                                        Start a Project Conversation &rarr;
+                                    </a>
+                                    <a href="business.html" class="btn btn-secondary btn-sm">
+                                        Visit Business Portal
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
 
     <!-- Games Section -->
     <section id="games" class="section">
@@ -690,6 +968,8 @@
             </div>
         </div>
     </section>
+        </div><!-- /.portal-sections-content -->
+    </div><!-- /#portal-lower-container -->
 
     <!-- Site Footer -->
     <footer class="site-footer">
@@ -731,6 +1011,6 @@
     </footer>
 
     <!-- Script -->
-    <script src="assets/js/main.js?v=1.2"></script>
+    <script src="assets/js/main.js?v=2.0"></script>
 </body>
 </html>
