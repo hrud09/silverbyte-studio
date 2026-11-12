@@ -32,7 +32,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
-    <link rel="stylesheet" href="assets/css/style.css?v=2.1">
+    <link rel="stylesheet" href="assets/css/style.css?v=2.2">
     <!-- Decide gating before first paint so neither the lock nor the finder flashes -->
     <script>
         (function () {
@@ -244,12 +244,15 @@
                 <!-- View A: Studio Algorithm Finder (first visit & re-tuning) -->
                 <div class="hero-interactive-session" id="hero-interactive-session">
                     <div class="qa-header">
-                        <p class="eyebrow">
-                            <span class="eyebrow-dots" aria-hidden="true"><span></span><span></span><span></span></span>
-                            Studio Algorithm Finder
-                        </p>
+                        <div class="qa-header-top">
+                            <p class="eyebrow">
+                                <span class="eyebrow-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+                                Studio Algorithm Finder
+                            </p>
+                            <button type="button" class="btn-skip-text" id="btn-skip-interactive">Skip &amp; browse everything</button>
+                        </div>
                         <h1>What kind of software do you need built?</h1>
-                        <p class="lead">Two quick answers and the studio portal rearranges around the products and services that fit you.</p>
+                        <p class="lead">Two quick answers and the portal rearranges around what fits you.</p>
                     </div>
 
                     <div class="qa-card" id="qa-card" style="--qa-step: 1">
@@ -276,14 +279,14 @@
                             <section class="qa-panel is-active" id="qa-panel-1" data-panel="1" aria-labelledby="qa-q1">
                                 <div class="qa-question-row">
                                     <h2 class="qa-question" id="qa-q1">Who are you building for?</h2>
-                                    <span class="qa-question-hint">Pick one</span>
+                                    <div class="qa-question-side"><span class="qa-question-hint">Pick one</span><div class="qa-panel-nav"><button type="button" class="qa-nav-btn" data-goto="2">Next <svg class="sb-icon"><use href="#i-arrow-right"/></svg></button></div></div>
                                 </div>
                                 <div class="qa-grid-business" role="radiogroup" aria-labelledby="qa-q1">
                                     <button type="button" role="radio" class="qa-option qa-pill" data-name="business" data-val="enterprise" data-label="Enterprise" aria-checked="false" tabindex="0">
                                         <span class="qa-option-icon"><svg class="sb-icon"><use href="#i-building"/></svg></span>
                                         <span class="qa-option-text">
                                             <span class="qa-option-title">Enterprise &amp; ops</span>
-                                            <span class="qa-option-desc">Property, corporate, operations</span>
+                                            <span class="qa-option-desc">Property, corporate, ops</span>
                                         </span>
                                         <span class="qa-check" aria-hidden="true"><svg class="sb-icon"><use href="#i-check"/></svg></span>
                                     </button>
@@ -291,7 +294,7 @@
                                         <span class="qa-option-icon"><svg class="sb-icon"><use href="#i-rocket"/></svg></span>
                                         <span class="qa-option-text">
                                             <span class="qa-option-title">Startup &amp; founder</span>
-                                            <span class="qa-option-desc">MVP, SaaS platform, launch</span>
+                                            <span class="qa-option-desc">MVP, SaaS, launch</span>
                                         </span>
                                         <span class="qa-check" aria-hidden="true"><svg class="sb-icon"><use href="#i-check"/></svg></span>
                                     </button>
@@ -299,22 +302,18 @@
                                         <span class="qa-option-icon"><svg class="sb-icon"><use href="#i-store"/></svg></span>
                                         <span class="qa-option-text">
                                             <span class="qa-option-title">Small business</span>
-                                            <span class="qa-option-desc">Internal tools, management</span>
+                                            <span class="qa-option-desc">Internal tools</span>
                                         </span>
                                         <span class="qa-check" aria-hidden="true"><svg class="sb-icon"><use href="#i-check"/></svg></span>
                                     </button>
                                     <button type="button" role="radio" class="qa-option qa-pill" data-name="business" data-val="individual" data-label="Individual" aria-checked="false" tabindex="-1">
                                         <span class="qa-option-icon"><svg class="sb-icon"><use href="#i-user"/></svg></span>
                                         <span class="qa-option-text">
-                                            <span class="qa-option-title">Individual / consumer</span>
-                                            <span class="qa-option-desc">Everyday tools, apps, games</span>
+                                            <span class="qa-option-title">Individual</span>
+                                            <span class="qa-option-desc">Everyday apps &amp; games</span>
                                         </span>
                                         <span class="qa-check" aria-hidden="true"><svg class="sb-icon"><use href="#i-check"/></svg></span>
                                     </button>
-                                </div>
-                                <div class="qa-panel-nav">
-                                    <span></span>
-                                    <button type="button" class="qa-nav-btn" data-goto="2">Next <svg class="sb-icon"><use href="#i-arrow-right"/></svg></button>
                                 </div>
                             </section>
 
@@ -322,14 +321,14 @@
                             <section class="qa-panel" id="qa-panel-2" data-panel="2" aria-labelledby="qa-q2">
                                 <div class="qa-question-row">
                                     <h2 class="qa-question" id="qa-q2">What kind of software?</h2>
-                                    <span class="qa-question-hint" id="qa-type-hint">Pick one</span>
+                                    <div class="qa-question-side"><span class="qa-question-hint" id="qa-type-hint">Pick one</span><div class="qa-panel-nav"><button type="button" class="qa-nav-btn" data-goto="1"><svg class="sb-icon"><use href="#i-arrow-left"/></svg> Back</button><button type="button" class="qa-nav-btn" data-goto="3">Next <svg class="sb-icon"><use href="#i-arrow-right"/></svg></button></div></div>
                                 </div>
                                 <div class="qa-grid-type" role="radiogroup" aria-labelledby="qa-q2">
                                     <button type="button" role="radio" class="qa-option qa-type-btn" data-name="type" data-val="b2b" data-label="B2B" aria-checked="false" tabindex="0">
                                         <span class="qa-option-icon"><svg class="sb-icon"><use href="#i-briefcase"/></svg></span>
                                         <span class="qa-option-text">
                                             <span class="qa-option-title">Business software <span class="qa-option-tag">B2B</span></span>
-                                            <span class="qa-option-desc">Property &amp; lease OS, internal tools, automated invoicing, custom platforms</span>
+                                            <span class="qa-option-desc">Lease OS, internal tools</span>
                                         </span>
                                         <span class="qa-check" aria-hidden="true"><svg class="sb-icon"><use href="#i-check"/></svg></span>
                                     </button>
@@ -337,14 +336,10 @@
                                         <span class="qa-option-icon"><svg class="sb-icon"><use href="#i-users"/></svg></span>
                                         <span class="qa-option-text">
                                             <span class="qa-option-title">Consumer apps <span class="qa-option-tag">B2C</span></span>
-                                            <span class="qa-option-desc">Mobile utilities, video tools, personal ledgers, casual Unity games</span>
+                                            <span class="qa-option-desc">Utilities, ledgers, games</span>
                                         </span>
                                         <span class="qa-check" aria-hidden="true"><svg class="sb-icon"><use href="#i-check"/></svg></span>
                                     </button>
-                                </div>
-                                <div class="qa-panel-nav">
-                                    <button type="button" class="qa-nav-btn" data-goto="1"><svg class="sb-icon"><use href="#i-arrow-left"/></svg> Back</button>
-                                    <button type="button" class="qa-nav-btn" data-goto="3">Next <svg class="sb-icon"><use href="#i-arrow-right"/></svg></button>
                                 </div>
                             </section>
 
@@ -352,7 +347,7 @@
                             <section class="qa-panel" id="qa-panel-3" data-panel="3" aria-labelledby="qa-q3">
                                 <div class="qa-question-row">
                                     <h2 class="qa-question" id="qa-q3">Anything specific in mind?</h2>
-                                    <span class="qa-question-hint">Optional &middot; any</span>
+                                    <div class="qa-question-side"><span class="qa-question-hint">Optional &middot; any</span><div class="qa-panel-nav"><button type="button" class="qa-nav-btn" data-goto="2"><svg class="sb-icon"><use href="#i-arrow-left"/></svg> Back</button></div></div>
                                 </div>
                                 <div class="qa-categories-wrap" role="group" aria-labelledby="qa-q3">
                                     <button type="button" class="qa-cat-chip" data-cat="enterprise-saas" data-target="b2b" aria-pressed="false"><span class="qa-cat-dot"></span>Real estate &amp; lease OS</button>
@@ -363,10 +358,6 @@
                                     <button type="button" class="qa-cat-chip" data-cat="ai-vision" data-target="b2c b2b" aria-pressed="false"><span class="qa-cat-dot"></span>On-device AI &amp; video</button>
                                     <button type="button" class="qa-cat-chip" data-cat="fintech" data-target="b2c b2b" aria-pressed="false"><span class="qa-cat-dot"></span>Ledgers &amp; wallets</button>
                                     <button type="button" class="qa-cat-chip" data-cat="productivity" data-target="b2c b2b" aria-pressed="false"><span class="qa-cat-dot"></span>Link &amp; prompt vaults</button>
-                                </div>
-                                <div class="qa-panel-nav">
-                                    <button type="button" class="qa-nav-btn" data-goto="2"><svg class="sb-icon"><use href="#i-arrow-left"/></svg> Back</button>
-                                    <span></span>
                                 </div>
                             </section>
                         </div>
@@ -382,10 +373,9 @@
                             </div>
                             <div class="qa-actions">
                                 <button type="button" class="btn btn-primary btn-activate" id="btn-activate-profile" disabled>
-                                    <span id="btn-activate-label">Activate my studio space</span>
+                                    <span id="btn-activate-label">Activate space</span>
                                     <svg class="sb-icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>
                                 </button>
-                                <button type="button" class="btn-skip-text" id="btn-skip-interactive">Skip &amp; browse everything</button>
                             </div>
                         </div>
                     </div>
@@ -1121,6 +1111,6 @@
     </footer>
 
     <!-- Script -->
-    <script src="assets/js/main.js?v=2.1"></script>
+    <script src="assets/js/main.js?v=2.2"></script>
 </body>
 </html>

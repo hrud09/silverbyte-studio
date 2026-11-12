@@ -226,7 +226,7 @@ function initStudioFinder() {
     const SPACES = {
         b2b: {
             badge: 'B2B business space',
-            telemetry: 'B2B ENTERPRISE SPACE',
+            telemetry: 'B2B ENTERPRISE',
             headline: 'Enterprise & custom software, built for modern businesses.',
             description: 'Silverbyte Studio designs and engineers property platforms like Realigator and custom operational tools on private, high-performance architectures.',
             primary: ['Explore B2B solutions', '#business-space'],
@@ -241,7 +241,7 @@ function initStudioFinder() {
         },
         b2c: {
             badge: 'B2C applications space',
-            telemetry: 'B2C CONSUMER APPS',
+            telemetry: 'B2C CONSUMER',
             headline: 'Polished native Android utilities and creative tools.',
             description: 'Fast, privacy-first mobile apps for video conversion, editing, personal debt tracking, link archiving and AI prompt engineering.',
             primary: ['Explore mobile apps', '#apps'],
@@ -256,7 +256,7 @@ function initStudioFinder() {
         },
         games: {
             badge: 'Unity games portfolio',
-            telemetry: 'UNITY GAMES SPACE',
+            telemetry: 'UNITY GAMES',
             headline: 'Tactile casual and physics-driven arcade games.',
             description: 'Original puzzle and arcade titles built in Unity, with responsive haptics, layered 3D boards and satisfying physics.',
             primary: ['Play Triple Tiles', '#games'],
@@ -471,7 +471,7 @@ function initStudioFinder() {
         if (n === 0 && state.categories.size === 0) {
             setTelemetry('standby', '[STANDBY]', 'Awaiting input');
         } else if (!state.type) {
-            setTelemetry('calibrating', '[CALIBRATING…]', `org=${state.business || '?'} · model=? · focus=${state.categories.size}`);
+            setTelemetry('calibrating', '[CALIBRATING…]', `org=${state.business || '?'} · model=?`);
         } else if (n < 2) {
             setTelemetry('calibrating', '[CALIBRATING…]', `Leaning ${SPACES[matchSpace()].telemetry}`);
         } else {
@@ -512,7 +512,7 @@ function initStudioFinder() {
         clearTimeout(advanceTimer);
         if (!state.type) state.type = state.business === 'individual' ? 'b2c' : 'b2b';
         const space = matchSpace();
-        setTelemetry('locking', '[LOCKING]', `Routing to ${SPACES[space].telemetry}`);
+        setTelemetry('locking', '[LOCKING]', `→ ${SPACES[space].telemetry}`);
         setTimeout(() => commit(space, { scroll: true }), ms(420));
     }
 
@@ -666,7 +666,7 @@ function initStudioFinder() {
         applyAnswersToUI();
         state.retuning = false;
         state.busy = false;
-        activateLabel.textContent = 'Activate my studio space';
+        activateLabel.textContent = 'Activate space';
         skipBtn.textContent = 'Skip & browse everything';
         showMatched(state.activeSpace, true);
     }
