@@ -209,8 +209,11 @@ function portalCard(p) {
     const banner = p.banner ? `    <div class="portal-card-banner">
         <img src="${esc(p.banner)}" alt="${esc(p.bannerAlt || p.cardTitle || p.name)}" loading="lazy">
     </div>
-` : '';
-    const bodyCls = p.banner ? 'portal-card-body' : 'portal-card-body portal-card-body--no-banner';
+` : `    <div class="portal-card-banner portal-card-banner--icon" aria-hidden="true">
+        <img src="${esc(p.icon)}" alt="" loading="lazy">
+    </div>
+`;
+    const bodyCls = 'portal-card-body';
     const badges = (p.badges || []).filter(b => b.text).map(badge).join('\n');
     const lt = LINK_TYPES[p.link?.type];
     let action = '';
