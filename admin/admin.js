@@ -246,69 +246,72 @@ window.addEventListener('beforeunload', (e) => {
 });
 
 /* =========================================================================
-   Password lock
+   PIN lock (per device)
    -------------------------------------------------------------------------
-   The site is static, so there is no server to check a password. Instead the
-   GitHub token is encrypted with the admin password (PBKDF2-SHA256 → AES-GCM)
-   and the ciphertext is committed as admin/credentials.json. Entering the
-   right password decrypts the token in the browser; a wrong one fails to
-   decrypt. The ciphertext is public, so the password must be long.
+   The site is static, so there is no server to check a PIN. Instead, on each
+   device, the GitHub token is encrypted with a 4–6 digit PIN
+   (PBKDF2-SHA256 → AES-GCM) and kept in this browser's localStorage only. It
+   is never committed or published: a PIN is far too short to protect a
+   public file. Entering the right PIN decrypts the token; a wrong one fails.
+   Repeated wrong PINs slow down, and too many erase the token from this
+   device, so it has to be set up again with a GitHub token.
+   The unlocked token lives in sessionStorage and is gone when the tab closes.
    ========================================================================= */
 
-const CREDENTIALS_PATH = 'admin/credentials.json';
+const KEY_VAULT = 'sb-admin-vault';
 const KDF_ITERATIONS = 600000;
-const MIN_PASSWORD = 12;
+const PIN_RE = /^\d{4,6}$/;
+const FREE_ATTEMPTS = 5;        // wrong PINs before a wait kicks in
+const MAX_ATTEMPTS = 10;        // wrong PINs before the token is erased
+const BASE_WAIT_MS = 30 * 1000; // doubles with each wrong PIN after FREE_ATTEMPTS
 
 const b64 = (bytes) => btoa(String.fromCharCode(...new Uint8Array(bytes)));
 const unb64 = (s) => Uint8Array.from(atob(s), c => c.charCodeAt(0));
 
-async function deriveKey(password, salt, iterations) {
-    const material = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
+async function deriveKey(pin, salt, iterations) {
+    const material = await crypto.subtle.importKey('raw', new TextEncoder().encode(pin), 'PBKDF2', false, ['deriveKey']);
     return crypto.subtle.deriveKey(
         { name: 'PBKDF2', salt, iterations, hash: 'SHA-256' },
         material, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt'],
     );
 }
 
-async function encryptCredentials(token, password, repo) {
+async function encryptVault(token, pin, repo) {
     const salt = crypto.getRandomValues(new Uint8Array(16));
     const iv = crypto.getRandomValues(new Uint8Array(12));
-    const key = await deriveKey(password, salt, KDF_ITERATIONS);
+    const key = await deriveKey(pin, salt, KDF_ITERATIONS);
     const data = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, new TextEncoder().encode(JSON.stringify({ token })));
     return {
-        note: 'Encrypted admin credentials. Safe to publish only with a long password. Regenerate from the admin panel.',
-        version: 1,
+        version: 2,
         repo,
         kdf: { name: 'PBKDF2', hash: 'SHA-256', iterations: KDF_ITERATIONS, salt: b64(salt) },
         cipher: { name: 'AES-GCM', iv: b64(iv), data: b64(data) },
+        fails: 0,
+        lockedUntil: 0,
     };
 }
 
-async function decryptCredentials(creds, password) {
-    const key = await deriveKey(password, unb64(creds.kdf.salt), creds.kdf.iterations);
-    const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: unb64(creds.cipher.iv) }, key, unb64(creds.cipher.data));
+async function decryptVault(vault, pin) {
+    const key = await deriveKey(pin, unb64(vault.kdf.salt), vault.kdf.iterations);
+    const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: unb64(vault.cipher.iv) }, key, unb64(vault.cipher.data));
     return JSON.parse(new TextDecoder().decode(plain)).token;
 }
 
-async function fetchCredentials() {
-    try {
-        const res = await fetch(`credentials.json?t=${Date.now()}`, { cache: 'no-store' });
-        if (!res.ok) return null;
-        const creds = await res.json();
-        return creds?.cipher?.data ? creds : null;
-    } catch { return null; }
-}
-
-/** Encrypt the token and commit admin/credentials.json. Returns the new branch head. */
-async function saveCredentials(backend, token, password) {
-    const creds = await encryptCredentials(token, password, backend.repo);
-    const base = await backend.head();
-    const commit = await backend.commit(base, [{ path: CREDENTIALS_PATH, text: JSON.stringify(creds, null, 2) + '\n' }],
-        'Admin: update admin password\n\nThe GitHub token is stored encrypted with the admin password.');
-    return { parent: base.commitSha, commitSha: commit.sha, treeSha: commit.tree.sha, at: new Date().toISOString() };
-}
+const getVault = () => {
+    const v = storage.get(KEY_VAULT);
+    return v?.cipher?.data ? v : null;
+};
+const saveVault = (vault) => storage.set(KEY_VAULT, vault, true);
+const forgetDevice = () => { storage.del(KEY_VAULT); storage.del(KEY_AUTH); };
+/** The unlocked token is kept for this tab only. */
+const setSession = (token, repo) => storage.set(KEY_AUTH, { token, repo }, false);
 
 const isLocalHost = () => ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname);
+
+const pinInput = (name, autocomplete) =>
+    `<input class="input input-pin" type="password" name="${name}" inputmode="numeric" pattern="[0-9]*" minlength="4" maxlength="6" autocomplete="${autocomplete}" required>`;
+const digitsOnly = (form) => form.querySelectorAll('.input-pin').forEach(el =>
+    el.addEventListener('input', () => { el.value = el.value.replace(/\D/g, '').slice(0, 6); }));
 
 function authShell(inner) {
     app.innerHTML = `
@@ -324,54 +327,91 @@ function authShell(inner) {
     </main>`;
 }
 
-let cachedCreds = null;
+const fmtWait = (ms) => {
+    const s = Math.ceil(ms / 1000);
+    return s < 60 ? `${s} s` : `${Math.ceil(s / 60)} min`;
+};
 
+let lockTimer;
 function renderLock(error = '') {
+    clearInterval(lockTimer);
+    const vault = getVault();
+    if (!vault) return renderSetup(error);
+    const waitMs = () => Math.max(0, (vault.lockedUntil || 0) - Date.now());
+    const left = MAX_ATTEMPTS - (vault.fails || 0);
+
     authShell(`
         <h1>Admin</h1>
-        <p class="signin-lead">Enter the admin password to edit the site.</p>
+        <p class="signin-lead">Enter your PIN to edit the site.</p>
         <form id="lock-form" novalidate>
             <label class="field">
-                <span>Password</span>
-                <input class="input" type="password" name="password" autocomplete="current-password" required>
+                <span>PIN</span>
+                ${pinInput('pin', 'current-password')}
             </label>
-            <label class="check"><input type="checkbox" name="remember"> Stay signed in on this device</label>
             ${error ? `<p class="error-text" role="alert">${esc(error)}</p>` : ''}
+            <p class="muted" id="lock-wait" style="font-size:13px" hidden></p>
             <button class="btn btn-primary" type="submit">Unlock</button>
         </form>
-        <div class="signin-help">Forgot the password? <button class="btn btn-ghost btn-sm" style="padding:0 4px;height:auto;color:var(--primary)" type="button" data-action="setup">Reset it with a GitHub token</button></div>`);
+        <div class="signin-help">Forgot the PIN? <button class="btn btn-ghost btn-sm" style="padding:0 4px;height:auto;color:var(--primary)" type="button" data-action="setup">Set it up again with a GitHub token</button>
+            ${vault.fails ? `<p style="margin-top:8px">${left} attempt${left === 1 ? '' : 's'} left before the token is erased from this device.</p>` : ''}
+        </div>`);
 
     const form = document.getElementById('lock-form');
+    const btn = form.querySelector('button[type=submit]');
+    const waitEl = document.getElementById('lock-wait');
+    digitsOnly(form);
+
+    const tick = () => {
+        const ms = waitMs();
+        btn.disabled = ms > 0;
+        waitEl.hidden = ms === 0;
+        waitEl.textContent = `Too many wrong PINs. Try again in ${fmtWait(ms)}.`;
+        if (!ms) clearInterval(lockTimer);
+    };
+    tick();
+    if (waitMs()) lockTimer = setInterval(tick, 1000);
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const f = new FormData(form);
-        const password = String(f.get('password') || '');
-        if (!password) return renderLock('Enter the password.');
-        const btn = form.querySelector('button[type=submit]');
+        if (waitMs()) return;
+        const pin = form.pin.value;
+        if (!PIN_RE.test(pin)) return renderLock('Enter your 4–6 digit PIN.');
         btn.disabled = true;
         btn.textContent = 'Unlocking…';
         let token;
         try {
-            token = await decryptCredentials(cachedCreds, password);
+            token = await decryptVault(vault, pin);
         } catch {
+            vault.fails = (vault.fails || 0) + 1;
+            if (vault.fails >= MAX_ATTEMPTS) {
+                forgetDevice();
+                return renderSetup('Too many wrong PINs, so the token was erased from this device. Set it up again with a GitHub token.');
+            }
+            if (vault.fails >= FREE_ATTEMPTS) vault.lockedUntil = Date.now() + BASE_WAIT_MS * 2 ** (vault.fails - FREE_ATTEMPTS);
+            saveVault(vault);
             await new Promise(r => setTimeout(r, 600));
-            return renderLock('Wrong password.');
+            return renderLock('Wrong PIN.');
         }
-        const repo = cachedCreds.repo || DEFAULT_REPO;
-        storage.set(KEY_AUTH, { token, repo }, Boolean(f.get('remember')));
+        vault.fails = 0;
+        vault.lockedUntil = 0;
+        saveVault(vault);
+        const repo = vault.repo || DEFAULT_REPO;
+        setSession(token, repo);
         start(new GitHubBackend(repo, token));
     });
-    form.querySelector('input[name=password]').focus();
+    form.pin.focus();
 }
 
 function renderSetup(error = '') {
-    const repo = cachedCreds?.repo || DEFAULT_REPO;
-    const reset = Boolean(cachedCreds);
+    clearInterval(lockTimer);
+    const vault = getVault();
+    const repo = vault?.repo || DEFAULT_REPO;
+    const reset = Boolean(vault);
     authShell(`
-        <h1>${reset ? 'Reset admin password' : 'Set up the admin'}</h1>
+        <h1>${reset ? 'Reset your PIN' : 'Set up this device'}</h1>
         <p class="signin-lead">${reset
-            ? 'Paste a GitHub token with write access to prove you own the site, then choose a new password.'
-            : 'One-time setup. Paste a GitHub token and choose the password you\'ll use from now on. The token is saved to the repo encrypted with that password.'}</p>
+            ? 'Paste a GitHub token with write access to prove you own the site, then choose a new PIN for this device.'
+            : 'One-time setup on this device. Paste a GitHub token and choose a 4–6 digit PIN. The token is stored encrypted in this browser only, never published.'}</p>
         <form id="setup-form" novalidate>
             <label class="field">
                 <span>GitHub access token</span>
@@ -386,16 +426,16 @@ function renderSetup(error = '') {
                 </div>
             </details>
             <label class="field">
-                <span>New admin password</span>
-                <input class="input" type="password" name="password" autocomplete="new-password" minlength="${MIN_PASSWORD}" required>
-                <small>At least ${MIN_PASSWORD} characters. A short phrase of 4+ random words is ideal.</small>
+                <span>New PIN</span>
+                ${pinInput('pin', 'new-password')}
+                <small>4 to 6 digits. Each device you use has its own PIN.</small>
             </label>
             <label class="field">
-                <span>Repeat password</span>
-                <input class="input" type="password" name="confirm" autocomplete="new-password" required>
+                <span>Repeat PIN</span>
+                ${pinInput('confirm', 'new-password')}
             </label>
             ${error ? `<p class="error-text" role="alert">${esc(error)}</p>` : ''}
-            <button class="btn btn-primary" type="submit">${reset ? 'Reset password' : 'Save and continue'}</button>
+            <button class="btn btn-primary" type="submit">${reset ? 'Reset PIN' : 'Save and continue'}</button>
         </form>
         <div class="signin-help">
             <strong style="color:var(--text-body)">Getting a token</strong>
@@ -403,25 +443,26 @@ function renderSetup(error = '') {
                 <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">GitHub → Fine-grained tokens</a>.</li>
                 <li>Repository access: <em>Only select repositories</em> → this site's repo.</li>
                 <li>Permissions → Repository → <em>Contents: Read and write</em>. Nothing else.</li>
-                <li>Set an expiry you're comfortable with; re-run this page when it expires.</li>
+                <li>Set an expiry you're comfortable with; set up again when it expires.</li>
             </ol>
-            ${reset ? '<p style="margin-top:10px"><button class="btn btn-ghost btn-sm" style="padding:0" type="button" data-action="lock">← Back to password</button></p>' : ''}
+            ${reset ? '<p style="margin-top:10px"><button class="btn btn-ghost btn-sm" style="padding:0" type="button" data-action="lock">← Back to PIN</button></p>' : ''}
         </div>`);
 
     const form = document.getElementById('setup-form');
+    digitsOnly(form);
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const f = new FormData(form);
         const token = String(f.get('token') || '').trim();
-        const password = String(f.get('password') || '');
+        const pin = String(f.get('pin') || '');
         const repoCfg = {
             owner: String(f.get('owner') || '').trim() || DEFAULT_REPO.owner,
             repo: String(f.get('repo') || '').trim() || DEFAULT_REPO.repo,
             branch: String(f.get('branch') || '').trim() || DEFAULT_REPO.branch,
         };
         if (!token) return renderSetup('Paste a GitHub token.');
-        if (password.length < MIN_PASSWORD) return renderSetup(`The password must be at least ${MIN_PASSWORD} characters.`);
-        if (password !== f.get('confirm')) return renderSetup('The two passwords don\'t match.');
+        if (!PIN_RE.test(pin)) return renderSetup('The PIN must be 4 to 6 digits.');
+        if (pin !== f.get('confirm')) return renderSetup('The two PINs don\'t match.');
         const btn = form.querySelector('button[type=submit]');
         btn.disabled = true;
         btn.textContent = 'Checking token…';
@@ -429,63 +470,70 @@ function renderSetup(error = '') {
         try {
             await backend.verify();
             btn.textContent = 'Saving…';
-            await saveCredentials(backend, token, password);
+            saveVault(await encryptVault(token, pin, repoCfg));
         } catch (err) {
             const msg = err.status === 401 ? 'GitHub rejected this token. Check it was copied completely and has not expired.'
                 : err.status === 404 ? `Repository ${repoCfg.owner}/${repoCfg.repo} was not found, or this token has no access to it.`
                     : err.message;
             return renderSetup(msg);
         }
-        storage.set(KEY_AUTH, { token, repo: repoCfg }, false);
-        toast('Password saved. It works on the live site once GitHub Pages redeploys (about a minute).');
+        setSession(token, repoCfg);
+        toast('PIN saved on this device.');
         start(backend);
     });
-    form.querySelector('input[name=token]').focus();
+    form.token.focus();
 }
 
-async function renderSignIn(error = '') {
-    cachedCreds = await fetchCredentials();
-    if (cachedCreds) renderLock(error);
+function renderSignIn(error = '') {
+    if (getVault()) renderLock(error);
     else renderSetup(error);
 }
 
-function changePasswordDialog() {
+function changePinDialog() {
     openDialog(`<form method="dialog" id="pw-form">
         <div class="dialog-body">
-            <h2>Change admin password</h2>
-            <p class="muted">Re-encrypts the GitHub token with a new password and commits it. Anyone signed in on another device stays signed in until they sign out.</p>
-            <label class="field"><span>New password</span><input class="input" type="password" name="password" autocomplete="new-password" minlength="${MIN_PASSWORD}" required><small>At least ${MIN_PASSWORD} characters.</small></label>
-            <label class="field"><span>Repeat password</span><input class="input" type="password" name="confirm" autocomplete="new-password" required></label>
+            <h2>Change PIN</h2>
+            <p class="muted">Changes the PIN on this device only. Other devices keep their own PIN.</p>
+            <label class="field"><span>New PIN</span>${pinInput('pin', 'new-password')}<small>4 to 6 digits.</small></label>
+            <label class="field"><span>Repeat PIN</span>${pinInput('confirm', 'new-password')}</label>
             <p class="error-text" id="pw-error" role="alert" hidden></p>
         </div>
         <div class="dialog-actions">
             <button class="btn btn-ghost" type="button" data-action="close-dialog">Cancel</button>
-            <button class="btn btn-primary" type="submit" id="pw-save">Save password</button>
+            <button class="btn btn-primary" type="submit" id="pw-save">Save PIN</button>
         </div>
     </form>`);
     const form = document.getElementById('pw-form');
     const errEl = document.getElementById('pw-error');
     const fail = (msg) => { errEl.textContent = msg; errEl.hidden = false; };
+    digitsOnly(form);
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const password = form.password.value;
-        if (password.length < MIN_PASSWORD) return fail(`At least ${MIN_PASSWORD} characters.`);
-        if (password !== form.confirm.value) return fail('The two passwords don\'t match.');
+        const pin = form.pin.value;
+        if (!PIN_RE.test(pin)) return fail('The PIN must be 4 to 6 digits.');
+        if (pin !== form.confirm.value) return fail('The two PINs don\'t match.');
         const btn = document.getElementById('pw-save');
         btn.disabled = true;
         btn.textContent = 'Saving…';
         try {
-            const head = await saveCredentials(state.backend, state.backend.token, password);
-            // If nothing else changed on GitHub since we loaded, keep publishing on top of the new commit.
-            // Otherwise leave the old base: the next publish detects the change and offers to reload.
-            if (state.base?.commitSha === head.parent) state.base = { commitSha: head.commitSha, treeSha: head.treeSha, at: head.at };
+            saveVault(await encryptVault(state.backend.token, pin, state.backend.repo));
             closeDialog();
-            toast('Password changed.');
+            toast('PIN changed.');
         } catch (err) {
             btn.disabled = false;
-            btn.textContent = 'Save password';
+            btn.textContent = 'Save PIN';
             fail(`Could not save: ${err.message}`);
         }
+    });
+}
+
+function forgetDeviceDialog() {
+    confirmDialog('Forget this device?', 'Erases the encrypted GitHub token from this browser and signs you out. Unpublished edits are lost. To use the admin here again you\'ll need a GitHub token.', 'Forget device', () => {
+        forgetDevice();
+        storage.del(KEY_DRAFT);
+        state.data = null;
+        state.images = {};
+        renderSetup();
     });
 }
 
@@ -500,8 +548,8 @@ async function start(backend) {
         await loadSnapshot();
     } catch (err) {
         if (backend.kind === 'github' && (err.status === 401 || err.status === 403)) {
-            storage.del(KEY_AUTH);
-            return renderSignIn('The saved GitHub token no longer works (expired or revoked). Reset the password with a new token.');
+            forgetDevice();
+            return renderSetup('The saved GitHub token no longer works (expired or revoked). Set up again with a new token.');
         }
         app.innerHTML = `<div class="loading"><div style="text-align:center;display:grid;gap:12px">
             <p class="error-text">Could not load the site: ${esc(err.message)}</p>
@@ -994,10 +1042,10 @@ function viewSettings() {
     <section class="card">
         <h2>Connection</h2>
         ${local ? '<p class="muted">Local mode. Reading files from this computer; publishing is off. Export site.json, put it in content/, run <span class="mono">node scripts/build.mjs</span>, then commit.</p>'
-            : `<p class="muted">Connected to <span class="mono">${esc(repoKey())}</span>. The admin password unlocks a GitHub token stored encrypted in <span class="mono">admin/credentials.json</span>.</p>`}
+            : `<p class="muted">Connected to <span class="mono">${esc(repoKey())}</span>. Your PIN unlocks a GitHub token stored encrypted in this browser only.</p>`}
         <div style="display:flex;gap:8px;flex-wrap:wrap">
             <button class="btn btn-sm" data-action="reload">Reload from ${local ? 'disk' : 'GitHub'}</button>
-            ${local ? '' : '<button class="btn btn-sm" data-action="change-password">Change password</button>'}
+            ${local ? '' : '<button class="btn btn-sm" data-action="change-pin">Change PIN</button> <button class="btn btn-sm" data-action="forget-device">Forget this device</button>'}
             <button class="btn btn-sm btn-danger" data-action="signout">Sign out</button>
         </div>
     </section>`;
@@ -1186,7 +1234,8 @@ const actions = {
     local: () => start(new LocalBackend()),
     setup: () => renderSetup(),
     lock: () => renderLock(),
-    'change-password': changePasswordDialog,
+    'change-pin': changePinDialog,
+    'forget-device': forgetDeviceDialog,
     retry: () => start(state.backend),
     signout: signOut,
     nav: (el) => { state.view = el.dataset.view; renderView(); window.scrollTo(0, 0); },
@@ -1333,6 +1382,8 @@ async function importJson(input) {
    Boot
    ========================================================================= */
 
+// Older versions could keep the plain token in localStorage; the unlocked token now lives in this tab only.
+try { localStorage.removeItem(KEY_AUTH); } catch { /* ignore */ }
 const saved = storage.get(KEY_AUTH);
 if (saved?.token) start(new GitHubBackend(saved.repo || DEFAULT_REPO, saved.token));
 else if (new URLSearchParams(location.search).has('local') && isLocalHost()) start(new LocalBackend());
