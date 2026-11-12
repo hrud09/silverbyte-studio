@@ -153,236 +153,169 @@ function showCopyFeedback(btnEl) {
 }
 
 /**
- * Interactive Studio Algorithm Finder & Landing Page Personalization
+ * Studio Algorithm Finder & landing page personalization.
+ *
+ * Flow: finder (3-step card) -> activate -> matched profile + unlock of the
+ * gated lower sections -> spotlight on the matched section. The choice is
+ * stored in localStorage; returning visitors land on the matched profile.
  */
 function initStudioFinder() {
     const sessionView = document.getElementById('hero-interactive-session');
     const matchedView = document.getElementById('hero-matched-profile');
     const lowerContainer = document.getElementById('portal-lower-container');
-    if (!sessionView || !matchedView || !lowerContainer) return;
+    const root = document.documentElement;
+    if (!sessionView || !matchedView || !lowerContainer) {
+        root.classList.remove('sb-gated', 'sb-returning');
+        return;
+    }
 
     const STORAGE_KEY = 'silverbyte_studio_preference';
+    const SPACE_ORDER = ['b2b', 'b2c', 'games', 'all'];
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const ms = (n) => (reduceMotion.matches ? 0 : n);
 
-    // State
+    const $ = (id) => document.getElementById(id);
+    const card = $('qa-card');
+    const stepBtns = [...card.querySelectorAll('.qa-stepper-btn')];
+    const panels = [...card.querySelectorAll('.qa-panel')];
+    const businessBtns = [...card.querySelectorAll('[data-name="business"]')];
+    const typeBtns = [...card.querySelectorAll('[data-name="type"]')];
+    const catChips = [...card.querySelectorAll('.qa-cat-chip')];
+    const typeHint = $('qa-type-hint');
+    const telemetry = $('qa-telemetry');
+    const telTag = $('qa-telemetry-tag');
+    const telMsg = $('qa-telemetry-msg');
+    const telCount = $('qa-telemetry-count');
+    const telSegs = [...telemetry.querySelectorAll('.seg')];
+    const activateBtn = $('btn-activate-profile');
+    const activateLabel = $('btn-activate-label');
+    const skipBtn = $('btn-skip-interactive');
+    const retuneBtn = $('btn-retune-qa');
+    const seg = matchedView.querySelector('.space-seg');
+    const quickPills = [...matchedView.querySelectorAll('.quick-space-pill')];
+    const metricsEl = $('matched-metrics');
+    const metricEls = [...metricsEl.querySelectorAll('.metric')];
+    const gatingText = $('gating-progress-text');
+    const gatingPct = $('gating-progress-pct');
+    const gatingSegs = [...document.querySelectorAll('#portal-gating-banner .gating-meter .seg')];
+    const gatingFocusBtn = $('btn-gating-focus');
+    const bypassBtn = $('btn-unlock-gating');
+    const sectionsContent = $('portal-sections-content');
+    const b2bActiveBadge = $('b2b-active-badge');
+    const shippedItems = [...document.querySelectorAll('#hero-shipped-list .shipped-item')];
+
+    const sections = {
+        b2b: $('business-space'),
+        b2c: $('apps'),
+        games: $('games'),
+        desktop: $('desktop-apps')
+    };
+
+    // Counts come from the shipped list so the metrics stay true as products are added
+    const shippedLis = [...document.querySelectorAll('#hero-shipped-list > li')];
+    const countWhere = (fn) => shippedLis.filter(fn).length;
+    const pad = (n) => String(n).padStart(2, '0');
+    const counts = {
+        all: shippedLis.length,
+        games: countWhere(li => li.dataset.cardCategory === 'games'),
+        consumerApps: countWhere(li => (li.dataset.cardAudience || '').includes('b2c') && li.dataset.cardCategory !== 'games')
+    };
+
+    const MAIL_B2B = 'mailto:silverbytestudio@gmail.com?subject=[B2B%20Project%20Inquiry]%20Silverbyte%20Studio';
+
+    const SPACES = {
+        b2b: {
+            badge: 'B2B business space',
+            telemetry: 'B2B ENTERPRISE SPACE',
+            headline: 'Enterprise & custom software, built for modern businesses.',
+            description: 'Silverbyte Studio designs and engineers property platforms like Realigator and custom operational tools on private, high-performance architectures.',
+            primary: ['Explore B2B solutions', '#business-space'],
+            secondary: ['Consult with the studio', MAIL_B2B],
+            section: 'b2b',
+            spotlight: li => (li.dataset.cardAudience || '').includes('b2b'),
+            metrics: [
+                ['Flagship', 'Realigator', 'Property & lease OS'],
+                ['Backend', 'Supabase', 'Postgres + row-level security'],
+                ['Clients', 'Expo', 'iOS · Android · desktop']
+            ]
+        },
+        b2c: {
+            badge: 'B2C applications space',
+            telemetry: 'B2C CONSUMER APPS',
+            headline: 'Polished native Android utilities and creative tools.',
+            description: 'Fast, privacy-first mobile apps for video conversion, editing, personal debt tracking, link archiving and AI prompt engineering.',
+            primary: ['Explore mobile apps', '#apps'],
+            secondary: ['View on Google Play', 'https://play.google.com/store/apps/details?id=com.SilverByteGames.FaceTilesMatch'],
+            section: 'b2c',
+            spotlight: li => (li.dataset.cardAudience || '').includes('b2c') && li.dataset.cardCategory !== 'games',
+            metrics: [
+                ['Consumer apps', pad(counts.consumerApps), 'Shipped & maintained'],
+                ['Stack', 'Compose', 'Plus Flutter & Electron'],
+                ['Distribution', 'Google Play', 'Plus Windows desktop']
+            ]
+        },
+        games: {
+            badge: 'Unity games portfolio',
+            telemetry: 'UNITY GAMES SPACE',
+            headline: 'Tactile casual and physics-driven arcade games.',
+            description: 'Original puzzle and arcade titles built in Unity, with responsive haptics, layered 3D boards and satisfying physics.',
+            primary: ['Play Triple Tiles', '#games'],
+            secondary: ['See game features', 'triple-tiles.html'],
+            section: 'games',
+            spotlight: li => li.dataset.cardCategory === 'games',
+            metrics: [
+                ['Original titles', pad(counts.games), '1 live · 1 in development'],
+                ['Engine', 'Unity', 'C#'],
+                ['Platform', 'Android', 'Google Play']
+            ]
+        },
+        all: {
+            badge: 'Full studio portfolio',
+            telemetry: 'FULL CATALOG',
+            headline: 'Polished apps and games, built and shipped in-house.',
+            description: 'Silverbyte Studio designs, builds and maintains its own Android apps, desktop tools and Unity games, and builds custom software for businesses with the same care.',
+            primary: ['Explore all products', '#business-space'],
+            secondary: ['Work with us', 'business.html'],
+            section: 'b2b',
+            spotlight: () => false,
+            metrics: [
+                ['Products', pad(counts.all), 'Apps, games & platforms'],
+                ['Platforms', '03', 'Android · Windows · Web'],
+                ['Stacks', 'Unity', 'Compose · Flutter · Expo']
+            ]
+        }
+    };
+
     const state = {
         business: null,
         type: null,
         categories: new Set(),
-        activeSpace: 'b2b',
-        isActivated: false
+        step: 1,
+        activeSpace: null,
+        isActivated: false,
+        retuning: false,
+        typeLocked: false,
+        busy: false
     };
 
-    // DOM Elements
-    const businessBtns = sessionView.querySelectorAll('.qa-pill[data-name="business"]');
-    const typeBtns = sessionView.querySelectorAll('.qa-type-btn[data-name="type"]');
-    const catChips = sessionView.querySelectorAll('.qa-cat-chip');
-    const algoStatusEl = document.getElementById('qa-algo-status-text');
-    const algoMatchBox = document.getElementById('qa-algo-match');
-    const activateBtn = document.getElementById('btn-activate-profile');
-    const skipBtn = document.getElementById('btn-skip-interactive');
-    const unlockBannerBtn = document.getElementById('btn-unlock-gating');
-    const retuneBtn = document.getElementById('btn-retune-qa');
-    const quickPills = matchedView.querySelectorAll('.quick-space-pill');
+    let advanceTimer = null;
+    let switchTimer = null;
 
-    // Matched View Elements
-    const matchedBadgeText = document.getElementById('matched-badge-text');
-    const matchedHeadline = document.getElementById('matched-headline');
-    const matchedDescription = document.getElementById('matched-description');
-    const matchedPrimaryBtn = document.getElementById('matched-primary-btn');
-    const matchedSecondaryBtn = document.getElementById('matched-secondary-btn');
-    const factPlatformFocus = document.getElementById('fact-platform-focus');
-    const factTechStack = document.getElementById('fact-tech-stack');
-
-    // Sections & Shipped Items
-    const b2bSection = document.getElementById('business-space');
-    const gamesSection = document.getElementById('games');
-    const appsSection = document.getElementById('apps');
-    const desktopSection = document.getElementById('desktop-apps');
-    const b2bActiveBadge = document.getElementById('b2b-active-badge');
-    const shippedItems = document.querySelectorAll('#hero-shipped-list .shipped-item');
-
-    // Check Local Storage on load
-    try {
-        const savedRaw = localStorage.getItem(STORAGE_KEY);
-        if (savedRaw) {
-            const saved = JSON.parse(savedRaw);
-            if (saved && saved.isActivated) {
-                state.business = saved.business;
-                state.type = saved.type;
-                state.activeSpace = saved.activeSpace || saved.type || 'b2b';
-                state.isActivated = true;
-                if (Array.isArray(saved.categories)) {
-                    state.categories = new Set(saved.categories);
-                }
-                applySelectionsToUI();
-                renderMatchedView(state.activeSpace, false);
-                return;
-            }
-        }
-    } catch (e) {
-        console.warn('Storage read failed', e);
-    }
-
-    // Default first-time view: gated, interactive session visible
-    lowerContainer.classList.add('is-gated');
-    sessionView.removeAttribute('hidden');
-    matchedView.setAttribute('hidden', '');
-
-    // 1. Business Type Selection
-    businessBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const val = btn.dataset.val;
-            state.business = val;
-
-            businessBtns.forEach(b => {
-                const isSelected = b === btn;
-                b.classList.toggle('is-selected', isSelected);
-                b.setAttribute('aria-checked', String(isSelected));
-            });
-
-            // Smart auto-suggestion for software type if not chosen yet
-            if (!state.type) {
-                if (val === 'enterprise' || val === 'smallbiz') {
-                    selectType('b2b', false);
-                } else if (val === 'individual') {
-                    selectType('b2c', false);
-                }
-            }
-
-            updateAlgorithmStatus();
-        });
-    });
-
-    // 2. Software Type Selection (B2B vs B2C)
-    typeBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const val = btn.dataset.val;
-            selectType(val, true);
-        });
-    });
-
-    function selectType(val, userClicked) {
-        state.type = val;
-        state.activeSpace = val;
-
-        typeBtns.forEach(b => {
-            const isSelected = b.dataset.val === val;
-            b.classList.toggle('is-selected', isSelected);
-            b.setAttribute('aria-checked', String(isSelected));
-        });
-
-        // Highlight matching categories
-        catChips.forEach(chip => {
-            const targets = chip.dataset.target.split(' ');
-            if (targets.includes(val)) {
-                chip.style.opacity = '1';
-                chip.style.transform = 'scale(1)';
-            } else {
-                chip.style.opacity = '0.55';
-            }
-        });
-
-        updateAlgorithmStatus();
-    }
-
-    // 3. Category Chips
-    catChips.forEach(chip => {
-        chip.addEventListener('click', () => {
-            const cat = chip.dataset.cat;
-            const target = chip.dataset.target;
-
-            if (state.categories.has(cat)) {
-                state.categories.delete(cat);
-                chip.classList.remove('is-selected');
-            } else {
-                state.categories.add(cat);
-                chip.classList.add('is-selected');
-
-                // If no type is selected, auto-align with the category's primary target
-                if (!state.type) {
-                    if (target.includes('b2b') && !target.includes('b2c')) {
-                        selectType('b2b', false);
-                    } else if (target.includes('b2c') && !target.includes('b2b')) {
-                        selectType('b2c', false);
-                    }
-                }
-            }
-
-            updateAlgorithmStatus();
-        });
-    });
-
-    // Algorithm status calculator
-    function updateAlgorithmStatus() {
-        const hasBusiness = Boolean(state.business);
-        const hasType = Boolean(state.type);
-        const hasCat = state.categories.size > 0;
-
-        if (hasType) {
-            activateBtn.removeAttribute('disabled');
-            algoMatchBox.classList.add('is-matched');
-
-            if (state.type === 'b2b') {
-                algoStatusEl.textContent = '✨ Algorithm Matched: Enterprise B2B Business Space (Realigator & Custom Platforms)';
-            } else if (state.categories.has('unity-games')) {
-                algoStatusEl.textContent = '✨ Algorithm Matched: Unity Games & Interactive Entertainment Space';
-            } else {
-                algoStatusEl.textContent = '✨ Algorithm Matched: B2C Consumer Applications & Media Tools Space';
-            }
-        } else if (hasBusiness) {
-            algoStatusEl.textContent = 'Business profile registered · Select B2B or B2C software type to finalize match';
-            activateBtn.removeAttribute('disabled');
-        } else if (hasCat) {
-            algoStatusEl.textContent = 'Category selected · Select business or software type to complete match';
-            activateBtn.removeAttribute('disabled');
-        } else {
-            algoMatchBox.classList.remove('is-matched');
-            algoStatusEl.textContent = 'Select your business & software type to activate your tailored portal';
-            activateBtn.setAttribute('disabled', '');
+    /* ---------------- persistence ---------------- */
+    function loadProfile() {
+        try {
+            const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+            if (!saved || !saved.isActivated) return false;
+            state.business = businessBtns.some(b => b.dataset.val === saved.business) ? saved.business : null;
+            state.type = saved.type === 'b2b' || saved.type === 'b2c' ? saved.type : null;
+            state.activeSpace = SPACES[saved.activeSpace] ? saved.activeSpace : 'all';
+            state.categories = new Set(Array.isArray(saved.categories) ? saved.categories : []);
+            state.isActivated = true;
+            return true;
+        } catch (e) {
+            return false;
         }
     }
-
-    // 4. Activate Profile Action
-    activateBtn.addEventListener('click', () => {
-        if (!state.type) {
-            state.type = (state.business === 'enterprise' || state.business === 'smallbiz') ? 'b2b' : 'b2c';
-        }
-        state.activeSpace = state.type;
-        state.isActivated = true;
-        saveProfile();
-        renderMatchedView(state.activeSpace, true);
-    });
-
-    // 5. Skip / Unlock directly
-    const unlockAll = () => {
-        state.type = 'all';
-        state.activeSpace = 'all';
-        state.isActivated = true;
-        saveProfile();
-        renderMatchedView('all', true);
-    };
-
-    if (skipBtn) skipBtn.addEventListener('click', unlockAll);
-    if (unlockBannerBtn) unlockBannerBtn.addEventListener('click', unlockAll);
-
-    // 6. Re-tune answers
-    if (retuneBtn) {
-        retuneBtn.addEventListener('click', () => {
-            matchedView.setAttribute('hidden', '');
-            sessionView.removeAttribute('hidden');
-            sessionView.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-    }
-
-    // 7. Quick space switchers
-    quickPills.forEach(pill => {
-        pill.addEventListener('click', () => {
-            const targetSpace = pill.dataset.switch;
-            state.activeSpace = targetSpace;
-            saveProfile();
-            renderMatchedView(targetSpace, true);
-        });
-    });
 
     function saveProfile() {
         try {
@@ -390,158 +323,412 @@ function initStudioFinder() {
                 business: state.business,
                 type: state.type,
                 activeSpace: state.activeSpace,
-                categories: Array.from(state.categories),
+                categories: [...state.categories],
                 isActivated: true
             }));
-        } catch (e) {
-            console.warn('Storage write failed', e);
+        } catch (e) { /* private mode: personalization lasts for this visit only */ }
+    }
+
+    /* ---------------- helpers ---------------- */
+    // Restart a CSS animation class on an element
+    function replay(el, cls) {
+        if (!el) return;
+        el.classList.remove(cls);
+        void el.offsetWidth;
+        el.classList.add(cls);
+    }
+
+    function onAnimationDone(el, fn, fallback) {
+        let done = false;
+        const finish = () => { if (!done) { done = true; fn(); } };
+        if (!ms(1)) return finish();
+        el.addEventListener('animationend', finish, { once: true });
+        setTimeout(finish, fallback);
+    }
+
+    // ARIA radio group: roving tabindex, arrow keys move + select (no auto-advance)
+    function bindRadioGroup(radios, onPick) {
+        radios.forEach((radio, i) => {
+            radio.addEventListener('click', (e) => onPick(radio, { pointer: e.detail > 0 }));
+            radio.addEventListener('keydown', (e) => {
+                const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+                let next = null;
+                if (step) next = radios[(i + step + radios.length) % radios.length];
+                else if (e.key === 'Home') next = radios[0];
+                else if (e.key === 'End') next = radios[radios.length - 1];
+                if (!next) return;
+                e.preventDefault();
+                next.focus();
+                onPick(next, { pointer: false });
+            });
+        });
+    }
+
+    function syncRadios(radios, value, key) {
+        let any = false;
+        radios.forEach(r => {
+            const on = r.dataset[key] === value;
+            any = any || on;
+            r.setAttribute('aria-checked', String(on));
+            r.tabIndex = on ? 0 : -1;
+        });
+        if (!any && radios[0]) radios[0].tabIndex = 0;
+    }
+
+    const labelFor = (radios, val) => (radios.find(r => r.dataset.val === val) || {}).dataset?.label || '';
+    // A suggested model is a hint, not an answer: only a visitor's own pick counts
+    const answered = () => (state.business ? 1 : 0) + (state.type && state.typeLocked ? 1 : 0);
+
+    function matchSpace() {
+        const type = state.type || (state.business === 'individual' ? 'b2c' : 'b2b');
+        if (type === 'b2c' && state.categories.has('unity-games') && !state.categories.has('compose-apps')) return 'games';
+        return type;
+    }
+
+    /* ---------------- finder ---------------- */
+    function setStep(n, { focus = false } = {}) {
+        state.step = n;
+        card.style.setProperty('--qa-step', n);
+        stepBtns.forEach((btn, i) => {
+            if (i + 1 === n) btn.setAttribute('aria-current', 'step');
+            else btn.removeAttribute('aria-current');
+        });
+        panels.forEach((panel, i) => {
+            panel.classList.toggle('is-active', i + 1 === n);
+            panel.classList.toggle('is-before', i + 1 < n);
+        });
+        if (focus) {
+            const panel = panels[n - 1];
+            const target = panel.querySelector('[aria-checked="true"]') || panel.querySelector('[tabindex="0"], .qa-cat-chip');
+            if (target) setTimeout(() => target.focus({ preventScroll: true }), ms(80));
         }
     }
 
-    function applySelectionsToUI() {
-        if (state.business) {
-            businessBtns.forEach(b => {
-                const match = b.dataset.val === state.business;
-                b.classList.toggle('is-selected', match);
-                b.setAttribute('aria-checked', String(match));
-            });
-        }
-        if (state.type) {
-            typeBtns.forEach(b => {
-                const match = b.dataset.val === state.type;
-                b.classList.toggle('is-selected', match);
-                b.setAttribute('aria-checked', String(match));
-            });
-        }
-        catChips.forEach(chip => {
-            const has = state.categories.has(chip.dataset.cat);
-            chip.classList.toggle('is-selected', has);
-        });
-        updateAlgorithmStatus();
+    function queueAdvance(to) {
+        clearTimeout(advanceTimer);
+        advanceTimer = setTimeout(() => setStep(to), ms(320));
     }
 
-    // Render Tailored Profile & Activate Matching Space
-    function renderMatchedView(space, shouldScroll) {
-        // Unlock lower container
-        lowerContainer.classList.remove('is-gated');
+    function selectBusiness(val) {
+        state.business = val;
+        syncRadios(businessBtns, val, 'val');
+        // Suggest a software model from the organization, until the visitor picks one
+        if (!state.typeLocked) {
+            const suggestion = val === 'individual' ? 'b2c' : 'b2b';
+            selectType(suggestion, { suggested: true });
+        }
+        render();
+    }
 
-        // Toggle Views on left side
-        sessionView.setAttribute('hidden', '');
-        matchedView.removeAttribute('hidden');
+    function selectType(val, { suggested = false } = {}) {
+        state.type = val;
+        if (!suggested) state.typeLocked = true;
+        syncRadios(typeBtns, val, 'val');
+        typeHint.textContent = suggested ? 'Suggested' : 'Pick one';
+        typeHint.classList.toggle('is-suggested', suggested);
+        catChips.forEach(chip => chip.classList.toggle('is-dimmed', !chip.dataset.target.split(' ').includes(val)));
+        render();
+    }
 
-        // Update Quick Switcher active pill
-        quickPills.forEach(p => p.classList.toggle('is-active', p.dataset.switch === space));
+    function toggleCategory(chip) {
+        const cat = chip.dataset.cat;
+        const on = !state.categories.has(cat);
+        if (on) state.categories.add(cat); else state.categories.delete(cat);
+        chip.setAttribute('aria-pressed', String(on));
+        // A category that only fits one model settles the model if none was chosen
+        if (on && !state.type) {
+            const targets = chip.dataset.target.split(' ');
+            if (targets.length === 1) selectType(targets[0], { suggested: true });
+        }
+        render();
+    }
 
-        // Clear section active states
-        [b2bSection, gamesSection, appsSection, desktopSection].forEach(sec => {
-            if (sec) sec.classList.remove('is-active-space');
-        });
-        if (b2bActiveBadge) b2bActiveBadge.setAttribute('hidden', '');
+    let lastTelemetry = '';
+    function setTelemetry(stateName, tag, msg) {
+        const key = stateName + tag + msg;
+        if (key === lastTelemetry) return;
+        lastTelemetry = key;
+        telemetry.dataset.state = stateName;
+        if (telTag.textContent !== tag) { telTag.textContent = tag; replay(telTag, 'is-swapping'); }
+        telMsg.textContent = msg;
+        replay(telMsg, 'is-swapping');
+    }
 
-        // Clear shipped spotlights
-        shippedItems.forEach(item => item.classList.remove('is-spotlight'));
+    function render() {
+        const n = answered();
 
-        let targetAnchor = null;
+        // Stepper summaries + done marks
+        card.querySelector('[data-summary="business"]').textContent = labelFor(businessBtns, state.business);
+        card.querySelector('[data-summary="type"]').textContent = labelFor(typeBtns, state.type);
+        card.querySelector('[data-summary="categories"]').textContent = state.categories.size ? `${state.categories.size} selected` : '';
+        stepBtns[0].classList.toggle('is-done', Boolean(state.business));
+        stepBtns[1].classList.toggle('is-done', Boolean(state.type && state.typeLocked));
+        stepBtns[2].classList.toggle('is-done', state.categories.size > 0);
 
-        if (space === 'b2b') {
-            // Business B2B Space Active
-            matchedBadgeText.textContent = 'B2B Business Space Active';
-            matchedHeadline.textContent = 'Enterprise & custom software, built for modern businesses.';
-            matchedDescription.textContent = 'Silverbyte Studio designs and engineers enterprise SaaS, tenant and property management platforms like Realigator, and custom operational tools with private, high-performance architectures.';
-            
-            matchedPrimaryBtn.textContent = 'Explore B2B Solutions';
-            matchedPrimaryBtn.setAttribute('href', '#business-space');
-            matchedSecondaryBtn.textContent = 'Consult With Studio';
-            matchedSecondaryBtn.setAttribute('href', 'mailto:silverbytestudio@gmail.com?subject=[B2B%20Project%20Inquiry]%20Silverbyte%20Studio');
-
-            factPlatformFocus.textContent = 'Cross-Platform & Web';
-            factTechStack.textContent = 'Supabase, Compose, Expo';
-
-            if (b2bSection) {
-                b2bSection.classList.add('is-active-space');
-                targetAnchor = b2bSection;
-            }
-            if (b2bActiveBadge) b2bActiveBadge.removeAttribute('hidden');
-
-            // Spotlight Realigator & Desktop in shipped panel
-            const realigatorItem = document.getElementById('shipped-realigator');
-            if (realigatorItem) realigatorItem.classList.add('is-spotlight');
-
-        } else if (space === 'b2c') {
-            // Consumer B2C Apps Space Active
-            matchedBadgeText.textContent = 'B2C Applications Space Active';
-            matchedHeadline.textContent = 'Polished native Android utilities and creative tools.';
-            matchedDescription.textContent = 'Fast, privacy-first mobile apps for video conversion, editing, personal debt tracking, link archiving, and AI prompt engineering — 100% on-device and ad-free.';
-            
-            matchedPrimaryBtn.textContent = 'Explore Mobile Apps';
-            matchedPrimaryBtn.setAttribute('href', '#apps');
-            matchedSecondaryBtn.textContent = 'View on Google Play';
-            matchedSecondaryBtn.setAttribute('href', 'https://play.google.com/store/apps/details?id=com.SilverByteGames.FaceTilesMatch');
-
-            factPlatformFocus.textContent = 'Android & Windows';
-            factTechStack.textContent = 'Jetpack Compose & Flutter';
-
-            if (appsSection) {
-                appsSection.classList.add('is-active-space');
-                targetAnchor = appsSection;
-            }
-
-            // Spotlight consumer apps in shipped panel
-            shippedItems.forEach(item => {
-                const parentLi = item.closest('li');
-                if (parentLi && parentLi.dataset.cardAudience && parentLi.dataset.cardAudience.includes('b2c')) {
-                    item.classList.add('is-spotlight');
-                }
-            });
-
-        } else if (space === 'games') {
-            // Unity Games Space Active
-            matchedBadgeText.textContent = 'Unity Games Portfolio Active';
-            matchedHeadline.textContent = 'Tactile casual and physics-driven arcade games.';
-            matchedDescription.textContent = 'Original puzzle and arcade titles engineered with the Unity engine, featuring responsive haptics, layered 3D board mechanics, and satisfying physics collisions.';
-            
-            matchedPrimaryBtn.textContent = 'Play Triple Tiles';
-            matchedPrimaryBtn.setAttribute('href', '#games');
-            matchedSecondaryBtn.textContent = 'See Game Features';
-            matchedSecondaryBtn.setAttribute('href', 'triple-tiles.html');
-
-            factPlatformFocus.textContent = 'Android & Google Play';
-            factTechStack.textContent = 'Unity 3D Engine & C#';
-
-            if (gamesSection) {
-                gamesSection.classList.add('is-active-space');
-                targetAnchor = gamesSection;
-            }
-
-            shippedItems.forEach(item => {
-                const parentLi = item.closest('li');
-                if (parentLi && parentLi.dataset.cardCategory === 'games') {
-                    item.classList.add('is-spotlight');
-                }
-            });
-
+        // Telemetry
+        telSegs.forEach((s, i) => s.classList.toggle('is-on', i < n));
+        telCount.textContent = `${n}/2`;
+        if (n === 0 && state.categories.size === 0) {
+            setTelemetry('standby', '[STANDBY]', 'Awaiting input');
+        } else if (!state.type) {
+            setTelemetry('calibrating', '[CALIBRATING…]', `org=${state.business || '?'} · model=? · focus=${state.categories.size}`);
+        } else if (n < 2) {
+            setTelemetry('calibrating', '[CALIBRATING…]', `Leaning ${SPACES[matchSpace()].telemetry}`);
         } else {
-            // All Products View
-            matchedBadgeText.textContent = 'Full Studio Portfolio Active';
-            matchedHeadline.textContent = 'Polished apps and games, built and shipped in-house.';
-            matchedDescription.textContent = 'Silverbyte Studio designs, builds and maintains its own Android apps, desktop tools and Unity games, and builds custom software for businesses with the same care.';
-            
-            matchedPrimaryBtn.textContent = 'Explore All Products';
-            matchedPrimaryBtn.setAttribute('href', '#business-space');
-            matchedSecondaryBtn.textContent = 'Work With Us';
-            matchedSecondaryBtn.setAttribute('href', 'business.html');
-
-            factPlatformFocus.textContent = 'Android, Windows & Web';
-            factTechStack.textContent = 'Unity, Compose, Supabase';
-
-            if (b2bSection) targetAnchor = b2bSection;
+            setTelemetry('matched', '[MATCH FOUND]', SPACES[matchSpace()].telemetry);
         }
 
-        // Smooth scroll if triggered by user interaction
-        if (shouldScroll && targetAnchor) {
+        // Gating HUD progress mirrors the finder
+        if (gatingText) gatingText.textContent = `${n} of 2 inputs answered`;
+        if (gatingPct) gatingPct.textContent = `${n * 50}%`;
+        gatingSegs.forEach((s, i) => s.classList.toggle('is-on', i < n));
+
+        activateBtn.disabled = !(state.business || state.type);
+    }
+
+    bindRadioGroup(businessBtns, (btn, { pointer }) => {
+        selectBusiness(btn.dataset.val);
+        if (pointer) queueAdvance(2);
+    });
+
+    bindRadioGroup(typeBtns, (btn, { pointer }) => {
+        selectType(btn.dataset.val);
+        if (pointer) queueAdvance(3);
+    });
+
+    catChips.forEach(chip => chip.addEventListener('click', () => toggleCategory(chip)));
+
+    card.querySelectorAll('[data-goto]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            clearTimeout(advanceTimer);
+            setStep(Number(btn.dataset.goto), { focus: e.detail === 0 || btn.classList.contains('qa-nav-btn') });
+        });
+    });
+
+    /* ---------------- activation & unlock ---------------- */
+    function activate() {
+        if (state.busy || activateBtn.disabled) return;
+        state.busy = true;
+        clearTimeout(advanceTimer);
+        if (!state.type) state.type = state.business === 'individual' ? 'b2c' : 'b2b';
+        const space = matchSpace();
+        setTelemetry('locking', '[LOCKING]', `Routing to ${SPACES[space].telemetry}`);
+        setTimeout(() => commit(space, { scroll: true }), ms(420));
+    }
+
+    function commit(space, { scroll }) {
+        const wasGated = lowerContainer.classList.contains('is-gated');
+        state.activeSpace = space;
+        state.isActivated = true;
+        state.retuning = false;
+        saveProfile();
+        showMatched(space, true);
+        unlockPortal({ animate: true }, () => {
+            state.busy = false;
+            const target = sections[SPACES[space].section];
+            // First unlock: let the matched profile land, then guide the eye down.
+            // Re-tuning stays in the hero so the new profile can be read.
+            if (!scroll || !wasGated || !target) return;
             setTimeout(() => {
-                targetAnchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
+                target.scrollIntoView({ behavior: ms(1) ? 'smooth' : 'auto', block: 'start' });
+                setTimeout(() => replay(target, 'is-spotlit'), ms(420));
+            }, ms(520));
+        });
+    }
+
+    function bypass() {
+        if (state.busy) return;
+        state.busy = true;
+        commit('all', { scroll: true });
+    }
+
+    function setGated(gated) {
+        lowerContainer.classList.toggle('is-gated', gated);
+        if (sectionsContent) {
+            if (gated) sectionsContent.setAttribute('inert', '');
+            else sectionsContent.removeAttribute('inert');
         }
     }
+
+    function unlockPortal({ animate }, done = () => {}) {
+        if (!lowerContainer.classList.contains('is-gated')) return done();
+        if (!animate || !ms(1)) {
+            setGated(false);
+            return done();
+        }
+        lowerContainer.classList.add('is-unlocking');
+        setTimeout(() => {
+            setGated(false);
+            // Let the veil dissolve from the near-opaque frame it reached
+            requestAnimationFrame(() => {
+                lowerContainer.classList.remove('is-unlocking');
+                done();
+            });
+        }, 380);
+    }
+
+    /* ---------------- matched profile ---------------- */
+    function showMatched(space, animate) {
+        renderSpace(space, false);
+        if (!matchedView.hidden) return;
+        const enter = () => {
+            sessionView.hidden = true;
+            sessionView.classList.remove('is-leaving');
+            matchedView.hidden = false;
+            if (animate) replay(matchedView, 'is-entering');
+        };
+        if (animate && !sessionView.hidden && ms(1)) {
+            sessionView.classList.add('is-leaving');
+            onAnimationDone(sessionView, enter, 260);
+        } else {
+            enter();
+        }
+    }
+
+    function renderSpace(space, animateSwap) {
+        const cfg = SPACES[space] || SPACES.all;
+        state.activeSpace = space;
+        matchedView.dataset.space = space;
+
+        $('matched-badge-text').textContent = cfg.badge;
+        $('matched-headline').textContent = cfg.headline;
+        $('matched-description').textContent = cfg.description;
+        const primary = $('matched-primary-btn');
+        const secondary = $('matched-secondary-btn');
+        primary.textContent = cfg.primary[0];
+        primary.href = cfg.primary[1];
+        secondary.textContent = cfg.secondary[0];
+        secondary.href = cfg.secondary[1];
+        const external = /^https?:/.test(cfg.secondary[1]);
+        if (external) { secondary.target = '_blank'; secondary.rel = 'noopener noreferrer'; }
+        else { secondary.removeAttribute('target'); secondary.removeAttribute('rel'); }
+
+        metricEls.forEach((el, i) => {
+            const [label, value, note] = cfg.metrics[i];
+            el.querySelector('dt').textContent = label;
+            el.querySelector('.metric-value').textContent = value;
+            el.querySelector('.metric-note').textContent = note;
+        });
+
+        // Segmented control
+        seg.style.setProperty('--seg-index', SPACE_ORDER.indexOf(space));
+        syncRadios(quickPills, space, 'switch');
+
+        // Section + shipped panel highlights
+        Object.values(sections).forEach(sec => sec && sec.classList.remove('is-active-space'));
+        if (space !== 'all' && sections[cfg.section]) sections[cfg.section].classList.add('is-active-space');
+        if (b2bActiveBadge) b2bActiveBadge.hidden = space !== 'b2b';
+        shippedItems.forEach(item => item.classList.toggle('is-spotlight', cfg.spotlight(item.closest('li'))));
+
+        if (animateSwap) {
+            replay(matchedView, 'is-switching');
+            replay(metricsEl, 'is-swapping');
+        }
+    }
+
+    bindRadioGroup(quickPills, (pill) => {
+        const space = pill.dataset.switch;
+        if (space === state.activeSpace) return;
+        clearTimeout(switchTimer);
+        renderSpace(space, true);
+        // Persist once the visitor settles (arrow-key sweeps write once)
+        switchTimer = setTimeout(saveProfile, 400);
+    });
+
+    /* ---------------- re-tune ---------------- */
+    function openRetune() {
+        if (state.busy) return;
+        state.retuning = true;
+        activateLabel.textContent = 'Apply new match';
+        skipBtn.textContent = 'Cancel, keep my current space';
+        const show = () => {
+            matchedView.hidden = true;
+            matchedView.classList.remove('is-leaving');
+            sessionView.hidden = false;
+            replay(sessionView, 'is-entering');
+            setStep(!state.business ? 1 : !state.type ? 2 : 3);
+            render();
+            const top = sessionView.getBoundingClientRect().top;
+            if (top < 0) sessionView.scrollIntoView({ behavior: ms(1) ? 'smooth' : 'auto', block: 'start' });
+            card.querySelector('.qa-stepper-btn[aria-current="step"]').focus({ preventScroll: true });
+        };
+        if (ms(1)) {
+            matchedView.classList.add('is-leaving');
+            onAnimationDone(matchedView, show, 260);
+        } else {
+            show();
+        }
+    }
+
+    function cancelRetune() {
+        // Restore the saved answers and go back to the matched view
+        loadProfile();
+        applyAnswersToUI();
+        state.retuning = false;
+        state.busy = false;
+        activateLabel.textContent = 'Activate my studio space';
+        skipBtn.textContent = 'Skip & browse everything';
+        showMatched(state.activeSpace, true);
+    }
+
+    function applyAnswersToUI() {
+        syncRadios(businessBtns, state.business, 'val');
+        state.typeLocked = Boolean(state.type);
+        if (state.type) selectType(state.type);
+        else syncRadios(typeBtns, null, 'val');
+        catChips.forEach(chip => chip.setAttribute('aria-pressed', String(state.categories.has(chip.dataset.cat))));
+        render();
+    }
+
+    activateBtn.addEventListener('click', activate);
+    skipBtn.addEventListener('click', () => (state.retuning ? cancelRetune() : bypass()));
+    if (bypassBtn) bypassBtn.addEventListener('click', bypass);
+    if (retuneBtn) retuneBtn.addEventListener('click', openRetune);
+
+    if (gatingFocusBtn) {
+        gatingFocusBtn.addEventListener('click', () => {
+            card.scrollIntoView({ behavior: ms(1) ? 'smooth' : 'auto', block: 'center' });
+            const panel = panels[state.step - 1];
+            const target = panel.querySelector('[tabindex="0"], .qa-cat-chip');
+            if (target) setTimeout(() => target.focus({ preventScroll: true }), ms(450));
+        });
+    }
+
+    // Links into a locked section (nav, footer, #hash) open the catalog instead of a wall
+    function isGatedTarget(hash) {
+        if (!hash || hash.length < 2 || !lowerContainer.classList.contains('is-gated')) return null;
+        let el = null;
+        try { el = document.querySelector(hash); } catch (e) { return null; }
+        return el && sectionsContent && sectionsContent.contains(el) ? el : null;
+    }
+
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('a[href^="#"]');
+        if (!link) return;
+        const target = isGatedTarget(link.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        unlockPortal({ animate: false });
+        target.scrollIntoView({ behavior: ms(1) ? 'smooth' : 'auto', block: 'start' });
+        history.pushState(null, '', link.getAttribute('href'));
+    });
+
+    /* ---------------- boot ---------------- */
+    if (loadProfile()) {
+        applyAnswersToUI();
+        setGated(false);
+        showMatched(state.activeSpace, false);
+    } else {
+        sessionView.hidden = false;
+        matchedView.hidden = true;
+        setGated(true);
+        render();
+        const deepLink = isGatedTarget(location.hash);
+        if (deepLink) {
+            unlockPortal({ animate: false });
+            requestAnimationFrame(() => deepLink.scrollIntoView());
+        }
+    }
+    setStep(state.step);
+    root.classList.remove('sb-gated', 'sb-returning');
 }

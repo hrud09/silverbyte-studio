@@ -32,7 +32,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
-    <link rel="stylesheet" href="assets/css/style.css?v=2.0">
+    <link rel="stylesheet" href="assets/css/style.css?v=2.1">
+    <!-- Decide gating before first paint so neither the lock nor the finder flashes -->
+    <script>
+        (function () {
+            var c = document.documentElement.classList;
+            try {
+                var p = JSON.parse(localStorage.getItem('silverbyte_studio_preference') || 'null');
+                c.add(p && p.isActivated ? 'sb-returning' : 'sb-gated');
+            } catch (e) { c.add('sb-gated'); }
+        })();
+    </script>
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
@@ -207,174 +217,229 @@
         <div class="container hero-split-grid">
             <!-- Left Side: Interactive Question-Answering Session & Matched Studio Profile -->
             <div class="hero-interactive-container">
-                <!-- View A: Interactive Q&A Session for First-Time Users & Re-tuning -->
+                <!-- Icon sprite (Lucide outlines, DESIGN.md §6) -->
+                <svg class="sb-sprite" aria-hidden="true" focusable="false">
+                    <symbol id="i-building" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/></symbol>
+                    <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></symbol>
+                    <symbol id="i-store" viewBox="0 0 24 24"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2 2.7 2.7 0 0 1-2-1 2.7 2.7 0 0 1-2 1 2.7 2.7 0 0 1-2-1 2.7 2.7 0 0 1-2 1 2.7 2.7 0 0 1-2-1 2.7 2.7 0 0 1-2 1 2.7 2.7 0 0 1-2-1 2.7 2.7 0 0 1-2 1 2 2 0 0 1-2-2V7"/></symbol>
+                    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></symbol>
+                    <symbol id="i-briefcase" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
+                    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+                    <symbol id="i-gamepad" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><path d="M17.32 5H6.68a4 4 0 0 0-3.98 3.59C2.6 9.42 2 14.46 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.41-1.41A2 2 0 0 1 9.83 16h4.34a2 2 0 0 1 1.41.59L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.55-.6-6.58-.69-7.26A4 4 0 0 0 17.32 5z"/></symbol>
+                    <symbol id="i-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol>
+                    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+                    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+                    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></symbol>
+                    <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol>
+                    <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+                    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+                    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></symbol>
+                    <symbol id="i-handshake" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m16 11 2 2 4-4"/></symbol>
+                    <symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8M16 17H8M10 9H8"/></symbol>
+                    <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></symbol>
+                    <symbol id="i-devices" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
+                    <symbol id="i-idcard" viewBox="0 0 24 24"><path d="M16 10h2M16 14h2"/><path d="M6.17 15a3 3 0 0 1 5.66 0"/><circle cx="9" cy="11" r="2"/><rect x="2" y="5" width="20" height="14" rx="2"/></symbol>
+                </svg>
+
+                <!-- View A: Studio Algorithm Finder (first visit & re-tuning) -->
                 <div class="hero-interactive-session" id="hero-interactive-session">
                     <div class="qa-header">
                         <p class="eyebrow">
                             <span class="eyebrow-dots" aria-hidden="true"><span></span><span></span><span></span></span>
                             Studio Algorithm Finder
-                            <span class="qa-status-pill"><span class="dot"></span> Interactive</span>
                         </p>
                         <h1>What kind of software do you need built?</h1>
-                        <p class="lead">
-                            Answer 2 quick questions to let our studio algorithm curate the exact products, categories, and business space for your needs.
-                        </p>
+                        <p class="lead">Two quick answers and the studio portal rearranges around the products and services that fit you.</p>
                     </div>
 
-                    <div class="qa-card">
-                        <!-- Step 1: Business Type -->
-                        <div class="qa-step" data-step="1">
-                            <label class="qa-label">
-                                <span class="qa-step-num">01</span>
-                                <span>What kind of business or organization are you in?</span>
-                            </label>
-                            <div class="qa-grid-business" role="radiogroup" aria-label="Business Type">
-                                <button type="button" class="qa-pill" data-name="business" data-val="enterprise" aria-checked="false">
-                                    <span class="qa-pill-icon">🏢</span>
-                                    <span class="qa-pill-text">
-                                        <span class="qa-pill-title">Enterprise &amp; Ops</span>
-                                        <span class="qa-pill-desc">Property, corporate, operations</span>
-                                    </span>
-                                </button>
-                                <button type="button" class="qa-pill" data-name="business" data-val="startup" aria-checked="false">
-                                    <span class="qa-pill-icon">🚀</span>
-                                    <span class="qa-pill-text">
-                                        <span class="qa-pill-title">Startup &amp; Founder</span>
-                                        <span class="qa-pill-desc">MVP, SaaS platform, launch</span>
-                                    </span>
-                                </button>
-                                <button type="button" class="qa-pill" data-name="business" data-val="smallbiz" aria-checked="false">
-                                    <span class="qa-pill-icon">🏪</span>
-                                    <span class="qa-pill-text">
-                                        <span class="qa-pill-title">Small Business</span>
-                                        <span class="qa-pill-desc">Internal tools, management</span>
-                                    </span>
-                                </button>
-                                <button type="button" class="qa-pill" data-name="business" data-val="individual" aria-checked="false">
-                                    <span class="qa-pill-icon">👤</span>
-                                    <span class="qa-pill-text">
-                                        <span class="qa-pill-title">Individual / Consumer</span>
-                                        <span class="qa-pill-desc">Everyday tools, player, apps</span>
-                                    </span>
-                                </button>
-                            </div>
+                    <div class="qa-card" id="qa-card" style="--qa-step: 1">
+                        <ol class="qa-stepper" aria-label="Finder steps">
+                            <li><button type="button" class="qa-stepper-btn" data-goto="1" aria-controls="qa-panel-1" aria-current="step">
+                                <span class="qa-stepper-num">01</span>
+                                <span class="qa-stepper-label">Organization</span>
+                                <span class="qa-stepper-value" data-summary="business"></span>
+                            </button></li>
+                            <li><button type="button" class="qa-stepper-btn" data-goto="2" aria-controls="qa-panel-2">
+                                <span class="qa-stepper-num">02</span>
+                                <span class="qa-stepper-label">Model</span>
+                                <span class="qa-stepper-value" data-summary="type"></span>
+                            </button></li>
+                            <li><button type="button" class="qa-stepper-btn" data-goto="3" aria-controls="qa-panel-3">
+                                <span class="qa-stepper-num">03</span>
+                                <span class="qa-stepper-label">Focus</span>
+                                <span class="qa-stepper-value" data-summary="categories" data-empty="Optional"></span>
+                            </button></li>
+                        </ol>
+
+                        <div class="qa-panels">
+                            <!-- Step 01: Organization -->
+                            <section class="qa-panel is-active" id="qa-panel-1" data-panel="1" aria-labelledby="qa-q1">
+                                <div class="qa-question-row">
+                                    <h2 class="qa-question" id="qa-q1">Who are you building for?</h2>
+                                    <span class="qa-question-hint">Pick one</span>
+                                </div>
+                                <div class="qa-grid-business" role="radiogroup" aria-labelledby="qa-q1">
+                                    <button type="button" role="radio" class="qa-option qa-pill" data-name="business" data-val="enterprise" data-label="Enterprise" aria-checked="false" tabindex="0">
+                                        <span class="qa-option-icon"><svg class="sb-icon"><use href="#i-building"/></svg></span>
+                                        <span class="qa-option-text">
+                                            <span class="qa-option-title">Enterprise &amp; ops</span>
+                                            <span class="qa-option-desc">Property, corporate, operations</span>
+                                        </span>
+                                        <span class="qa-check" aria-hidden="true"><svg class="sb-icon"><use href="#i-check"/></svg></span>
+                                    </button>
+                                    <button type="button" role="radio" class="qa-option qa-pill" data-name="business" data-val="startup" data-label="Startup" aria-checked="false" tabindex="-1">
+                                        <span class="qa-option-icon"><svg class="sb-icon"><use href="#i-rocket"/></svg></span>
+                                        <span class="qa-option-text">
+                                            <span class="qa-option-title">Startup &amp; founder</span>
+                                            <span class="qa-option-desc">MVP, SaaS platform, launch</span>
+                                        </span>
+                                        <span class="qa-check" aria-hidden="true"><svg class="sb-icon"><use href="#i-check"/></svg></span>
+                                    </button>
+                                    <button type="button" role="radio" class="qa-option qa-pill" data-name="business" data-val="smallbiz" data-label="Small business" aria-checked="false" tabindex="-1">
+                                        <span class="qa-option-icon"><svg class="sb-icon"><use href="#i-store"/></svg></span>
+                                        <span class="qa-option-text">
+                                            <span class="qa-option-title">Small business</span>
+                                            <span class="qa-option-desc">Internal tools, management</span>
+                                        </span>
+                                        <span class="qa-check" aria-hidden="true"><svg class="sb-icon"><use href="#i-check"/></svg></span>
+                                    </button>
+                                    <button type="button" role="radio" class="qa-option qa-pill" data-name="business" data-val="individual" data-label="Individual" aria-checked="false" tabindex="-1">
+                                        <span class="qa-option-icon"><svg class="sb-icon"><use href="#i-user"/></svg></span>
+                                        <span class="qa-option-text">
+                                            <span class="qa-option-title">Individual / consumer</span>
+                                            <span class="qa-option-desc">Everyday tools, apps, games</span>
+                                        </span>
+                                        <span class="qa-check" aria-hidden="true"><svg class="sb-icon"><use href="#i-check"/></svg></span>
+                                    </button>
+                                </div>
+                                <div class="qa-panel-nav">
+                                    <span></span>
+                                    <button type="button" class="qa-nav-btn" data-goto="2">Next <svg class="sb-icon"><use href="#i-arrow-right"/></svg></button>
+                                </div>
+                            </section>
+
+                            <!-- Step 02: Software model -->
+                            <section class="qa-panel" id="qa-panel-2" data-panel="2" aria-labelledby="qa-q2">
+                                <div class="qa-question-row">
+                                    <h2 class="qa-question" id="qa-q2">What kind of software?</h2>
+                                    <span class="qa-question-hint" id="qa-type-hint">Pick one</span>
+                                </div>
+                                <div class="qa-grid-type" role="radiogroup" aria-labelledby="qa-q2">
+                                    <button type="button" role="radio" class="qa-option qa-type-btn" data-name="type" data-val="b2b" data-label="B2B" aria-checked="false" tabindex="0">
+                                        <span class="qa-option-icon"><svg class="sb-icon"><use href="#i-briefcase"/></svg></span>
+                                        <span class="qa-option-text">
+                                            <span class="qa-option-title">Business software <span class="qa-option-tag">B2B</span></span>
+                                            <span class="qa-option-desc">Property &amp; lease OS, internal tools, automated invoicing, custom platforms</span>
+                                        </span>
+                                        <span class="qa-check" aria-hidden="true"><svg class="sb-icon"><use href="#i-check"/></svg></span>
+                                    </button>
+                                    <button type="button" role="radio" class="qa-option qa-type-btn" data-name="type" data-val="b2c" data-label="B2C" aria-checked="false" tabindex="-1">
+                                        <span class="qa-option-icon"><svg class="sb-icon"><use href="#i-users"/></svg></span>
+                                        <span class="qa-option-text">
+                                            <span class="qa-option-title">Consumer apps <span class="qa-option-tag">B2C</span></span>
+                                            <span class="qa-option-desc">Mobile utilities, video tools, personal ledgers, casual Unity games</span>
+                                        </span>
+                                        <span class="qa-check" aria-hidden="true"><svg class="sb-icon"><use href="#i-check"/></svg></span>
+                                    </button>
+                                </div>
+                                <div class="qa-panel-nav">
+                                    <button type="button" class="qa-nav-btn" data-goto="1"><svg class="sb-icon"><use href="#i-arrow-left"/></svg> Back</button>
+                                    <button type="button" class="qa-nav-btn" data-goto="3">Next <svg class="sb-icon"><use href="#i-arrow-right"/></svg></button>
+                                </div>
+                            </section>
+
+                            <!-- Step 03: Focus categories (optional, multi-select) -->
+                            <section class="qa-panel" id="qa-panel-3" data-panel="3" aria-labelledby="qa-q3">
+                                <div class="qa-question-row">
+                                    <h2 class="qa-question" id="qa-q3">Anything specific in mind?</h2>
+                                    <span class="qa-question-hint">Optional &middot; any</span>
+                                </div>
+                                <div class="qa-categories-wrap" role="group" aria-labelledby="qa-q3">
+                                    <button type="button" class="qa-cat-chip" data-cat="enterprise-saas" data-target="b2b" aria-pressed="false"><span class="qa-cat-dot"></span>Real estate &amp; lease OS</button>
+                                    <button type="button" class="qa-cat-chip" data-cat="custom-erp" data-target="b2b" aria-pressed="false"><span class="qa-cat-dot"></span>Custom B2B systems</button>
+                                    <button type="button" class="qa-cat-chip" data-cat="compose-apps" data-target="b2c" aria-pressed="false"><span class="qa-cat-dot"></span>Native Android (Compose)</button>
+                                    <button type="button" class="qa-cat-chip" data-cat="unity-games" data-target="b2c" aria-pressed="false"><span class="qa-cat-dot"></span>Unity games</button>
+                                    <button type="button" class="qa-cat-chip" data-cat="desktop-tools" data-target="b2c b2b" aria-pressed="false"><span class="qa-cat-dot"></span>Desktop tools (Electron)</button>
+                                    <button type="button" class="qa-cat-chip" data-cat="ai-vision" data-target="b2c b2b" aria-pressed="false"><span class="qa-cat-dot"></span>On-device AI &amp; video</button>
+                                    <button type="button" class="qa-cat-chip" data-cat="fintech" data-target="b2c b2b" aria-pressed="false"><span class="qa-cat-dot"></span>Ledgers &amp; wallets</button>
+                                    <button type="button" class="qa-cat-chip" data-cat="productivity" data-target="b2c b2b" aria-pressed="false"><span class="qa-cat-dot"></span>Link &amp; prompt vaults</button>
+                                </div>
+                                <div class="qa-panel-nav">
+                                    <button type="button" class="qa-nav-btn" data-goto="2"><svg class="sb-icon"><use href="#i-arrow-left"/></svg> Back</button>
+                                    <span></span>
+                                </div>
+                            </section>
                         </div>
 
-                        <!-- Step 2: Software Model (B2B vs B2C) -->
-                        <div class="qa-step" data-step="2">
-                            <label class="qa-label">
-                                <span class="qa-step-num">02</span>
-                                <span>What type of software do you want? (B2B or B2C)</span>
-                            </label>
-                            <div class="qa-grid-type" role="radiogroup" aria-label="Software Model">
-                                <button type="button" class="qa-type-btn" data-name="type" data-val="b2b" aria-checked="false">
-                                    <div class="qa-type-header">
-                                        <span class="qa-type-title">💼 B2B Software</span>
-                                        <span class="qa-type-tag">Business</span>
-                                    </div>
-                                    <span class="qa-type-desc">Real estate &amp; lease OS, internal business tools, automated invoicing &amp; custom software</span>
-                                </button>
-                                <button type="button" class="qa-type-btn" data-name="type" data-val="b2c" aria-checked="false">
-                                    <div class="qa-type-header">
-                                        <span class="qa-type-title">👥 B2C Applications</span>
-                                        <span class="qa-type-tag">Consumer</span>
-                                    </div>
-                                    <span class="qa-type-desc">Mobile utility tools, video editing, personal finance ledgers &amp; casual Unity games</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Step 3: Every Category We Build -->
-                        <div class="qa-step" data-step="3">
-                            <label class="qa-label">
-                                <span class="qa-step-num">03</span>
-                                <span>Categories we can build for you (select any to highlight):</span>
-                            </label>
-                            <div class="qa-categories-wrap" role="group" aria-label="Software Categories">
-                                <button type="button" class="qa-cat-chip" data-cat="enterprise-saas" data-target="b2b">
-                                    <span class="qa-cat-dot"></span> Real Estate &amp; Lease OS (Realigator)
-                                </button>
-                                <button type="button" class="qa-cat-chip" data-cat="custom-erp" data-target="b2b">
-                                    <span class="qa-cat-dot"></span> Custom B2B Management Systems
-                                </button>
-                                <button type="button" class="qa-cat-chip" data-cat="compose-apps" data-target="b2c">
-                                    <span class="qa-cat-dot"></span> Native Android Apps (Compose)
-                                </button>
-                                <button type="button" class="qa-cat-chip" data-cat="unity-games" data-target="b2c">
-                                    <span class="qa-cat-dot"></span> 3D &amp; Casual Games (Unity Engine)
-                                </button>
-                                <button type="button" class="qa-cat-chip" data-cat="desktop-tools" data-target="b2c b2b">
-                                    <span class="qa-cat-dot"></span> Desktop Tools (Windows &amp; Electron)
-                                </button>
-                                <button type="button" class="qa-cat-chip" data-cat="ai-vision" data-target="b2c b2b">
-                                    <span class="qa-cat-dot"></span> On-Device AI &amp; Video Engines (Clipr)
-                                </button>
-                                <button type="button" class="qa-cat-chip" data-cat="fintech" data-target="b2c b2b">
-                                    <span class="qa-cat-dot"></span> Personal Ledgers &amp; Wallets (Loaney)
-                                </button>
-                                <button type="button" class="qa-cat-chip" data-cat="productivity" data-target="b2c b2b">
-                                    <span class="qa-cat-dot"></span> Link &amp; AI Prompt Vaults (Linko, Prompter)
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Algorithm Status Bar & Action Footer -->
+                        <!-- Algorithm telemetry & actions -->
                         <div class="qa-footer">
-                            <div class="qa-algo-match" id="qa-algo-match">
-                                <span class="algo-icon-pulse"></span>
-                                <span id="qa-algo-status-text">Select your business &amp; software type to activate your tailored portal</span>
+                            <div class="qa-telemetry" id="qa-telemetry" data-state="standby" role="status" aria-live="polite" aria-atomic="true">
+                                <span class="qa-telemetry-led" aria-hidden="true"></span>
+                                <span class="qa-telemetry-tag" id="qa-telemetry-tag">[STANDBY]</span>
+                                <span class="qa-telemetry-msg" id="qa-telemetry-msg">Awaiting input</span>
+                                <span class="qa-telemetry-meter" aria-hidden="true"><span class="seg"></span><span class="seg"></span></span>
+                                <span class="qa-telemetry-count" id="qa-telemetry-count">0/2</span>
                             </div>
-                            <div class="qa-btn-row">
+                            <div class="qa-actions">
                                 <button type="button" class="btn btn-primary btn-activate" id="btn-activate-profile" disabled>
-                                    Activate My Studio Space &rarr;
+                                    <span id="btn-activate-label">Activate my studio space</span>
+                                    <svg class="sb-icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>
                                 </button>
-                                <button type="button" class="btn-skip-text" id="btn-skip-interactive">
-                                    Skip and browse all products
-                                </button>
+                                <button type="button" class="btn-skip-text" id="btn-skip-interactive">Skip &amp; browse everything</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- View B: Active Matched Profile View (Activated for User) -->
-                <div class="hero-matched-profile" id="hero-matched-profile" hidden>
-                    <div class="matched-badge-bar">
-                        <span class="badge badge-success" id="matched-badge-pill">
-                            <span class="dot"></span>
-                            <span id="matched-badge-text">B2B Business Space Active</span>
+                <!-- View B: Matched studio profile -->
+                <div class="hero-matched-profile" id="hero-matched-profile" data-space="b2b" hidden>
+                    <div class="matched-topbar stagger" style="--i: 0">
+                        <span class="matched-status">
+                            <span class="matched-led" aria-hidden="true"></span>
+                            <span class="matched-status-tag">[MATCH]</span>
+                            <span id="matched-badge-text">B2B business space</span>
                         </span>
-                        <button type="button" class="btn-retune" id="btn-retune-qa" aria-label="Change answers">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.19"/>
-                            </svg>
+                        <button type="button" class="btn-retune" id="btn-retune-qa">
+                            <svg class="sb-icon" aria-hidden="true"><use href="#i-rotate"/></svg>
                             <span>Re-tune answers</span>
                         </button>
                     </div>
 
-                    <h1 id="matched-headline">Software built for businesses and growing teams.</h1>
-                    <p class="lead" id="matched-description">
-                        Silverbyte Studio builds enterprise platforms like Realigator, custom operational tools, and secure cross-platform systems tailored for modern organizations.
-                    </p>
+                    <h1 id="matched-headline" class="stagger" style="--i: 1">Enterprise &amp; custom software, built for modern businesses.</h1>
+                    <p class="lead stagger" id="matched-description" style="--i: 2">Silverbyte Studio designs and engineers property platforms like Realigator and custom operational tools on private, high-performance architectures.</p>
 
-                    <div class="hero-actions" id="matched-actions">
-                        <a href="#business-space" class="btn btn-primary" id="matched-primary-btn">Explore B2B Solutions</a>
-                        <a href="mailto:silverbytestudio@gmail.com?subject=[B2B%20Project%20Inquiry]%20Silverbyte%20Studio" class="btn btn-secondary" id="matched-secondary-btn">Consult With Studio</a>
+                    <div class="hero-actions stagger" id="matched-actions" style="--i: 3">
+                        <a href="#business-space" class="btn btn-primary" id="matched-primary-btn">Explore B2B solutions</a>
+                        <a href="mailto:silverbytestudio@gmail.com?subject=[B2B%20Project%20Inquiry]%20Silverbyte%20Studio" class="btn btn-secondary" id="matched-secondary-btn">Consult with the studio</a>
                     </div>
 
-                    <!-- Quick Space Switcher -->
-                    <div class="space-quick-switch">
-                        <span class="space-switch-label">Switch Space:</span>
-                        <button type="button" class="quick-space-pill is-active" data-switch="b2b">🏢 Business (B2B)</button>
-                        <button type="button" class="quick-space-pill" data-switch="b2c">👥 Consumer (B2C)</button>
-                        <button type="button" class="quick-space-pill" data-switch="games">🎮 Games</button>
-                        <button type="button" class="quick-space-pill" data-switch="all">🌐 All Products</button>
+                    <div class="space-switch stagger" style="--i: 4">
+                        <div class="space-switch-head">
+                            <span id="space-switch-label">Switch space</span>
+                            <span class="space-switch-hint" aria-hidden="true">&larr; &rarr;</span>
+                        </div>
+                        <div class="space-seg" role="radiogroup" aria-labelledby="space-switch-label" style="--seg-index: 0">
+                            <span class="space-seg-indicator" aria-hidden="true"></span>
+                            <button type="button" role="radio" class="quick-space-pill" data-switch="b2b" aria-checked="true" tabindex="0">
+                                <svg class="sb-icon" aria-hidden="true"><use href="#i-briefcase"/></svg><span class="seg-label">Business</span><span class="seg-tag">B2B</span>
+                            </button>
+                            <button type="button" role="radio" class="quick-space-pill" data-switch="b2c" aria-checked="false" tabindex="-1">
+                                <svg class="sb-icon" aria-hidden="true"><use href="#i-users"/></svg><span class="seg-label">Consumer</span><span class="seg-tag">B2C</span>
+                            </button>
+                            <button type="button" role="radio" class="quick-space-pill" data-switch="games" aria-checked="false" tabindex="-1">
+                                <svg class="sb-icon" aria-hidden="true"><use href="#i-gamepad"/></svg><span class="seg-label">Games</span>
+                            </button>
+                            <button type="button" role="radio" class="quick-space-pill" data-switch="all" aria-checked="false" tabindex="-1">
+                                <svg class="sb-icon" aria-hidden="true"><use href="#i-grid"/></svg><span class="seg-label">All</span>
+                            </button>
+                        </div>
                     </div>
 
-                    <ul class="hero-facts" id="matched-facts" aria-label="Studio at a glance">
-                        <li><span class="hero-fact-value" id="fact-product-count">9</span> products</li>
-                        <li><span class="hero-fact-value" id="fact-platform-focus">Android, Windows &amp; Web</span></li>
-                        <li><span class="hero-fact-value" id="fact-tech-stack">Supabase, Compose, Unity</span></li>
-                    </ul>
+                    <dl class="matched-metrics stagger" id="matched-metrics" style="--i: 5" aria-label="Studio at a glance">
+                        <div class="metric" style="--m: 0"><dt></dt><dd class="metric-value"></dd><dd class="metric-note"></dd></div>
+                        <div class="metric" style="--m: 1"><dt></dt><dd class="metric-value"></dd><dd class="metric-note"></dd></div>
+                        <div class="metric" style="--m: 2"><dt></dt><dd class="metric-value"></dd><dd class="metric-note"></dd></div>
+                    </dl>
                 </div>
             </div>
 
@@ -433,69 +498,103 @@
     </section>
 
     <!-- Lower Sections Container: Gated for First-Time Visitors Until Algorithm Activation -->
-    <div id="portal-lower-container" class="portal-lower-container is-gated">
-        <!-- First-Time Visitor Gating Lock Banner -->
+    <div id="portal-lower-container" class="portal-lower-container">
+        <!-- First-visit calibration HUD: shown until the finder is answered or bypassed -->
         <div class="container portal-gating-banner" id="portal-gating-banner">
-            <div class="portal-gating-card">
-                <div class="portal-gating-left">
-                    <div class="portal-gating-icon" aria-hidden="true">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                        </svg>
+            <div class="portal-gating-card" role="region" aria-labelledby="gating-title">
+                <span class="notch notch--tl" aria-hidden="true"></span>
+                <span class="notch notch--tr" aria-hidden="true"></span>
+                <span class="notch notch--bl" aria-hidden="true"></span>
+                <span class="notch notch--br" aria-hidden="true"></span>
+
+                <div class="gating-glyph" aria-hidden="true">
+                    <svg class="sb-icon"><use href="#i-lock"/></svg>
+                </div>
+
+                <div class="gating-body">
+                    <p class="gating-kicker">[PORTAL LOCKED] &middot; calibration pending</p>
+                    <h2 class="gating-title" id="gating-title">Your portal is calibrating</h2>
+                    <p class="gating-desc">Answer the two questions in the finder and the sections below reorder around what you need. Prefer to look around first? Skip it.</p>
+                </div>
+
+                <div class="gating-progress">
+                    <div class="gating-progress-head">
+                        <span id="gating-progress-text">0 of 2 inputs answered</span>
+                        <span class="gating-progress-pct" id="gating-progress-pct">0%</span>
                     </div>
-                    <div class="portal-gating-text">
-                        <h3>Studio Portal Calibrating</h3>
-                        <p>Only the top questionnaire is currently active. Answer the questions above so the algorithm can tailor your landing page, or unlock all products directly.</p>
+                    <div class="gating-meter" aria-hidden="true"><span class="seg"></span><span class="seg"></span></div>
+                    <div class="gating-actions">
+                        <button type="button" class="btn btn-secondary btn-sm" id="btn-gating-focus">Go to the finder</button>
+                        <button type="button" class="gating-bypass" id="btn-unlock-gating">Bypass algorithm &amp; view entire catalog <svg class="sb-icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
                     </div>
                 </div>
-                <button type="button" class="btn btn-secondary btn-sm" id="btn-unlock-gating">
-                    Unlock All Products &rarr;
-                </button>
             </div>
         </div>
 
         <div class="portal-sections-content" id="portal-sections-content">
-            <!-- Business / B2B Solutions Section (Dedicated B2B Business Space) -->
+            <div class="portal-veil" aria-hidden="true"></div>
+            <!-- Dedicated B2B Business Space -->
             <section id="business-space" class="section section-b2b" data-space="b2b">
                 <div class="container">
-                    <div class="section-header">
-                        <p class="eyebrow">
-                            B2B Enterprise Portfolio
-                            <span class="space-active-badge" id="b2b-active-badge" hidden>Active Business Space</span>
-                        </p>
-                        <h2 class="section-title">Software Built for Businesses</h2>
-                        <p class="section-subtitle">Custom platforms, management systems, and operational software engineered for companies and growing teams.</p>
-                    </div>
+                    <div class="b2b-space">
+                        <span class="notch notch--tl" aria-hidden="true"></span>
+                        <span class="notch notch--tr" aria-hidden="true"></span>
+                        <span class="notch notch--bl" aria-hidden="true"></span>
+                        <span class="notch notch--br" aria-hidden="true"></span>
 
-                    <div class="portal-showcase-grid">
-                        <!-- B2B Project 1: Realigator -->
-                        <article class="portal-card portal-card--featured" data-audience="b2b">
-                            <div class="portal-card-banner">
-                                <img src="assets/images/realigator-banner.jpg" alt="Realigator: Real Estate &amp; Rental Management Platform" loading="lazy">
+                        <div class="section-header b2b-header">
+                            <p class="eyebrow">
+                                <span class="eyebrow-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+                                B2B enterprise portfolio
+                                <span class="space-active-badge" id="b2b-active-badge" hidden><span class="dot"></span>Active space</span>
+                            </p>
+                            <h2 class="section-title">Software built for businesses</h2>
+                            <p class="section-subtitle">Custom platforms, management systems and operational software for companies and growing teams.</p>
+                        </div>
+
+                        <!-- Flagship: Realigator -->
+                        <article class="b2b-flagship" data-audience="b2b">
+                            <div class="b2b-flagship-media">
+                                <img src="assets/images/realigator-banner.jpg" alt="Realigator dashboard: buildings, units, tenants and rent invoices" width="1376" height="768" loading="lazy">
+                                <span class="b2b-flagship-label">Flagship &middot; B2B</span>
                             </div>
-                            <div class="portal-card-body">
-                                <div class="portal-card-header">
-                                    <img src="assets/images/realigator-icon.png" alt="Realigator Icon" class="portal-card-icon" width="54" height="54">
+                            <div class="b2b-flagship-body">
+                                <div class="b2b-flagship-head">
+                                    <img src="assets/images/realigator-icon.png" alt="" class="b2b-flagship-icon" width="48" height="48">
                                     <div>
-                                        <h3 class="portal-card-title">Realigator</h3>
-                                        <div class="tag-list">
-                                            <span class="badge badge-success"><span class="dot"></span> Cross-Platform</span>
-                                            <span class="badge badge-primary">Flagship B2B</span>
-                                            <span class="badge badge-subtle">Property &amp; Lease OS</span>
-                                            <span class="badge badge-subtle">Expo &amp; Supabase</span>
-                                        </div>
+                                        <h3 class="b2b-flagship-title">Realigator</h3>
+                                        <p class="b2b-flagship-kicker">Property &amp; lease operating system</p>
                                     </div>
                                 </div>
-                                <p class="portal-card-desc">
-                                    Enterprise-grade real estate and rental management platform for property owners, operators, and landlords. Streamlines multi-unit building hierarchies, tenant KYC registries, automated itemized rent invoicing, printable PDF receipts, and live cashflow telemetry.
-                                </p>
-                                <div class="portal-card-footer">
-                                    <a href="realigator.html" class="btn btn-secondary btn-sm">
-                                        View Details &amp; Specs &rarr;
-                                    </a>
+                                <p class="b2b-flagship-desc">Real estate and rental management for owners, operators and landlords: multi-unit building hierarchies, tenant records, itemized rent invoicing and live cashflow, on every device the team uses.</p>
+
+                                <ul class="b2b-arch" aria-label="Realigator architecture">
+                                    <li class="b2b-arch-cell">
+                                        <svg class="sb-icon" aria-hidden="true"><use href="#i-shield"/></svg>
+                                        <span class="b2b-arch-key">Auth</span>
+                                        <span class="b2b-arch-val">Supabase Auth &amp; row-level security</span>
+                                    </li>
+                                    <li class="b2b-arch-cell">
+                                        <svg class="sb-icon" aria-hidden="true"><use href="#i-devices"/></svg>
+                                        <span class="b2b-arch-key">Clients</span>
+                                        <span class="b2b-arch-val">Expo cross-platform: iOS, Android, desktop</span>
+                                    </li>
+                                    <li class="b2b-arch-cell">
+                                        <svg class="sb-icon" aria-hidden="true"><use href="#i-file"/></svg>
+                                        <span class="b2b-arch-key">Billing</span>
+                                        <span class="b2b-arch-val">Automated invoicing &amp; branded PDF receipts</span>
+                                    </li>
+                                    <li class="b2b-arch-cell">
+                                        <svg class="sb-icon" aria-hidden="true"><use href="#i-idcard"/></svg>
+                                        <span class="b2b-arch-key">Tenants</span>
+                                        <span class="b2b-arch-val">KYC registry, leases &amp; cashflow telemetry</span>
+                                    </li>
+                                </ul>
+
+                                <div class="b2b-flagship-footer">
+                                    <a href="realigator.html" class="btn btn-secondary btn-sm">View details &amp; specs</a>
                                     <a href="https://github.com/hrud09/Realigator" target="_blank" rel="noopener noreferrer" class="btn-badge btn-badge-sm">
-                                        <svg class="btn-badge-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <svg class="btn-badge-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                             <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
                                         </svg>
                                         <span class="btn-badge-content">
@@ -507,41 +606,52 @@
                             </div>
                         </article>
 
-                        <!-- Custom B2B Capabilities Card -->
-                        <article class="portal-card" data-audience="b2b">
-                            <div class="portal-card-body portal-card-body--no-banner">
-                                <div class="portal-card-header">
-                                    <div class="portal-card-icon" style="display:flex;align-items:center;justify-content:center;background:var(--bg-surface-elevated);border-radius:var(--radius-md);border:1px solid var(--border-strong);">
-                                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <h3 class="portal-card-title">Custom Business &amp; Team Software</h3>
-                                        <div class="tag-list">
-                                            <span class="badge badge-amber"><span class="dot"></span> Bespoke Engineering</span>
-                                            <span class="badge badge-subtle">Private Architecture</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="portal-card-desc">
-                                    We build specialized operational workflows, client management platforms, desktop batch utilities, and secure internal tools with the same precision we ship our consumer apps.
-                                </p>
-                                <ul class="b2b-capabilities-list">
-                                    <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Cross-platform mobile (Compose, Flutter, Expo) &amp; desktop (Electron)</li>
-                                    <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Automated invoicing, ledger calculations &amp; PDF generation</li>
-                                    <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Direct engineer partnership — zero agency overhead</li>
-                                </ul>
-                                <div class="portal-card-footer">
-                                    <a href="mailto:silverbytestudio@gmail.com?subject=[Business%20Inquiry]%20Silverbyte%20Studio" class="btn btn-primary btn-sm">
-                                        Start a Project Conversation &rarr;
-                                    </a>
-                                    <a href="business.html" class="btn btn-secondary btn-sm">
-                                        Visit Business Portal
-                                    </a>
+                        <!-- Custom B2B capabilities -->
+                        <article class="b2b-capabilities" data-audience="b2b">
+                            <div class="b2b-cap-intro">
+                                <p class="b2b-cap-kicker">Bespoke engineering</p>
+                                <h3 class="b2b-cap-title">Custom business &amp; team software</h3>
+                                <p class="b2b-cap-desc">Operational workflows, client management platforms, desktop batch utilities and secure internal tools, built with the same care we ship our own apps.</p>
+                                <div class="b2b-cap-actions">
+                                    <a href="mailto:silverbytestudio@gmail.com?subject=[Business%20Inquiry]%20Silverbyte%20Studio" class="btn btn-primary btn-sm">Start a project conversation</a>
+                                    <a href="business.html" class="btn-quiet">Visit the business portal &rarr;</a>
                                 </div>
                             </div>
+
+                            <ul class="b2b-modules">
+                                <li class="b2b-module">
+                                    <div class="b2b-module-top">
+                                        <span class="b2b-module-icon"><svg class="sb-icon" aria-hidden="true"><use href="#i-layers"/></svg></span>
+                                        <span class="b2b-module-idx">M.01</span>
+                                    </div>
+                                    <h4>Architecture</h4>
+                                    <p>Native and cross-platform clients (Compose, Flutter, Expo, Electron) on Supabase or your own backend.</p>
+                                </li>
+                                <li class="b2b-module">
+                                    <div class="b2b-module-top">
+                                        <span class="b2b-module-icon"><svg class="sb-icon" aria-hidden="true"><use href="#i-shield"/></svg></span>
+                                        <span class="b2b-module-idx">M.02</span>
+                                    </div>
+                                    <h4>Security</h4>
+                                    <p>Row-level access rules, isolated tenant data, offline-first sync and private deployments.</p>
+                                </li>
+                                <li class="b2b-module">
+                                    <div class="b2b-module-top">
+                                        <span class="b2b-module-icon"><svg class="sb-icon" aria-hidden="true"><use href="#i-database"/></svg></span>
+                                        <span class="b2b-module-idx">M.03</span>
+                                    </div>
+                                    <h4>Automation</h4>
+                                    <p>Invoicing, ledger calculations and PDF generation that run without anyone babysitting them.</p>
+                                </li>
+                                <li class="b2b-module">
+                                    <div class="b2b-module-top">
+                                        <span class="b2b-module-icon"><svg class="sb-icon" aria-hidden="true"><use href="#i-handshake"/></svg></span>
+                                        <span class="b2b-module-idx">M.04</span>
+                                    </div>
+                                    <h4>Direct partnership</h4>
+                                    <p>You talk to the engineers who build it. No agency layers, no hand-offs.</p>
+                                </li>
+                            </ul>
                         </article>
                     </div>
                 </div>
@@ -1011,6 +1121,6 @@
     </footer>
 
     <!-- Script -->
-    <script src="assets/js/main.js?v=2.0"></script>
+    <script src="assets/js/main.js?v=2.1"></script>
 </body>
 </html>
