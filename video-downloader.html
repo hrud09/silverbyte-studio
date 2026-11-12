@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Downloader - High-Performance Desktop Media Downloader | Silverbyte Studio</title>
+    <meta name="description" content="Video Downloader is a high-performance desktop application for Windows wrapping yt-dlp and FFmpeg. Fast paste-to-download, queue concurrency, audio extraction, and in-app media playback.">
+    <meta name="robots" content="index, follow">
+
+    <!-- Canonical & Favicon -->
+    <link rel="canonical" href="https://silverbytegames.github.io/video-downloader.html">
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="assets/images/video-downloader-icon.png">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://silverbytegames.github.io/video-downloader.html">
+    <meta property="og:title" content="Video Downloader: Desktop Media Tool | Silverbyte Studio">
+    <meta property="og:description" content="High-performance desktop media downloader powered by yt-dlp and FFmpeg. Clipboard prefill, queue concurrency, 4K video presets, and audio extraction.">
+    <meta property="og:image" content="https://silverbytegames.github.io/assets/images/video-downloader-banner.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Video Downloader: Desktop Media Tool | Silverbyte Studio">
+    <meta name="twitter:description" content="Fast paste-to-download desktop app for Windows with audio conversion and in-app playback.">
+    <meta name="twitter:image" content="https://silverbytegames.github.io/assets/images/video-downloader-banner.jpg">
+
+    <!-- Stylesheets -->
+    <!-- Fonts: Geist + Geist Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="assets/css/style.css?v=1.9">
+
+    <!-- Schema.org SoftwareApplication JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Video Downloader",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Windows 10, Windows 11",
+      "inLanguage": "en",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Silverbyte Studio"
+      },
+      "url": "https://silverbytegames.github.io/video-downloader.html",
+      "image": "https://silverbytegames.github.io/assets/images/video-downloader-banner.jpg"
+    }
+    </script>
+</head>
+<body>
+
+    <!-- Site Header & Navigation -->
+    <header class="site-header">
+        <div class="container">
+            <nav class="site-nav" aria-label="Main">
+                <a href="index.html" class="brand-link" aria-label="Silverbyte Studio home">
+                    <img src="assets/images/studio-logo.png" alt="" class="brand-logo" width="32" height="32">
+                    <span class="brand-title">Silverbyte Studio</span>
+                </a>
+
+                <button type="button" class="nav-toggle" aria-controls="site-menu" aria-expanded="false" aria-label="Open menu">
+                    <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+                </button>
+
+                <div class="nav-menu" id="site-menu">
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                        <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="nav-panel-games">
+                            <span>Games</span><svg class="nav-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                            <div class="nav-panel" id="nav-panel-games">
+                                <div class="nav-panel-body">
+                                    <div class="nav-group">
+                                        <p class="nav-group-label">Mobile games</p>
+                                    <a href="triple-tiles.html" class="nav-card">
+                                        <img src="assets/images/triple-tiles-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Triple Tiles</span>
+                                            <span class="nav-card-desc">Face-matching tile puzzle</span>
+                                        </span>
+                                    </a>
+                                    <a href="fallinko.html" class="nav-card">
+                                        <img src="assets/images/fallinko-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Fallinko <span class="nav-pill">Soon</span></span>
+                                            <span class="nav-card-desc">Physics drop &amp; score arcade</span>
+                                        </span>
+                                    </a>
+                                    </div>
+                                </div>
+                                <a href="index.html#games" class="nav-panel-footer">See all games <span aria-hidden="true">&rarr;</span></a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                        <button type="button" class="nav-trigger is-current" aria-expanded="false" aria-controls="nav-panel-apps">
+                            <span>Apps</span><svg class="nav-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                            <div class="nav-panel nav-panel-wide" id="nav-panel-apps">
+                                <div class="nav-panel-body">
+                                    <div class="nav-group">
+                                        <p class="nav-group-label">Mobile apps</p>
+                                    <a href="gif-maker.html" class="nav-card">
+                                        <img src="assets/images/gif-maker-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">GIF Maker</span>
+                                            <span class="nav-card-desc">Turn videos into GIFs</span>
+                                        </span>
+                                    </a>
+                                    <a href="clipr.html" class="nav-card">
+                                        <img src="assets/images/clipr-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Clipr</span>
+                                            <span class="nav-card-desc">Quick video editing tools</span>
+                                        </span>
+                                    </a>
+                                    <a href="loaney.html" class="nav-card">
+                                        <img src="assets/images/loaney-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Loaney</span>
+                                            <span class="nav-card-desc">Track loans &amp; debts</span>
+                                        </span>
+                                    </a>
+                                    <a href="linko.html" class="nav-card">
+                                        <img src="assets/images/linko-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Linko</span>
+                                            <span class="nav-card-desc">Save &amp; organize links</span>
+                                        </span>
+                                    </a>
+                                    <a href="prompter.html" class="nav-card">
+                                        <img src="assets/images/prompter-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Prompter</span>
+                                            <span class="nav-card-desc">Organize your AI prompts</span>
+                                        </span>
+                                    </a>
+                                    </div>
+                                    <div class="nav-group">
+                                        <p class="nav-group-label">Desktop &amp; Business</p>
+                                    <a href="video-downloader.html" class="nav-card" aria-current="page">
+                                        <img src="assets/images/video-downloader-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Video Downloader</span>
+                                            <span class="nav-card-desc">Save videos &amp; audio on Windows</span>
+                                        </span>
+                                    </a>
+                                    <a href="realigator.html" class="nav-card">
+                                        <img src="assets/images/realigator-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Realigator <span class="nav-pill">B2B</span></span>
+                                            <span class="nav-card-desc">Real estate &amp; lease management</span>
+                                        </span>
+                                    </a>
+                                    </div>
+                                </div>
+                                <a href="index.html#apps" class="nav-panel-footer">See all apps <span aria-hidden="true">&rarr;</span></a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="index.html#about" class="nav-trigger">About</a>
+                        </li>
+                        <li class="nav-item">
+                        <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="nav-panel-support">
+                            <span>Support</span><svg class="nav-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                            <div class="nav-panel nav-panel-end" id="nav-panel-support">
+                                <div class="nav-panel-body">
+                                    <div class="nav-group">
+                                        <p class="nav-group-label">Get help</p>
+                                        <a href="index.html#support" class="nav-card nav-card-plain">
+                                            <span class="nav-card-text">
+                                                <span class="nav-card-title">Contact support</span>
+                                                <span class="nav-card-desc">Questions, bugs or feedback on any app or game</span>
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <div class="nav-group">
+                                        <p class="nav-group-label">Legal</p>
+                                        <ul class="nav-text-list">
+                                        <li><a href="terms.html" class="nav-text-link">Terms of Service</a></li>
+                                        <li><a href="privacy-policy.html" class="nav-text-link">Privacy: Games</a></li>
+                                        <li><a href="gif-maker-privacy-policy.html" class="nav-text-link">Privacy: GIF Maker</a></li>
+                                        <li><a href="clipr-privacy-policy.html" class="nav-text-link">Privacy: Clipr</a></li>
+                                        <li><a href="loaney-privacy-policy.html" class="nav-text-link">Privacy: Loaney</a></li>
+                                        <li><a href="linko-privacy-policy.html" class="nav-text-link">Privacy: Linko</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="business.html" class="nav-cta" aria-label="Switch to Business site">
+                        <span>For Business</span>
+                        <svg class="nav-cta-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="container">
+        <nav class="breadcrumb-nav" aria-label="Breadcrumbs">
+            <ol class="breadcrumb-list">
+                <li class="breadcrumb-item"><a href="index.html">Studio Home</a></li>
+                <li class="breadcrumb-separator">/</li>
+                <li class="breadcrumb-item"><a href="index.html#desktop-apps">Desktop Apps</a></li>
+                <li class="breadcrumb-separator">/</li>
+                <li class="breadcrumb-item current" aria-current="page">Video Downloader</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main class="product-page-container">
+
+        <!-- Product Hero Card -->
+        <article class="product-hero">
+            <div class="product-hero-banner">
+                <img src="assets/images/video-downloader-banner.jpg" alt="Video Downloader Feature Graphic" width="960" height="420">
+            </div>
+            <div class="product-hero-body">
+                <div class="product-header-main">
+                    <img src="assets/images/video-downloader-icon.png" alt="Video Downloader App Icon" class="product-icon-large" width="84" height="84">
+                    <div class="product-title-group">
+                        <h1>Video Downloader</h1>
+                        <div class="tag-list">
+                            <span class="badge badge-success"><span class="dot"></span> Windows Desktop</span>
+                            <span class="badge badge-subtle">Electron &amp; React</span>
+                            <span class="badge badge-subtle">yt-dlp + FFmpeg</span>
+                            <span class="badge badge-subtle">TypeScript</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="product-tagline">
+                    Paste a link, get the file. A high-performance desktop application wrapping yt-dlp and FFmpeg, engineered for zero friction. Features smart clipboard prefill on focus, optimistic job scheduling, concurrent multi-downloads, granular quality chips, high-fidelity audio extraction, and smooth in-app media playback with range seeking.
+                </p>
+
+                <div class="product-actions-bar">
+                    <a href="https://github.com/hrud09/Video-Downloader-for-PC" target="_blank" rel="noopener noreferrer" class="btn-badge">
+                        <svg class="btn-badge-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                        </svg>
+                        <span class="btn-badge-content">
+                            <span class="btn-badge-sub">VIEW ON</span>
+                            <span class="btn-badge-title">GitHub</span>
+                        </span>
+                    </a>
+                    <a href="mailto:silverbytestudio@gmail.com?subject=[Desktop%20App%20Support]%20Video%20Downloader" class="btn btn-secondary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        Support &amp; Feedback
+                    </a>
+                </div>
+            </div>
+        </article>
+
+        <!-- Detailed Features Section -->
+        <section class="product-section">
+            <h2 class="product-section-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+                Core Desktop Capabilities
+            </h2>
+
+            <div class="product-features-grid">
+                <div class="product-feature-card">
+                    <div class="product-feature-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="1 4 1 10 7 10"></polyline>
+                            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                        </svg>
+                    </div>
+                    <h3>Fast Two-Speed Interaction</h3>
+                    <p>Paste &rarr; Enter &rarr; Done. Download instantly with sticky smart defaults, or click the quality chip for granular format selection without slowing down your workflow.</p>
+                </div>
+
+                <div class="product-feature-card">
+                    <div class="product-feature-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                    </div>
+                    <h3>Smart Clipboard Detection</h3>
+                    <p>When you alt-tab into the app with a copied URL, the input prefills automatically. Use global <code>Ctrl+V</code> anywhere in the window to start instantly.</p>
+                </div>
+
+                <div class="product-feature-card">
+                    <div class="product-feature-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" y1="6" x2="21" y2="6"></line>
+                            <line x1="8" y1="12" x2="21" y2="12"></line>
+                            <line x1="8" y1="18" x2="21" y2="18"></line>
+                            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                        </svg>
+                    </div>
+                    <h3>Concurrent Queue Scheduler</h3>
+                    <p>Manage simultaneous downloads with configurable concurrency limits (1–8 jobs). Pause, resume, retry, or cancel jobs with persistent SQLite state and <code>.part</code> resumption.</p>
+                </div>
+
+                <div class="product-feature-card">
+                    <div class="product-feature-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 18V5l12-2v13"></path>
+                            <circle cx="6" cy="18" r="3"></circle>
+                            <circle cx="18" cy="16" r="3"></circle>
+                        </svg>
+                    </div>
+                    <h3>Audio Extraction &amp; Metadata</h3>
+                    <p>Direct audio extraction to MP3, M4A, and Opus formats with automatic high-resolution album artwork and ID3 metadata embedding powered by FFmpeg.</p>
+                </div>
+
+                <div class="product-feature-card">
+                    <div class="product-feature-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                    </div>
+                    <h3>In-App Playback with Range Seeking</h3>
+                    <p>Play downloaded media directly inside the app with instant byte-range scrubber seeking, full keyboard shortcuts, and fallback handing for system players.</p>
+                </div>
+
+                <div class="product-feature-card">
+                    <div class="product-feature-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <h3>100% Private &amp; Sandboxed</h3>
+                    <p>Strict context-isolated architecture with local custom protocols. No telemetry, no external server relays—all downloads stream directly to your local drive.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical & Architecture Details -->
+        <section class="product-section">
+            <h2 class="product-section-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+                Technical Specifications &amp; Details
+            </h2>
+
+            <div class="specs-card">
+                <div class="specs-row">
+                    <span class="specs-label">Developer</span>
+                    <span class="specs-value">Silverbyte Studio (SBS Apps)</span>
+                </div>
+                <div class="specs-row">
+                    <span class="specs-label">Tech Stack</span>
+                    <span class="specs-value">Electron, React 19, TypeScript, Vite, better-sqlite3</span>
+                </div>
+                <div class="specs-row">
+                    <span class="specs-label">Engines</span>
+                    <span class="specs-value">yt-dlp (CLI wrapper) &amp; FFmpeg (GPL Media Transcoder)</span>
+                </div>
+                <div class="specs-row">
+                    <span class="specs-label">Supported Platforms</span>
+                    <span class="specs-value">Windows 10, Windows 11 (64-bit per-user NSIS installer &amp; portable)</span>
+                </div>
+                <div class="specs-row">
+                    <span class="specs-label">Source Code</span>
+                    <span class="specs-value"><a href="https://github.com/hrud09/Video-Downloader-for-PC" target="_blank" rel="noopener noreferrer" class="link-inline">github.com/hrud09/Video-Downloader-for-PC</a></span>
+                </div>
+                <div class="specs-row">
+                    <span class="specs-label">Data Privacy Model</span>
+                    <span class="specs-value">100% Local Processing &amp; Direct Connection (Zero analytics, zero tracking)</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <img src="assets/images/studio-logo.png" alt="Silverbyte Studio Logo" width="28" height="28" class="footer-logo">
+                    <span>Silverbyte Studio</span>
+                </div>
+                <ul class="footer-links">
+                    <li><a href="index.html#games">Games</a></li>
+                    <li><a href="index.html#apps">Apps</a></li>
+                    <li><a href="index.html#desktop-apps">Desktop</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="triple-tiles.html">Triple Tiles</a></li>
+                    <li><a href="fallinko.html">Fallinko</a></li>
+                    <li><a href="gif-maker.html">GIF Maker</a></li>
+                    <li><a href="clipr.html">Clipr</a></li>
+                    <li><a href="loaney.html">Loaney</a></li>
+                    <li><a href="prompter.html">Prompter</a></li>
+                    <li><a href="video-downloader.html">Video Downloader</a></li>
+                    <li><a href="realigator.html">Realigator</a></li>
+                    <li><a href="loaney-privacy-policy.html">Loaney Privacy</a></li>
+                    <li><a href="gif-maker-privacy-policy.html">GIF Maker Privacy</a></li>
+                    <li><a href="clipr-privacy-policy.html">Clipr Privacy</a></li>
+                    <li><a href="privacy-policy.html">Games Privacy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="mailto:silverbytestudio@gmail.com">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year">2026</span> Silverbyte Studio. All rights reserved.</p>
+                <p>Windows is a registered trademark of Microsoft Corporation.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script -->
+    <script src="assets/js/main.js?v=1.2"></script>
+</body>
+</html>

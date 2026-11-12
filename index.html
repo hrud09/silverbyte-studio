@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silverbyte Studio - Official Mobile Apps &amp; Games Developer Portal</title>
+    <meta name="description" content="Official developer portal for Silverbyte Studio (Silver Byte Games / SBS Apps). Discover our mobile applications and casual games including Triple Tiles, Fallinko, GIF Maker, Clipr, Loaney, and Prompter.">
+    <meta name="author" content="Silverbyte Studio">
+    <meta name="robots" content="index, follow">
+
+    <!-- Canonical & Favicon -->
+    <link rel="canonical" href="https://silverbytegames.github.io/">
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="assets/images/studio-logo.png">
+
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://silverbytegames.github.io/">
+    <meta property="og:title" content="Silverbyte Studio - Mobile Apps &amp; Games Developer">
+    <meta property="og:description" content="Crafting polished mobile applications and casual games. Explore Triple Tiles, Fallinko, GIF Maker, Clipr, Loaney, and Prompter.">
+    <meta property="og:image" content="https://silverbytegames.github.io/assets/images/triple-tiles-banner.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Silverbyte Studio - Mobile Apps &amp; Games Developer">
+    <meta name="twitter:description" content="Official developer portal for Silverbyte Studio. Discover our games and native mobile tools.">
+    <meta name="twitter:image" content="https://silverbytegames.github.io/assets/images/triple-tiles-banner.jpg">
+
+    <!-- Stylesheets -->
+    <!-- Fonts: Geist + Geist Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="assets/css/style.css?v=1.9">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Silverbyte Studio",
+      "alternateName": ["Silver Byte Games", "SBS Apps"],
+      "url": "https://silverbytegames.github.io/",
+      "logo": "https://silverbytegames.github.io/assets/images/studio-logo.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "silverbytestudio@gmail.com",
+        "contactType": "customer support"
+      }
+    }
+    </script>
+</head>
+<body>
+
+    <!-- Site Header & Navigation -->
+    <header class="site-header">
+        <div class="container">
+            <nav class="site-nav" aria-label="Main">
+                <a href="index.html" class="brand-link" aria-label="Silverbyte Studio home">
+                    <img src="assets/images/studio-logo.png" alt="" class="brand-logo" width="32" height="32">
+                    <span class="brand-title">Silverbyte Studio</span>
+                </a>
+
+                <button type="button" class="nav-toggle" aria-controls="site-menu" aria-expanded="false" aria-label="Open menu">
+                    <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+                </button>
+
+                <div class="nav-menu" id="site-menu">
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                        <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="nav-panel-games">
+                            <span>Games</span><svg class="nav-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                            <div class="nav-panel" id="nav-panel-games">
+                                <div class="nav-panel-body">
+                                    <div class="nav-group">
+                                        <p class="nav-group-label">Mobile games</p>
+                                    <a href="triple-tiles.html" class="nav-card">
+                                        <img src="assets/images/triple-tiles-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Triple Tiles</span>
+                                            <span class="nav-card-desc">Face-matching tile puzzle</span>
+                                        </span>
+                                    </a>
+                                    <a href="fallinko.html" class="nav-card">
+                                        <img src="assets/images/fallinko-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Fallinko <span class="nav-pill">Soon</span></span>
+                                            <span class="nav-card-desc">Physics drop &amp; score arcade</span>
+                                        </span>
+                                    </a>
+                                    </div>
+                                </div>
+                                <a href="#games" class="nav-panel-footer">See all games <span aria-hidden="true">&rarr;</span></a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                        <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="nav-panel-apps">
+                            <span>Apps</span><svg class="nav-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                            <div class="nav-panel nav-panel-wide" id="nav-panel-apps">
+                                <div class="nav-panel-body">
+                                    <div class="nav-group">
+                                        <p class="nav-group-label">Mobile apps</p>
+                                    <a href="gif-maker.html" class="nav-card">
+                                        <img src="assets/images/gif-maker-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">GIF Maker</span>
+                                            <span class="nav-card-desc">Turn videos into GIFs</span>
+                                        </span>
+                                    </a>
+                                    <a href="clipr.html" class="nav-card">
+                                        <img src="assets/images/clipr-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Clipr</span>
+                                            <span class="nav-card-desc">Quick video editing tools</span>
+                                        </span>
+                                    </a>
+                                    <a href="loaney.html" class="nav-card">
+                                        <img src="assets/images/loaney-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Loaney</span>
+                                            <span class="nav-card-desc">Track loans &amp; debts</span>
+                                        </span>
+                                    </a>
+                                    <a href="linko.html" class="nav-card">
+                                        <img src="assets/images/linko-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Linko</span>
+                                            <span class="nav-card-desc">Save &amp; organize links</span>
+                                        </span>
+                                    </a>
+                                    <a href="prompter.html" class="nav-card">
+                                        <img src="assets/images/prompter-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Prompter</span>
+                                            <span class="nav-card-desc">Organize your AI prompts</span>
+                                        </span>
+                                    </a>
+                                    </div>
+                                    <div class="nav-group">
+                                        <p class="nav-group-label">Desktop &amp; Business</p>
+                                    <a href="video-downloader.html" class="nav-card">
+                                        <img src="assets/images/video-downloader-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Video Downloader</span>
+                                            <span class="nav-card-desc">Save videos &amp; audio on Windows</span>
+                                        </span>
+                                    </a>
+                                    <a href="realigator.html" class="nav-card">
+                                        <img src="assets/images/realigator-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Realigator <span class="nav-pill">B2B</span></span>
+                                            <span class="nav-card-desc">Real estate &amp; lease management</span>
+                                        </span>
+                                    </a>
+                                    </div>
+                                </div>
+                                <a href="#apps" class="nav-panel-footer">See all apps <span aria-hidden="true">&rarr;</span></a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#about" class="nav-trigger">About</a>
+                        </li>
+                        <li class="nav-item">
+                        <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="nav-panel-support">
+                            <span>Support</span><svg class="nav-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                            <div class="nav-panel nav-panel-end" id="nav-panel-support">
+                                <div class="nav-panel-body">
+                                    <div class="nav-group">
+                                        <p class="nav-group-label">Get help</p>
+                                        <a href="#support" class="nav-card nav-card-plain">
+                                            <span class="nav-card-text">
+                                                <span class="nav-card-title">Contact support</span>
+                                                <span class="nav-card-desc">Questions, bugs or feedback on any app or game</span>
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <div class="nav-group">
+                                        <p class="nav-group-label">Legal</p>
+                                        <ul class="nav-text-list">
+                                        <li><a href="terms.html" class="nav-text-link">Terms of Service</a></li>
+                                        <li><a href="privacy-policy.html" class="nav-text-link">Privacy: Games</a></li>
+                                        <li><a href="gif-maker-privacy-policy.html" class="nav-text-link">Privacy: GIF Maker</a></li>
+                                        <li><a href="clipr-privacy-policy.html" class="nav-text-link">Privacy: Clipr</a></li>
+                                        <li><a href="loaney-privacy-policy.html" class="nav-text-link">Privacy: Loaney</a></li>
+                                        <li><a href="linko-privacy-policy.html" class="nav-text-link">Privacy: Linko</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="business.html" class="nav-cta" aria-label="Switch to Business site">
+                        <span>For Business</span>
+                        <svg class="nav-cta-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero hero-split">
+        <div class="container hero-split-grid">
+            <div class="hero-copy">
+                <p class="eyebrow">Independent software studio</p>
+                <h1>Polished apps and games, built and shipped in&#8209;house.</h1>
+                <p class="lead">
+                    Silverbyte Studio designs, builds and maintains its own Android apps, desktop tools and Unity games, and builds custom software for businesses with the same care.
+                </p>
+                <div class="hero-actions">
+                    <a href="#games" class="btn btn-primary">See our work</a>
+                    <a href="business.html" class="btn btn-secondary">Work with us</a>
+                </div>
+                <ul class="hero-facts" aria-label="Studio at a glance">
+                    <li><span class="hero-fact-value">8</span> products</li>
+                    <li><span class="hero-fact-value">Android</span> &amp; Windows</li>
+                    <li><span class="hero-fact-value">Unity</span>, Compose, Flutter</li>
+                </ul>
+            </div>
+            <div class="shipped-panel">
+                <p class="shipped-panel-title"><span>Shipped by us</span><span class="shipped-panel-count">08</span></p>
+                <ul class="shipped-list">
+                        <li><a href="triple-tiles.html" class="shipped-item">
+                            <img src="assets/images/triple-tiles-icon.png" alt="" width="40" height="40" loading="lazy">
+                            <span class="shipped-name">Triple Tiles</span>
+                            <span class="shipped-meta">Unity · Google Play</span>
+                        </a></li>
+                        <li><a href="loaney.html" class="shipped-item">
+                            <img src="assets/images/loaney-icon.png" alt="" width="40" height="40" loading="lazy">
+                            <span class="shipped-name">Loaney</span>
+                            <span class="shipped-meta">Jetpack Compose</span>
+                        </a></li>
+                        <li><a href="gif-maker.html" class="shipped-item">
+                            <img src="assets/images/gif-maker-icon.png" alt="" width="40" height="40" loading="lazy">
+                            <span class="shipped-name">GIF Maker</span>
+                            <span class="shipped-meta">Jetpack Compose</span>
+                        </a></li>
+                        <li><a href="linko.html" class="shipped-item">
+                            <img src="assets/images/linko-icon.png" alt="" width="40" height="40" loading="lazy">
+                            <span class="shipped-name">Linko</span>
+                            <span class="shipped-meta">Jetpack Compose</span>
+                        </a></li>
+                        <li><a href="clipr.html" class="shipped-item">
+                            <img src="assets/images/clipr-icon.png" alt="" width="40" height="40" loading="lazy">
+                            <span class="shipped-name">Clipr</span>
+                            <span class="shipped-meta">Jetpack Compose</span>
+                        </a></li>
+                        <li><a href="prompter.html" class="shipped-item">
+                            <img src="assets/images/prompter-icon.png" alt="" width="40" height="40" loading="lazy">
+                            <span class="shipped-name">Prompter</span>
+                            <span class="shipped-meta">Flutter</span>
+                        </a></li>
+                        <li><a href="video-downloader.html" class="shipped-item">
+                            <img src="assets/images/video-downloader-icon.png" alt="" width="40" height="40" loading="lazy">
+                            <span class="shipped-name">Video Downloader</span>
+                            <span class="shipped-meta">Electron · Windows</span>
+                        </a></li>
+                        <li><a href="fallinko.html" class="shipped-item">
+                            <img src="assets/images/fallinko-icon.png" alt="" width="40" height="40" loading="lazy">
+                            <span class="shipped-name">Fallinko</span>
+                            <span class="shipped-meta">Unity · In development</span>
+                        </a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games" class="section">
+        <div class="container">
+            <div class="section-header">
+                <p class="eyebrow">Game Portfolio</p>
+                <h2 class="section-title">Games</h2>
+                <p class="section-subtitle">Original casual and puzzle titles built with the Unity game engine.</p>
+            </div>
+
+            <div class="portal-showcase-grid">
+                <!-- Game 1: Triple Tiles -->
+                <article class="portal-card" data-audience="b2c">
+                    <div class="portal-card-banner">
+                        <img src="assets/images/triple-tiles-banner.jpg" alt="Triple Tiles: Face Match Puzzle" loading="lazy">
+                    </div>
+                    <div class="portal-card-body">
+                        <div class="portal-card-header">
+                            <img src="assets/images/triple-tiles-icon.png" alt="Triple Tiles Icon" class="portal-card-icon" width="54" height="54">
+                            <div>
+                                <h3 class="portal-card-title">Triple Tiles: Face Match</h3>
+                                <div class="tag-list">
+                                    <span class="badge badge-success"><span class="dot"></span> Google Play</span>
+                                    <span class="badge badge-subtle">Match-3</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="portal-card-desc">
+                            A relaxing, tactile match-3 puzzle game featuring expressive face tiles, layered 3D board formations, unlockable themes, and responsive haptics.
+                        </p>
+                        <div class="portal-card-footer">
+                            <a href="triple-tiles.html" class="btn btn-secondary btn-sm">
+                                View Details &amp; Features &rarr;
+                            </a>
+                            <a href="https://play.google.com/store/apps/details?id=com.SilverByteGames.FaceTilesMatch" target="_blank" rel="noopener noreferrer" class="btn-badge btn-badge-sm">
+                                <svg class="btn-badge-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M3.608 1.62C3.238 2.016 3 2.622 3 3.414v17.172c0 .792.238 1.398.608 1.794l.092.086 9.617-9.617v-2.148L3.7 1.534l-.092.086z" fill="#00D2FF"/>
+                                    <path d="M16.535 16.07l-3.218-3.219v-2.148l3.218-3.219.073.042 3.812 2.167c1.089.618 1.089 1.632 0 2.25l-3.812 2.167-.073.042z" fill="#FFC107"/>
+                                    <path d="M13.317 12.851L3.608 22.56c.358.381.954.428 1.61.056l11.317-6.43-3.218-3.335z" fill="#FF4B2B"/>
+                                    <path d="M13.317 10.701l3.218-3.335L5.218 1.384C4.562 1.012 3.966 1.059 3.608 1.44l9.709 9.261z" fill="#00E676"/>
+                                </svg>
+                                <span class="btn-badge-content">
+                                    <span class="btn-badge-sub">GET IT ON</span>
+                                    <span class="btn-badge-title">Google Play</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Game 2: Fallinko -->
+                <article class="portal-card" data-audience="b2c">
+                    <div class="portal-card-body portal-card-body--no-banner">
+                        <div class="portal-card-header">
+                            <img src="assets/images/fallinko-icon.png" alt="Fallinko Icon" class="portal-card-icon" width="54" height="54">
+                            <div>
+                                <h3 class="portal-card-title">Fallinko</h3>
+                                <div class="tag-list">
+                                    <span class="badge badge-amber"><span class="dot"></span> In Development</span>
+                                    <span class="badge badge-subtle">Physics Arcade</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="portal-card-desc">
+                            A physics-driven kinetic arcade title combining pinball-inspired ball drops, multiplier buckets, upgrade loops, and satisfying peg board collisions.
+                        </p>
+                        <div class="portal-card-footer">
+                            <a href="fallinko.html" class="btn btn-secondary btn-sm">
+                                View Details &amp; Features &rarr;
+                            </a>
+                            <span class="badge badge-amber">Under Development</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Apps Section -->
+    <section id="apps" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <p class="eyebrow">Native Mobile Applications</p>
+                <h2 class="section-title">Applications</h2>
+                <p class="section-subtitle">Modern, native Android utility tools built with privacy-first on-device architecture.</p>
+            </div>
+
+            <div class="portal-showcase-grid">
+                <!-- App 1: GIF Maker -->
+                <article class="portal-card" data-audience="b2c">
+                    <div class="portal-card-banner">
+                        <img src="assets/images/gif-maker-banner.jpg" alt="GIF Maker: Video to GIF" loading="lazy">
+                    </div>
+                    <div class="portal-card-body">
+                        <div class="portal-card-header">
+                            <img src="assets/images/gif-maker-icon.png" alt="GIF Maker Icon" class="portal-card-icon" width="54" height="54">
+                            <div>
+                                <h3 class="portal-card-title">GIF Maker: Video to GIF</h3>
+                                <div class="tag-list">
+                                    <span class="badge badge-amber"><span class="dot"></span> Closed Testing</span>
+                                    <span class="badge badge-subtle">Compose</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="portal-card-desc">
+                            Fast and offline GIF creator and converter. Video to GIF, photos to GIF, GIF to MP4, and pinpoint frame extraction with zero watermarks.
+                        </p>
+                        <div class="portal-card-footer">
+                            <a href="gif-maker.html" class="btn btn-secondary btn-sm">
+                                View Details &rarr;
+                            </a>
+                            <a href="https://play.google.com/store/apps/details?id=com.sbs.gifmaker" target="_blank" rel="noopener noreferrer" class="btn-badge btn-badge-sm">
+                                <svg class="btn-badge-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M3.608 1.62C3.238 2.016 3 2.622 3 3.414v17.172c0 .792.238 1.398.608 1.794l.092.086 9.617-9.617v-2.148L3.7 1.534l-.092.086z" fill="#00D2FF"/>
+                                    <path d="M16.535 16.07l-3.218-3.219v-2.148l3.218-3.219.073.042 3.812 2.167c1.089.618 1.089 1.632 0 2.25l-3.812 2.167-.073.042z" fill="#FFC107"/>
+                                    <path d="M13.317 12.851L3.608 22.56c.358.381.954.428 1.61.056l11.317-6.43-3.218-3.335z" fill="#FF4B2B"/>
+                                    <path d="M13.317 10.701l3.218-3.335L5.218 1.384C4.562 1.012 3.966 1.059 3.608 1.44l9.709 9.261z" fill="#00E676"/>
+                                </svg>
+                                <span class="btn-badge-content">
+                                    <span class="btn-badge-sub">GET IT ON</span>
+                                    <span class="btn-badge-title">Google Play</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- App 2: Clipr -->
+                <article class="portal-card" data-audience="b2c">
+                    <div class="portal-card-banner">
+                        <img src="assets/images/clipr-banner.jpg" alt="Clipr: Quick Video Tools" loading="lazy">
+                    </div>
+                    <div class="portal-card-body">
+                        <div class="portal-card-header">
+                            <img src="assets/images/clipr-icon.png" alt="Clipr Icon" class="portal-card-icon" width="54" height="54">
+                            <div>
+                                <h3 class="portal-card-title">Clipr: Quick Video Tools</h3>
+                                <div class="tag-list">
+                                    <span class="badge badge-success"><span class="dot"></span> On-Device AI</span>
+                                    <span class="badge badge-subtle">Video Editor</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="portal-card-desc">
+                            Privacy-first mobile video editor with precision trimming, clip merging, Google ML Kit subject segmentation, intro frames, and local Room drafts.
+                        </p>
+                        <div class="portal-card-footer">
+                            <a href="clipr.html" class="btn btn-secondary btn-sm">
+                                View Details &rarr;
+                            </a>
+                            <a href="https://github.com/hrud09/Clipr" target="_blank" rel="noopener noreferrer" class="btn-badge btn-badge-sm">
+                                <svg class="btn-badge-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                                </svg>
+                                <span class="btn-badge-content">
+                                    <span class="btn-badge-sub">VIEW ON</span>
+                                    <span class="btn-badge-title">GitHub</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- App 3: Loaney -->
+                <article class="portal-card" data-audience="b2c">
+                    <div class="portal-card-banner">
+                        <img src="assets/images/loaney-banner.jpg" alt="Loaney: Debt & Loan Tracker" loading="lazy">
+                    </div>
+                    <div class="portal-card-body">
+                        <div class="portal-card-header">
+                            <img src="assets/images/loaney-icon.png" alt="Loaney Icon" class="portal-card-icon" width="54" height="54">
+                            <div>
+                                <h3 class="portal-card-title">Loaney: Debt &amp; Loan Tracker</h3>
+                                <div class="tag-list">
+                                    <span class="badge badge-success"><span class="dot"></span> 100% Private</span>
+                                    <span class="badge badge-subtle">Finance</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="portal-card-desc">
+                            Comprehensive personal debt and loan tracking ledger with 360° net balance dashboard, digital wallet &amp; MFS QR storage, and repayment calendar.
+                        </p>
+                        <div class="portal-card-footer">
+                            <a href="loaney.html" class="btn btn-secondary btn-sm">
+                                View Details &rarr;
+                            </a>
+                            <a href="https://github.com/hrud09/Loaney" target="_blank" rel="noopener noreferrer" class="btn-badge btn-badge-sm">
+                                <svg class="btn-badge-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                                </svg>
+                                <span class="btn-badge-content">
+                                    <span class="btn-badge-sub">VIEW ON</span>
+                                    <span class="btn-badge-title">GitHub</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- App 4: Linko -->
+                <article class="portal-card" data-audience="b2c">
+                    <div class="portal-card-banner">
+                        <img src="assets/images/linko-banner.jpg" alt="Linko: Bookmark & Link Manager" loading="lazy">
+                    </div>
+                    <div class="portal-card-body">
+                        <div class="portal-card-header">
+                            <img src="assets/images/linko-icon.png" alt="Linko Icon" class="portal-card-icon" width="54" height="54">
+                            <div>
+                                <h3 class="portal-card-title">Linko: Bookmark &amp; Link Vault</h3>
+                                <div class="tag-list">
+                                    <span class="badge badge-success"><span class="dot"></span> Quick Save</span>
+                                    <span class="badge badge-subtle">Bookmarks</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="portal-card-desc">
+                            Fast and privacy-first bookmark manager &amp; note vault. Quick Save share sheet, system text toolbar integration, Quick Settings tile, and biometric PIN protection.
+                        </p>
+                        <div class="portal-card-footer">
+                            <a href="linko.html" class="btn btn-secondary btn-sm">
+                                View Details &rarr;
+                            </a>
+                            <a href="https://github.com/hrud09/Linko" target="_blank" rel="noopener noreferrer" class="btn-badge btn-badge-sm">
+                                <svg class="btn-badge-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                                </svg>
+                                <span class="btn-badge-content">
+                                    <span class="btn-badge-sub">VIEW ON</span>
+                                    <span class="btn-badge-title">GitHub</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- App 5: Prompter -->
+                <article class="portal-card" data-audience="b2c">
+                    <div class="portal-card-banner">
+                        <img src="assets/images/prompter-banner.jpg" alt="Prompter: AI Prompt Manager" loading="lazy">
+                    </div>
+                    <div class="portal-card-body">
+                        <div class="portal-card-header">
+                            <img src="assets/images/prompter-icon.png" alt="Prompter Icon" class="portal-card-icon" width="54" height="54">
+                            <div>
+                                <h3 class="portal-card-title">Prompter: AI Prompt Manager</h3>
+                                <div class="tag-list">
+                                    <span class="badge badge-subtle">Prompt Engineering</span>
+                                    <span class="badge badge-subtle">Flutter</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="portal-card-desc">
+                            Personal offline library for engineering and versioning AI prompts. Multi-version history, dynamic variable placeholders, image attachments, and instant search.
+                        </p>
+                        <div class="portal-card-footer">
+                            <a href="prompter.html" class="btn btn-secondary btn-sm">
+                                View Details &rarr;
+                            </a>
+                            <a href="https://github.com/hrud09/Prompter" target="_blank" rel="noopener noreferrer" class="btn-badge btn-badge-sm">
+                                <svg class="btn-badge-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                                </svg>
+                                <span class="btn-badge-content">
+                                    <span class="btn-badge-sub">VIEW ON</span>
+                                    <span class="btn-badge-title">GitHub</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Desktop Apps Section -->
+    <section id="desktop-apps" class="section">
+        <div class="container">
+            <div class="section-header">
+                <p class="eyebrow">Desktop Applications</p>
+                <h2 class="section-title">Desktop Apps</h2>
+                <p class="section-subtitle">High-performance desktop software crafted for speed, productivity, and privacy.</p>
+            </div>
+
+            <div class="portal-showcase-grid">
+                <!-- Desktop App 1: Video Downloader -->
+                <article class="portal-card" data-audience="b2c">
+                    <div class="portal-card-banner">
+                        <img src="assets/images/video-downloader-banner.jpg" alt="Video Downloader" loading="lazy">
+                    </div>
+                    <div class="portal-card-body">
+                        <div class="portal-card-header">
+                            <img src="assets/images/video-downloader-icon.png" alt="Video Downloader Icon" class="portal-card-icon" width="54" height="54">
+                            <div>
+                                <h3 class="portal-card-title">Video Downloader</h3>
+                                <div class="tag-list">
+                                    <span class="badge badge-success"><span class="dot"></span> Windows</span>
+                                    <span class="badge badge-subtle">Electron &amp; React</span>
+                                    <span class="badge badge-subtle">yt-dlp + FFmpeg</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="portal-card-desc">
+                            Fast, lightweight desktop media downloader wrapping yt-dlp and FFmpeg. Features automatic clipboard prefill, concurrent queue manager, 4K quality presets, audio extraction, and built-in playback.
+                        </p>
+                        <div class="portal-card-footer">
+                            <a href="video-downloader.html" class="btn btn-secondary btn-sm">
+                                View Details &amp; Features &rarr;
+                            </a>
+                            <a href="https://github.com/hrud09/Video-Downloader-for-PC" target="_blank" rel="noopener noreferrer" class="btn-badge btn-badge-sm">
+                                <svg class="btn-badge-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                                </svg>
+                                <span class="btn-badge-content">
+                                    <span class="btn-badge-sub">VIEW ON</span>
+                                    <span class="btn-badge-title">GitHub</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section / Philosophy -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-header text-center">
+                <p class="eyebrow">Philosophy</p>
+                <h2 class="section-title">How We Build</h2>
+                <p class="section-subtitle">Every project is built with care, focusing on tactile feedback, optimized performance, and respectful user treatment.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-box">
+                    <div class="feature-icon-wrap">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="m4.93 4.93 4.24 4.24"></path>
+                            <path d="m14.83 9.17 4.24-4.24"></path>
+                            <path d="m14.83 14.83 4.24 4.24"></path>
+                            <path d="m9.17 14.83-4.24 4.24"></path>
+                        </svg>
+                    </div>
+                    <h3>Satisfying Feel</h3>
+                    <p>We focus on micro-animations, tactile haptic sensations, and instant touch responses that make interactions pleasurable.</p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="feature-icon-wrap">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                    </div>
+                    <h3>Native &amp; Engine Optimization</h3>
+                    <p>Built with Android Jetpack Compose, Flutter, and Unity pipelines, optimized for steady framerates, low memory, and battery efficiency.</p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="feature-icon-wrap">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <h3>User Privacy First</h3>
+                    <p>Our tools run 100% on-device with zero data tracking, and our casual games adhere strictly to transparent, compliant privacy standards.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Support Section -->
+    <section id="support" class="section section-alt">
+        <div class="container">
+            <div class="contact-card">
+                <p class="eyebrow">Get In Touch</p>
+                <h2 class="section-title">Support &amp; Inquiries</h2>
+                <p class="contact-lead">
+                    Have feedback, need technical support, or inquiring about partnerships? Reach out to our team directly.
+                </p>
+
+                <div class="contact-email-row">
+                    <span class="contact-email-text">silverbytestudio@gmail.com</span>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="copyEmail('silverbytestudio@gmail.com', this)" aria-label="Copy email address to clipboard">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        Copy Email
+                    </button>
+                </div>
+
+                <div class="contact-channels">
+                    <a href="mailto:silverbytestudio@gmail.com?subject=[App%20Support]%20Linko" class="btn btn-secondary btn-sm">
+                        Linko Support
+                    </a>
+                    <a href="mailto:silverbytestudio@gmail.com?subject=[App%20Support]%20Loaney" class="btn btn-secondary btn-sm">
+                        Loaney Support
+                    </a>
+                    <a href="mailto:silverbytestudio@gmail.com?subject=[App%20Support]%20GIF%20Maker" class="btn btn-secondary btn-sm">
+                        GIF Maker Support
+                    </a>
+                    <a href="mailto:silverbytestudio@gmail.com?subject=[App%20Support]%20Clipr" class="btn btn-secondary btn-sm">
+                        Clipr Support
+                    </a>
+                    <a href="mailto:silverbytestudio@gmail.com?subject=[App%20Support]%20Prompter" class="btn btn-secondary btn-sm">
+                        Prompter Support
+                    </a>
+                    <a href="mailto:silverbytestudio@gmail.com?subject=[Desktop%20App%20Support]%20Video%20Downloader" class="btn btn-secondary btn-sm">
+                        Video Downloader Support
+                    </a>
+                    <a href="mailto:silverbytestudio@gmail.com?subject=[Player%20Support]%20Triple%20Tiles" class="btn btn-secondary btn-sm">
+                        Game Support
+                    </a>
+                    <a href="mailto:silverbytestudio@gmail.com?subject=[Business%20Inquiry]%20Silverbyte%20Studio" class="btn btn-secondary btn-sm">
+                        Business Inquiry
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <img src="assets/images/studio-logo.png" alt="Silverbyte Studio Logo" width="28" height="28" class="footer-logo">
+                    <span>Silverbyte Studio</span>
+                </div>
+                <ul class="footer-links">
+                    <li><a href="#games">Games</a></li>
+                    <li><a href="#apps">Apps</a></li>
+                    <li><a href="#desktop-apps">Desktop</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="business.html">For Business (B2B)</a></li>
+                    <li><a href="triple-tiles.html">Triple Tiles</a></li>
+                    <li><a href="fallinko.html">Fallinko</a></li>
+                    <li><a href="gif-maker.html">GIF Maker</a></li>
+                    <li><a href="clipr.html">Clipr</a></li>
+                    <li><a href="loaney.html">Loaney</a></li>
+                    <li><a href="linko.html">Linko</a></li>
+                    <li><a href="prompter.html">Prompter</a></li>
+                    <li><a href="video-downloader.html">Video Downloader</a></li>
+                    <li><a href="realigator.html">Realigator</a></li>
+                    <li><a href="linko-privacy-policy.html">Linko Privacy</a></li>
+                    <li><a href="loaney-privacy-policy.html">Loaney Privacy</a></li>
+                    <li><a href="gif-maker-privacy-policy.html">GIF Maker Privacy</a></li>
+                    <li><a href="clipr-privacy-policy.html">Clipr Privacy</a></li>
+                    <li><a href="privacy-policy.html">Games Privacy</a></li>
+                    <li><a href="terms.html">Terms</a></li>
+                    <li><a href="app-ads.txt" target="_blank">app-ads.txt</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year">2026</span> Silverbyte Studio (Silver Byte Games / SBS Apps). All rights reserved.</p>
+                <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script -->
+    <script src="assets/js/main.js?v=1.2"></script>
+</body>
+</html>

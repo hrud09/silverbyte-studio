@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linko: Bookmark &amp; Link Manager - Offline Web &amp; Text Vault | Silverbyte Studio</title>
+    <meta name="description" content="Linko is a privacy-first mobile bookmark manager &amp; note vault built with Jetpack Compose, local Room SQLite, Quick Save share integration, and Biometric PIN protection.">
+    <meta name="robots" content="index, follow">
+
+    <!-- Canonical & Favicon -->
+    <link rel="canonical" href="https://silverbytegames.github.io/linko.html">
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="assets/images/linko-icon.png">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://silverbytegames.github.io/linko.html">
+    <meta property="og:title" content="Linko: Bookmark &amp; Link Manager | Silverbyte Studio">
+    <meta property="og:description" content="Privacy-first bookmark manager & link vault built with Jetpack Compose, Room SQLite, Quick Save share sheet integration, and Biometric PIN lock.">
+    <meta property="og:image" content="https://silverbytegames.github.io/assets/images/linko-banner.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Linko: Bookmark &amp; Link Manager | Silverbyte Studio">
+    <meta name="twitter:description" content="100% on-device bookmark manager and link vault with Quick Save tile and biometric protection.">
+    <meta name="twitter:image" content="https://silverbytegames.github.io/assets/images/linko-banner.jpg">
+
+    <!-- Stylesheets -->
+    <!-- Fonts: Geist + Geist Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="assets/css/style.css?v=1.9">
+
+    <!-- Schema.org MobileApplication JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MobileApplication",
+      "name": "Linko: Bookmark & Link Manager",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "Android 7.0 and up",
+      "inLanguage": "en",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Silverbyte Studio"
+      },
+      "url": "https://silverbytegames.github.io/linko.html",
+      "image": "https://silverbytegames.github.io/assets/images/linko-banner.jpg"
+    }
+    </script>
+</head>
+<body>
+
+    <!-- Site Header & Navigation -->
+    <header class="site-header">
+        <div class="container">
+            <nav class="site-nav" aria-label="Main">
+                <a href="index.html" class="brand-link" aria-label="Silverbyte Studio home">
+                    <img src="assets/images/studio-logo.png" alt="" class="brand-logo" width="32" height="32">
+                    <span class="brand-title">Silverbyte Studio</span>
+                </a>
+
+                <button type="button" class="nav-toggle" aria-controls="site-menu" aria-expanded="false" aria-label="Open menu">
+                    <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+                </button>
+
+                <div class="nav-menu" id="site-menu">
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                        <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="nav-panel-games">
+                            <span>Games</span><svg class="nav-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                            <div class="nav-panel" id="nav-panel-games">
+                                <div class="nav-panel-body">
+                                    <div class="nav-group">
+                                        <p class="nav-group-label">Mobile games</p>
+                                    <a href="triple-tiles.html" class="nav-card">
+                                        <img src="assets/images/triple-tiles-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Triple Tiles</span>
+                                            <span class="nav-card-desc">Face-matching tile puzzle</span>
+                                        </span>
+                                    </a>
+                                    <a href="fallinko.html" class="nav-card">
+                                        <img src="assets/images/fallinko-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Fallinko <span class="nav-pill">Soon</span></span>
+                                            <span class="nav-card-desc">Physics drop &amp; score arcade</span>
+                                        </span>
+                                    </a>
+                                    </div>
+                                </div>
+                                <a href="index.html#games" class="nav-panel-footer">See all games <span aria-hidden="true">&rarr;</span></a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                        <button type="button" class="nav-trigger is-current" aria-expanded="false" aria-controls="nav-panel-apps">
+                            <span>Apps</span><svg class="nav-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                            <div class="nav-panel nav-panel-wide" id="nav-panel-apps">
+                                <div class="nav-panel-body">
+                                    <div class="nav-group">
+                                        <p class="nav-group-label">Mobile apps</p>
+                                    <a href="gif-maker.html" class="nav-card">
+                                        <img src="assets/images/gif-maker-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">GIF Maker</span>
+                                            <span class="nav-card-desc">Turn videos into GIFs</span>
+                                        </span>
+                                    </a>
+                                    <a href="clipr.html" class="nav-card">
+                                        <img src="assets/images/clipr-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Clipr</span>
+                                            <span class="nav-card-desc">Quick video editing tools</span>
+                                        </span>
+                                    </a>
+                                    <a href="loaney.html" class="nav-card">
+                                        <img src="assets/images/loaney-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Loaney</span>
+                                            <span class="nav-card-desc">Track loans &amp; debts</span>
+                                        </span>
+                                    </a>
+                                    <a href="linko.html" class="nav-card" aria-current="page">
+                                        <img src="assets/images/linko-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Linko</span>
+                                            <span class="nav-card-desc">Save &amp; organize links</span>
+                                        </span>
+                                    </a>
+                                    <a href="prompter.html" class="nav-card">
+                                        <img src="assets/images/prompter-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Prompter</span>
+                                            <span class="nav-card-desc">Organize your AI prompts</span>
+                                        </span>
+                                    </a>
+                                    </div>
+                                    <div class="nav-group">
+                                        <p class="nav-group-label">Desktop &amp; Business</p>
+                                    <a href="video-downloader.html" class="nav-card">
+                                        <img src="assets/images/video-downloader-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Video Downloader</span>
+                                            <span class="nav-card-desc">Save videos &amp; audio on Windows</span>
+                                        </span>
+                                    </a>
+                                    <a href="realigator.html" class="nav-card">
+                                        <img src="assets/images/realigator-icon.png" alt="" width="36" height="36" loading="lazy">
+                                        <span class="nav-card-text">
+                                            <span class="nav-card-title">Realigator <span class="nav-pill">B2B</span></span>
+                                            <span class="nav-card-desc">Real estate &amp; lease management</span>
+                                        </span>
+                                    </a>
+                                    </div>
+                                </div>
+                                <a href="index.html#apps" class="nav-panel-footer">See all apps <span aria-hidden="true">&rarr;</span></a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="index.html#about" class="nav-trigger">About</a>
+                        </li>
+                        <li class="nav-item">
+                        <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="nav-panel-support">
+                            <span>Support</span><svg class="nav-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                            <div class="nav-panel nav-panel-end" id="nav-panel-support">
+                                <div class="nav-panel-body">
+                                    <div class="nav-group">
+                                        <p class="nav-group-label">Get help</p>
+                                        <a href="index.html#support" class="nav-card nav-card-plain">
+                                            <span class="nav-card-text">
+                                                <span class="nav-card-title">Contact support</span>
+                                                <span class="nav-card-desc">Questions, bugs or feedback on any app or game</span>
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <div class="nav-group">
+                                        <p class="nav-group-label">Legal</p>
+                                        <ul class="nav-text-list">
+                                        <li><a href="terms.html" class="nav-text-link">Terms of Service</a></li>
+                                        <li><a href="privacy-policy.html" class="nav-text-link">Privacy: Games</a></li>
+                                        <li><a href="gif-maker-privacy-policy.html" class="nav-text-link">Privacy: GIF Maker</a></li>
+                                        <li><a href="clipr-privacy-policy.html" class="nav-text-link">Privacy: Clipr</a></li>
+                                        <li><a href="loaney-privacy-policy.html" class="nav-text-link">Privacy: Loaney</a></li>
+                                        <li><a href="linko-privacy-policy.html" class="nav-text-link">Privacy: Linko</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="business.html" class="nav-cta" aria-label="Switch to Business site">
+                        <span>For Business</span>
+                        <svg class="nav-cta-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="container">
+        <nav class="breadcrumb-nav" aria-label="Breadcrumbs">
+            <ol class="breadcrumb-list">
+                <li class="breadcrumb-item"><a href="index.html">Studio Home</a></li>
+                <li class="breadcrumb-separator">/</li>
+                <li class="breadcrumb-item"><a href="index.html#apps">Apps</a></li>
+                <li class="breadcrumb-separator">/</li>
+                <li class="breadcrumb-item current" aria-current="page">Linko: Bookmark &amp; Link Manager</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main class="product-page-container">
+
+        <!-- Product Hero Card -->
+        <article class="product-hero">
+            <div class="product-hero-banner">
+                <img src="assets/images/linko-banner.jpg" alt="Linko Bookmark and Link Manager Feature Graphic" width="960" height="420">
+            </div>
+            <div class="product-hero-body">
+                <div class="product-header-main">
+                    <img src="assets/images/linko-icon.png" alt="Linko App Icon" class="product-icon-large" width="84" height="84">
+                    <div class="product-title-group">
+                        <h1>Linko: Bookmark &amp; Link Manager</h1>
+                        <div class="tag-list">
+                            <span class="badge badge-subtle">Bookmark Manager</span>
+                            <span class="badge badge-subtle">Jetpack Compose</span>
+                            <span class="badge badge-subtle">Quick Save</span>
+                            <span class="badge badge-success"><span class="dot"></span> 100% On-Device &amp; Private</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="product-tagline">
+                    An elegant, privacy-first mobile bookmark manager and secret text vault built with Android Jetpack Compose and local Room SQLite storage. Save URLs and code snippets instantly via system text selection, Quick Save share sheet, or Quick Settings Tile—with optional biometric PIN protection for private folders.
+                </p>
+
+                <div class="product-actions-bar">
+                    <a href="https://github.com/hrud09/Linko" target="_blank" rel="noopener noreferrer" class="btn-badge">
+                        <svg class="btn-badge-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                        </svg>
+                        <span class="btn-badge-content">
+                            <span class="btn-badge-sub">VIEW ON</span>
+                            <span class="btn-badge-title">GitHub</span>
+                        </span>
+                    </a>
+                    <a href="linko-privacy-policy.html" class="btn btn-secondary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                        App Privacy Policy
+                    </a>
+                    <a href="mailto:silverbytestudio@gmail.com?subject=[App%20Support]%20Linko" class="btn btn-secondary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        Support &amp; Feedback
+                    </a>
+                </div>
+            </div>
+        </article>
+
+        <!-- Detailed Features Section -->
+        <section class="product-section">
+            <h2 class="product-section-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+                Core Bookmark &amp; Organization Features
+            </h2>
+
+            <div class="product-features-grid">
+                <div class="product-feature-card">
+                    <div class="product-feature-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                    </div>
+                    <h3>Smart Link &amp; Text Classification</h3>
+                    <p>Automatic URL detection and domain parsing instantly format incoming text or web links into clean bookmarks with auto-generated titles.</p>
+                </div>
+
+                <div class="product-feature-card">
+                    <div class="product-feature-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 8 8 12 12 16"></polyline>
+                            <line x1="16" y1="12" x2="8" y2="12"></line>
+                        </svg>
+                    </div>
+                    <h3>System Quick Save Sheet &amp; QS Tile</h3>
+                    <p>Save links from any app without interrupting your flow using Android's system text selection menu, standard Share Sheet, or Quick Settings status bar tile.</p>
+                </div>
+
+                <div class="product-feature-card">
+                    <div class="product-feature-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3>Custom Folders &amp; Cover Media</h3>
+                    <p>Organize links into custom category folders complete with custom icons, color palettes, and optional local cover images for quick visual discovery.</p>
+                </div>
+
+                <div class="product-feature-card">
+                    <div class="product-feature-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <h3>Folder Biometric &amp; PIN Lock</h3>
+                    <p>Protect sensitive folders and personal notes using fingerprint biometrics, facial recognition, or custom PIN codes with seamless Android BiometricPrompt.</p>
+                </div>
+
+                <div class="product-feature-card">
+                    <div class="product-feature-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </div>
+                    <h3>Instant Instant Search &amp; Filtering</h3>
+                    <p>Search through saved titles, web addresses, and text contents instantly across all folders or pinpoint specific categories in real time.</p>
+                </div>
+
+                <div class="product-feature-card">
+                    <div class="product-feature-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <h3>100% Local Room SQLite Vault</h3>
+                    <p>Your saved bookmarks and private notes never touch the cloud. Stored strictly inside an encrypted local SQLite database on your device.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical & Architecture Details -->
+        <section class="product-section">
+            <h2 class="product-section-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+                Technical Specifications &amp; Details
+            </h2>
+
+            <div class="specs-card">
+                <div class="specs-row">
+                    <span class="specs-label">Developer</span>
+                    <span class="specs-value">Silverbyte Studio (SBS Apps)</span>
+                </div>
+                <div class="specs-row">
+                    <span class="specs-label">Tech Stack</span>
+                    <span class="specs-value">Android Jetpack Compose, Room SQLite, Material 3, BiometricPrompt, Coil, KSP</span>
+                </div>
+                <div class="specs-row">
+                    <span class="specs-label">Source Code</span>
+                    <span class="specs-value"><a href="https://github.com/hrud09/Linko" target="_blank" rel="noopener noreferrer" class="link-inline">github.com/hrud09/Linko</a></span>
+                </div>
+                <div class="specs-row">
+                    <span class="specs-label">Data Privacy Model</span>
+                    <span class="specs-value">100% On-Device Local SQLite Storage (Zero Cloud Sync)</span>
+                </div>
+                <div class="specs-row">
+                    <span class="specs-label">Network Requirement</span>
+                    <span class="specs-value">100% Offline (Zero internet tracking)</span>
+                </div>
+                <div class="specs-row">
+                    <span class="specs-label">Privacy Policy</span>
+                    <span class="specs-value"><a href="linko-privacy-policy.html" class="link-inline">Read Linko Privacy Policy</a></span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <img src="assets/images/studio-logo.png" alt="Silverbyte Studio Logo" width="28" height="28" class="footer-logo">
+                    <span>Silverbyte Studio</span>
+                </div>
+                <ul class="footer-links">
+                    <li><a href="index.html#games">Games</a></li>
+                    <li><a href="index.html#apps">Apps</a></li>
+                    <li><a href="index.html#desktop-apps">Desktop</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="triple-tiles.html">Triple Tiles</a></li>
+                    <li><a href="fallinko.html">Fallinko</a></li>
+                    <li><a href="gif-maker.html">GIF Maker</a></li>
+                    <li><a href="clipr.html">Clipr</a></li>
+                    <li><a href="loaney.html">Loaney</a></li>
+                    <li><a href="linko.html">Linko</a></li>
+                    <li><a href="prompter.html">Prompter</a></li>
+                    <li><a href="video-downloader.html">Video Downloader</a></li>
+                    <li><a href="realigator.html">Realigator</a></li>
+                    <li><a href="linko-privacy-policy.html">Linko Privacy</a></li>
+                    <li><a href="loaney-privacy-policy.html">Loaney Privacy</a></li>
+                    <li><a href="gif-maker-privacy-policy.html">GIF Maker Privacy</a></li>
+                    <li><a href="clipr-privacy-policy.html">Clipr Privacy</a></li>
+                    <li><a href="privacy-policy.html">Games Privacy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="mailto:silverbytestudio@gmail.com">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year">2026</span> Silverbyte Studio. All rights reserved.</p>
+                <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script -->
+    <script src="assets/js/main.js?v=1.2"></script>
+</body>
+</html>
