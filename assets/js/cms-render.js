@@ -57,7 +57,14 @@ const cleanUrl = (url) => {
 // Where a product links when it has no details page yet: its store link, else nowhere.
 const hrefOf = (p) => (p.page ? cleanUrl(p.page) : p.link?.url || '#');
 
-const visible = (data, where) => (data.products || []).filter(p => p.show?.[where] !== false && p.name);
+// Which audience a page is for: the homepage is the consumer (B2C) space, business.html the B2B space.
+// Other pages (product details, legal) show everything.
+const PAGE_AUDIENCE = { 'index.html': 'b2c', 'business.html': 'b2b' };
+const audiencesOf = (p) => (p.audience || 'b2c').split(/\s+/);
+const forPage = (p, file) => !PAGE_AUDIENCE[file] || audiencesOf(p).includes(PAGE_AUDIENCE[file]);
+
+const visible = (data, where, file = '') => (data.products || [])
+    .filter(p => p.show?.[where] !== false && p.name && forPage(p, file));
 
 /* ---------- Fragments ---------- */
 
@@ -82,20 +89,21 @@ ${indent(products.map(p => navCard(p, file)).join('\n'), 4)}
 }
 
 function renderNavGames(data, file) {
-    const games = visible(data, 'nav').filter(p => p.category === 'game');
+    const games = visible(data, 'nav', file).filter(p => p.category === 'game');
     return navGroup('Mobile games', games, file);
 }
 
 function renderNavApps(data, file) {
-    const nav = visible(data, 'nav');
+    const nav = visible(data, 'nav', file);
+    const label = PAGE_AUDIENCE[file] === 'b2c' ? 'Desktop' : PAGE_AUDIENCE[file] === 'b2b' ? 'Business & Desktop' : 'Desktop & Business';
     return [
         navGroup('Mobile apps', nav.filter(p => p.category === 'app'), file),
-        navGroup('Desktop & Business', nav.filter(p => p.category === 'desktop' || p.category === 'business'), file),
+        navGroup(label, nav.filter(p => p.category === 'desktop' || p.category === 'business'), file),
     ].filter(Boolean).join('\n');
 }
 
-function renderFooterProducts(data) {
-    return visible(data, 'footer')
+function renderFooterProducts(data, file) {
+    return visible(data, 'footer', file)
         .map(p => `<li><a href="${esc(hrefOf(p))}">${esc(p.name)}</a></li>`)
         .join('\n');
 }
@@ -131,12 +139,12 @@ function renderHeroIntro(data, file) {
 <p class="lead">${esc(h.lead)}</p>`;
 }
 
-function showcaseList(data) {
-    return visible(data, 'showcase').filter(p => p.banner);
+function showcaseList(data, file) {
+    return visible(data, 'showcase', file).filter(p => p.banner);
 }
 
-function renderShowcaseSlides(data) {
-    const list = showcaseList(data);
+function renderShowcaseSlides(data, file) {
+    const list = showcaseList(data, file);
     return list.map((p, i) => {
         const tag = p.showcaseTag ? ` <span class="showcase-tag">${esc(p.showcaseTag)}</span>` : '';
         const lazy = i === 0 ? '' : ' loading="lazy"';
@@ -152,13 +160,13 @@ function renderShowcaseSlides(data) {
     }).join('\n');
 }
 
-function renderShowcaseCount(data) {
-    const n = String(showcaseList(data).length).padStart(2, '0');
+function renderShowcaseCount(data, file) {
+    const n = String(showcaseList(data, file).length).padStart(2, '0');
     return `<span class="showcase-count" aria-hidden="true"><span class="showcase-count-cur">01</span> / ${n}</span>`;
 }
 
-function renderShipped(data) {
-    const list = visible(data, 'shipped');
+function renderShipped(data, file) {
+    const list = visible(data, 'shipped', file);
     const items = list.map(p => {
         const b2b = p.category === 'business';
         const cls = b2b ? 'shipped-item shipped-item--b2b' : 'shipped-item';
@@ -241,8 +249,8 @@ ${indent([details, action].filter(Boolean).join('\n'), 12)}
 </article>`;
 }
 
-function renderGrid(data, category) {
-    return visible(data, 'grid')
+function renderGrid(data, category, file) {
+    return visible(data, 'grid', file)
         .filter(p => p.category === category)
         .map(portalCard)
         .join('\n\n');
@@ -262,11 +270,11 @@ export const REGIONS = {
     'shipped': renderShipped,
     'business-heading': (d) => renderHeading(d.sections?.business, { eyebrow: false }),
     'games-heading': (d) => renderHeading(d.sections?.games),
-    'games-grid': (d) => renderGrid(d, 'game'),
+    'games-grid': (d, f) => renderGrid(d, 'game', f),
     'apps-heading': (d) => renderHeading(d.sections?.apps),
-    'apps-grid': (d) => renderGrid(d, 'app'),
+    'apps-grid': (d, f) => renderGrid(d, 'app', f),
     'desktop-heading': (d) => renderHeading(d.sections?.desktop),
-    'desktop-grid': (d) => renderGrid(d, 'desktop'),
+    'desktop-grid': (d, f) => renderGrid(d, 'desktop', f),
     'about-heading': (d) => renderHeading(d.sections?.about),
     'support-heading': (d) => renderSupportHeading(d.sections?.support),
 };
