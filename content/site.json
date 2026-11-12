@@ -1,0 +1,275 @@
+{
+  "settings": {
+    "defaultSpace": "customers"
+  },
+  "hero": {
+    "eyebrow": "Silverbyte Studio",
+    "title": "Polished apps and games, built and shipped in-house.",
+    "lead": "Android apps, desktop tools, Unity games and custom software for businesses."
+  },
+  "sections": {
+    "business": {
+      "title": "Software built for businesses",
+      "subtitle": "Custom platforms, management systems and operational software for companies and growing teams."
+    },
+    "games": {
+      "eyebrow": "Game Portfolio",
+      "title": "Games",
+      "subtitle": "Original casual and puzzle titles built with the Unity game engine."
+    },
+    "apps": {
+      "eyebrow": "Native Mobile Applications",
+      "title": "Applications",
+      "subtitle": "Modern, native Android utility tools built with privacy-first on-device architecture."
+    },
+    "desktop": {
+      "eyebrow": "Desktop Applications",
+      "title": "Desktop Apps",
+      "subtitle": "High-performance desktop software crafted for speed, productivity, and privacy."
+    },
+    "about": {
+      "eyebrow": "Philosophy",
+      "title": "How We Build",
+      "subtitle": "Every project is built with care, focusing on tactile feedback, optimized performance, and respectful user treatment."
+    },
+    "support": {
+      "eyebrow": "Get In Touch",
+      "title": "Support & Inquiries",
+      "subtitle": "Have feedback, need technical support, or inquiring about partnerships? Reach out to our team directly."
+    }
+  },
+  "products": [
+    {
+      "id": "realigator",
+      "name": "Realigator",
+      "category": "business",
+      "page": "realigator.html",
+      "icon": "assets/images/realigator-icon.png",
+      "banner": "assets/images/realigator-banner.jpg",
+      "navDesc": "Real estate & lease management",
+      "navPill": "B2B",
+      "showcaseTag": "B2B",
+      "showcaseMeta": "Property & lease OS · Supabase, Expo, Web",
+      "shippedMeta": "Supabase · Expo · Web",
+      "audience": "b2b",
+      "shippedCategory": "saas",
+      "cardTitle": "Realigator",
+      "bannerAlt": "Realigator",
+      "badges": [],
+      "description": "Real estate and rental management for owners, operators and landlords.",
+      "detailsLabel": "View Details",
+      "link": { "type": "github", "url": "https://github.com/hrud09/Realigator" },
+      "pendingLabel": "",
+      "show": { "nav": true, "showcase": true, "shipped": true, "grid": false, "footer": true }
+    },
+    {
+      "id": "triple-tiles",
+      "name": "Triple Tiles",
+      "category": "game",
+      "page": "triple-tiles.html",
+      "icon": "assets/images/triple-tiles-icon.png",
+      "banner": "assets/images/triple-tiles-banner.jpg",
+      "navDesc": "Face-matching tile puzzle",
+      "navPill": "",
+      "showcaseTag": "Game",
+      "showcaseMeta": "3D tile-matching puzzle · Unity",
+      "shippedMeta": "Unity · Google Play",
+      "audience": "b2c",
+      "shippedCategory": "games",
+      "cardTitle": "Triple Tiles: Face Match",
+      "bannerAlt": "Triple Tiles: Face Match Puzzle",
+      "badges": [
+        { "text": "Google Play", "style": "success", "dot": true },
+        { "text": "Match-3", "style": "subtle", "dot": false }
+      ],
+      "description": "A relaxing, tactile match-3 puzzle game featuring expressive face tiles, layered 3D board formations, unlockable themes, and responsive haptics.",
+      "detailsLabel": "View Details & Features",
+      "link": { "type": "play", "url": "https://play.google.com/store/apps/details?id=com.SilverByteGames.FaceTilesMatch" },
+      "pendingLabel": "",
+      "show": { "nav": true, "showcase": true, "shipped": true, "grid": true, "footer": true }
+    },
+    {
+      "id": "loaney",
+      "name": "Loaney",
+      "category": "app",
+      "page": "loaney.html",
+      "icon": "assets/images/loaney-icon.png",
+      "banner": "assets/images/loaney-banner.jpg",
+      "navDesc": "Track loans & debts",
+      "navPill": "",
+      "showcaseTag": "App",
+      "showcaseMeta": "Personal debt ledger · Jetpack Compose",
+      "shippedMeta": "Jetpack Compose",
+      "audience": "b2c",
+      "shippedCategory": "tools",
+      "cardTitle": "Loaney: Debt & Loan Tracker",
+      "bannerAlt": "Loaney: Debt & Loan Tracker",
+      "badges": [
+        { "text": "100% Private", "style": "success", "dot": true },
+        { "text": "Finance", "style": "subtle", "dot": false }
+      ],
+      "description": "Comprehensive personal debt and loan tracking ledger with 360° net balance dashboard, digital wallet & MFS QR storage, and repayment calendar.",
+      "detailsLabel": "View Details",
+      "link": { "type": "github", "url": "https://github.com/hrud09/Loaney" },
+      "pendingLabel": "",
+      "show": { "nav": true, "showcase": true, "shipped": true, "grid": true, "footer": true }
+    },
+    {
+      "id": "gif-maker",
+      "name": "GIF Maker",
+      "category": "app",
+      "page": "gif-maker.html",
+      "icon": "assets/images/gif-maker-icon.png",
+      "banner": "assets/images/gif-maker-banner.jpg",
+      "navDesc": "Turn videos into GIFs",
+      "navPill": "",
+      "showcaseTag": "App",
+      "showcaseMeta": "Turn videos into GIFs · Jetpack Compose",
+      "shippedMeta": "Jetpack Compose",
+      "audience": "b2c",
+      "shippedCategory": "tools",
+      "cardTitle": "GIF Maker: Video to GIF",
+      "bannerAlt": "GIF Maker: Video to GIF",
+      "badges": [
+        { "text": "Closed Testing", "style": "amber", "dot": true },
+        { "text": "Compose", "style": "subtle", "dot": false }
+      ],
+      "description": "Fast and offline GIF creator and converter. Video to GIF, photos to GIF, GIF to MP4, and pinpoint frame extraction with zero watermarks.",
+      "detailsLabel": "View Details",
+      "link": { "type": "play", "url": "https://play.google.com/store/apps/details?id=com.sbs.gifmaker" },
+      "pendingLabel": "",
+      "show": { "nav": true, "showcase": true, "shipped": true, "grid": true, "footer": true }
+    },
+    {
+      "id": "linko",
+      "name": "Linko",
+      "category": "app",
+      "page": "linko.html",
+      "icon": "assets/images/linko-icon.png",
+      "banner": "assets/images/linko-banner.jpg",
+      "navDesc": "Save & organize links",
+      "navPill": "",
+      "showcaseTag": "App",
+      "showcaseMeta": "Link vault · Jetpack Compose",
+      "shippedMeta": "Jetpack Compose",
+      "audience": "b2c",
+      "shippedCategory": "tools",
+      "cardTitle": "Linko: Bookmark & Link Vault",
+      "bannerAlt": "Linko: Bookmark & Link Manager",
+      "badges": [
+        { "text": "Quick Save", "style": "success", "dot": true },
+        { "text": "Bookmarks", "style": "subtle", "dot": false }
+      ],
+      "description": "Fast and privacy-first bookmark manager & note vault. Quick Save share sheet, system text toolbar integration, Quick Settings tile, and biometric PIN protection.",
+      "detailsLabel": "View Details",
+      "link": { "type": "github", "url": "https://github.com/hrud09/Linko" },
+      "pendingLabel": "",
+      "show": { "nav": true, "showcase": true, "shipped": true, "grid": true, "footer": true }
+    },
+    {
+      "id": "clipr",
+      "name": "Clipr",
+      "category": "app",
+      "page": "clipr.html",
+      "icon": "assets/images/clipr-icon.png",
+      "banner": "assets/images/clipr-banner.jpg",
+      "navDesc": "Quick video editing tools",
+      "navPill": "",
+      "showcaseTag": "App",
+      "showcaseMeta": "Quick video editing · Jetpack Compose",
+      "shippedMeta": "Jetpack Compose",
+      "audience": "b2c",
+      "shippedCategory": "tools",
+      "cardTitle": "Clipr: Quick Video Tools",
+      "bannerAlt": "Clipr: Quick Video Tools",
+      "badges": [
+        { "text": "On-Device AI", "style": "success", "dot": true },
+        { "text": "Video Editor", "style": "subtle", "dot": false }
+      ],
+      "description": "Privacy-first mobile video editor with precision trimming, clip merging, Google ML Kit subject segmentation, intro frames, and local Room drafts.",
+      "detailsLabel": "View Details",
+      "link": { "type": "github", "url": "https://github.com/hrud09/Clipr" },
+      "pendingLabel": "",
+      "show": { "nav": true, "showcase": true, "shipped": true, "grid": true, "footer": true }
+    },
+    {
+      "id": "prompter",
+      "name": "Prompter",
+      "category": "app",
+      "page": "prompter.html",
+      "icon": "assets/images/prompter-icon.png",
+      "banner": "assets/images/prompter-banner.jpg",
+      "navDesc": "Organize your AI prompts",
+      "navPill": "",
+      "showcaseTag": "App",
+      "showcaseMeta": "AI prompt library · Flutter",
+      "shippedMeta": "Flutter",
+      "audience": "b2c",
+      "shippedCategory": "tools",
+      "cardTitle": "Prompter: AI Prompt Manager",
+      "bannerAlt": "Prompter: AI Prompt Manager",
+      "badges": [
+        { "text": "Prompt Engineering", "style": "subtle", "dot": false },
+        { "text": "Flutter", "style": "subtle", "dot": false }
+      ],
+      "description": "Personal offline library for engineering and versioning AI prompts. Multi-version history, dynamic variable placeholders, image attachments, and instant search.",
+      "detailsLabel": "View Details",
+      "link": { "type": "github", "url": "https://github.com/hrud09/Prompter" },
+      "pendingLabel": "",
+      "show": { "nav": true, "showcase": true, "shipped": true, "grid": true, "footer": true }
+    },
+    {
+      "id": "video-downloader",
+      "name": "Video Downloader",
+      "category": "desktop",
+      "page": "video-downloader.html",
+      "icon": "assets/images/video-downloader-icon.png",
+      "banner": "assets/images/video-downloader-banner.jpg",
+      "navDesc": "Save videos & audio on Windows",
+      "navPill": "",
+      "showcaseTag": "Desktop",
+      "showcaseMeta": "Save videos & audio · Electron, Windows",
+      "shippedMeta": "Electron · Windows",
+      "audience": "b2c b2b",
+      "shippedCategory": "desktop",
+      "cardTitle": "Video Downloader",
+      "bannerAlt": "Video Downloader",
+      "badges": [
+        { "text": "Windows", "style": "success", "dot": true },
+        { "text": "Electron & React", "style": "subtle", "dot": false },
+        { "text": "yt-dlp + FFmpeg", "style": "subtle", "dot": false }
+      ],
+      "description": "Fast, lightweight desktop media downloader wrapping yt-dlp and FFmpeg. Features automatic clipboard prefill, concurrent queue manager, 4K quality presets, audio extraction, and built-in playback.",
+      "detailsLabel": "View Details & Features",
+      "link": { "type": "github", "url": "https://github.com/hrud09/Video-Downloader-for-PC" },
+      "pendingLabel": "",
+      "show": { "nav": true, "showcase": true, "shipped": true, "grid": true, "footer": true }
+    },
+    {
+      "id": "fallinko",
+      "name": "Fallinko",
+      "category": "game",
+      "page": "fallinko.html",
+      "icon": "assets/images/fallinko-icon.png",
+      "banner": "",
+      "navDesc": "Physics drop & score arcade",
+      "navPill": "Soon",
+      "showcaseTag": "Game",
+      "showcaseMeta": "Physics arcade · Unity",
+      "shippedMeta": "Unity · In development",
+      "audience": "b2c",
+      "shippedCategory": "games",
+      "cardTitle": "Fallinko",
+      "bannerAlt": "Fallinko",
+      "badges": [
+        { "text": "In Development", "style": "amber", "dot": true },
+        { "text": "Physics Arcade", "style": "subtle", "dot": false }
+      ],
+      "description": "A physics-driven kinetic arcade title combining pinball-inspired ball drops, multiplier buckets, upgrade loops, and satisfying peg board collisions.",
+      "detailsLabel": "View Details & Features",
+      "link": { "type": "none", "url": "" },
+      "pendingLabel": "Under Development",
+      "show": { "nav": true, "showcase": false, "shipped": true, "grid": true, "footer": true }
+    }
+  ]
+}
