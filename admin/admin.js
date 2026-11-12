@@ -1002,7 +1002,7 @@ function viewText() {
         ${area('Lead', 'd.hero.lead', d.hero?.lead, { rows: 2 })}
     </section>
     ${section('business', 'Business section', 'The B2B block with the Realigator flagship.', { eyebrow: false })}
-    ${section('games', 'Games section', 'Above the game cards.')}
+    ${section('games', 'Games section', 'Above the game cards.', { eyebrow: false })}
     ${section('apps', 'Applications section', 'Above the mobile app cards.')}
     ${section('desktop', 'Desktop apps section', 'Above the desktop app cards.')}
     ${section('about', 'How we build', 'The philosophy section.')}

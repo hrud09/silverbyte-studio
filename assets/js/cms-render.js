@@ -272,7 +272,7 @@ export const REGIONS = {
     'showcase-count': renderShowcaseCount,
     'shipped': renderShipped,
     'business-heading': (d) => renderHeading(d.sections?.business, { eyebrow: false }),
-    'games-heading': (d) => renderHeading(d.sections?.games),
+    'games-heading': (d) => renderHeading(d.sections?.games, { eyebrow: false }),
     'games-grid': (d, f) => renderGrid(d, 'game', f),
     'apps-heading': (d) => renderHeading(d.sections?.apps),
     'apps-grid': (d, f) => renderGrid(d, 'app', f),

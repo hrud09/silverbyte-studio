@@ -6043,6 +6043,28 @@ header.site-header,
     text-wrap: balance;
 }
 
+/* Top portfolio headers on both screens (Games & B2B Business Space) */
+#games .section-header,
+#business-space .section-header {
+    text-align: center;
+    max-width: 100%;
+}
+
+#games .section-title,
+#business-space .section-title {
+    font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+    max-width: 100%;
+    text-wrap: normal;
+}
+
+#games .section-subtitle,
+#business-space .section-subtitle {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-wrap: normal;
+}
+
 /* Quieter band separators: a solid hairline reads cleaner than dashed trails */
 .section-alt {
     border-top: 2px solid rgba(134, 104, 79, 0.26);
