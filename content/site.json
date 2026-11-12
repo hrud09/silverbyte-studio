@@ -3,7 +3,7 @@
     "defaultSpace": "business"
   },
   "hero": {
-    "show": false,
+    "show": true,
     "eyebrow": "Silverbyte Studio",
     "title": "Polished apps and games, built and shipped in-house.",
     "lead": "Android apps, desktop tools, Unity games and custom software for businesses."
