@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AudioX: Video to MP3 Extractor - On-Device Android Audio Utility | Silverbyte Studio</title>
+    <meta name="description" content="AudioX is a focused, privacy-first Android utility built with Flutter and native FFmpeg. Extract 192 kbps MP3 audio from local videos and shared links, preview, rename, and batch-save directly to Music/AudioX/.">
+    <meta name="robots" content="index, follow">
+
+    <!-- Canonical & Favicon -->
+    <link rel="canonical" href="https://silverbytestudio.com/audiox">
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="assets/images/audiox-icon.png">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://silverbytestudio.com/audiox">
+    <meta property="og:title" content="AudioX: Video to MP3 Extractor | Silverbyte Studio">
+    <meta property="og:description" content="Extract audio from video. Save it. Done. On-device FFmpeg MP3 extraction, Android Share Sheet integration, batch queue, and built-in preview.">
+    <meta property="og:image" content="https://silverbytestudio.com/assets/images/audiox-banner.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AudioX: Video to MP3 Extractor | Silverbyte Studio">
+    <meta name="twitter:description" content="Privacy-first Android audio extractor with native FFmpeg, Share Sheet integration, and background batch processing.">
+    <meta name="twitter:image" content="https://silverbytestudio.com/assets/images/audiox-banner.jpg">
+
+    <!-- Stylesheets -->
+    <!-- Fonts: Lilita One + Fredoka + Nunito (Workshop Game UI) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Lilita+One&family=Nunito:wght@500;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="assets/css/style.css?v=2.8">
+
+    <!-- Schema.org MobileApplication JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MobileApplication",
+      "name": "AudioX: Video to MP3 Extractor",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Android 10 and up",
+      "inLanguage": "en",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Silverbyte Studio"
+      },
+      "url": "https://silverbytestudio.com/audiox",
+      "image": "https://silverbytestudio.com/assets/images/audiox-banner.jpg"
+    }
+    </script>
+</head>
+<body>
+
+    <!-- Site Header & Navigation -->
+    <header class="site-header">
+        <div class="container">
+            <nav class="site-nav" aria-label="Main">
+                <a href="/" class="brand-link" aria-label="Silverbyte Studio home">
+                    <img src="assets/images/studio-logo.png" alt="" class="brand-logo" width="32" height="32">
+                    <span class="brand-title">Silverbyte Studio</span>
+                </a>
+
+                <button type="button" class="nav-toggle" aria-controls="site-menu" aria-expanded="false" aria-label="Open menu">
+                    <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+                </button>
+
+                <div class="nav-menu" id="site-menu">
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                        <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="nav-panel-games">
+                            <span>Games</span><svg class="nav-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                            <div class="nav-panel" id="nav-panel-games">
+                                <div class="nav-panel-body">
+                                    <!-- cms:nav-games -->
+                                    <div class="nav-group">
+                                        <p class="nav-group-label">Mobile games</p>
+                                        <a href="triple-tiles" class="nav-card">
+                                            <img src="assets/images/triple-tiles-icon.png" alt="" width="36" height="36" loading="lazy">
+                                            <span class="nav-card-text">
+                                                <span class="nav-card-title">Triple Tiles</span>
+                                                <span class="nav-card-desc">Face-matching tile puzzle</span>
+                                            </span>
+                                        </a>
+                                        <a href="fallinko" class="nav-card">
+                                            <img src="assets/images/fallinko-icon.png" alt="" width="36" height="36" loading="lazy">
+                                            <span class="nav-card-text">
+                                                <span class="nav-card-title">Fallinko <span class="nav-pill">Soon</span></span>
+                                                <span class="nav-card-desc">Physics drop &amp; score arcade</span>
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <!-- /cms:nav-games -->
+                                </div>
+                                <a href="/#games" class="nav-panel-footer">See all games <span aria-hidden="true">&rarr;</span></a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                        <button type="button" class="nav-trigger is-current" aria-expanded="false" aria-controls="nav-panel-apps">
+                            <span>Apps</span><svg class="nav-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                            <div class="nav-panel nav-panel-wide" id="nav-panel-apps">
+                                <div class="nav-panel-body">
+                                    <!-- cms:nav-apps -->
+                                    <div class="nav-group">
+                                        <p class="nav-group-label">Mobile apps</p>
+                                        <a href="loaney" class="nav-card">
+                                            <img src="assets/images/loaney-icon.png" alt="" width="36" height="36" loading="lazy">
+                                            <span class="nav-card-text">
+                                                <span class="nav-card-title">Loaney</span>
+                                                <span class="nav-card-desc">Track loans &amp; debts</span>
+                                            </span>
+                                        </a>
+                                        <a href="gif-maker" class="nav-card">
+                                            <img src="assets/images/gif-maker-icon.png" alt="" width="36" height="36" loading="lazy">
+                                            <span class="nav-card-text">
+                                                <span class="nav-card-title">GIF Maker</span>
+                                                <span class="nav-card-desc">Turn videos into GIFs</span>
+                                            </span>
+                                        </a>
+                                        <a href="linko" class="nav-card">
+                                            <img src="assets/images/linko-icon.png" alt="" width="36" height="36" loading="lazy">
+                                            <span class="nav-card-text">
+                                                <span class="nav-card-title">Linko</span>
+                                                <span class="nav-card-desc">Save &amp; organize links</span>
+                                            </span>
+                                        </a>
+                                        <a href="clipr" class="nav-card">
+                                            <img src="assets/images/clipr-icon.png" alt="" width="36" height="36" loading="lazy">
+                                            <span class="nav-card-text">
+                                                <span class="nav-card-title">Clipr</span>
+                                                <span class="nav-card-desc">Quick video editing tools</span>
+                                            </span>
+                                        </a>
+                                        <a href="prompter" class="nav-card">
+                                            <img src="assets/images/prompter-icon.png" alt="" width="36" height="36" loading="lazy">
+                                            <span class="nav-card-text">
+                                                <span class="nav-card-title">Prompter</span>
+                                                <span class="nav-card-desc">Organize your AI prompts</span>
+                                            </span>
+                                        </a>
+                                        <a href="audiox" class="nav-card" aria-current="page">
+                                            <img src="assets/images/audiox-icon.png" alt="" width="36" height="36" loading="lazy">
+                                            <span class="nav-card-text">
+                                                <span class="nav-card-title">AudioX</span>
+                                                <span class="nav-card-desc">Extract audio from video</span>
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <div class="nav-group">
+                                        <p class="nav-group-label">Desktop &amp; Business</p>
+                                        <a href="realigator" class="nav-card">
+                                            <img src="assets/images/realigator-icon.png" alt="" width="36" height="36" loading="lazy">
+                                            <span class="nav-card-text">
+                                                <span class="nav-card-title">Realigator <span class="nav-pill">B2B</span></span>
+                                                <span class="nav-card-desc">Real estate &amp; lease management</span>
+                                            </span>
+                                        </a>
+                                        <a href="bariwala" class="nav-card">
+                                            <img src="assets/images/bariwala-icon.png" alt="" width="36" height="36" loading="lazy">
+                                            <span class="nav-card-text">
+                                                <span class="nav-card-title">Bariwala <span class="nav-pill">B2B</span></span>
+                                                <span class="nav-card-desc">Smart property &amp; rental ledger</span>
+                                            </span>
+                                        </a>
+                                        <a href="video-downloader" class="nav-card">
+                                            <img src="assets/images/video-downloader-icon.png" alt="" width="36" height="36" loading="lazy">
+                                            <span class="nav-card-text">
+                                                <span class="nav-card-title">Video Downloader</span>
+                                                <span class="nav-card-desc">Save videos &amp; audio on Windows</span>
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <!-- /cms:nav-apps -->
+                                </div>
+                                <a href="/#apps" class="nav-panel-footer">See all apps <span aria-hidden="true">&rarr;</span></a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/#about" class="nav-trigger">About</a>
+                        </li>
+                        <li class="nav-item">
+                        <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="nav-panel-support">
+                            <span>Support</span><svg class="nav-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </button>
+                            <div class="nav-panel nav-panel-end" id="nav-panel-support">
+                                <div class="nav-panel-body">
+                                    <div class="nav-group">
+                                        <p class="nav-group-label">Get help</p>
+                                        <a href="/#support" class="nav-card nav-card-plain">
+                                            <span class="nav-card-text">
+                                                <span class="nav-card-title">Contact support</span>
+                                                <span class="nav-card-desc">Questions, bugs or feedback on any app or game</span>
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <div class="nav-group">
+                                        <p class="nav-group-label">Legal</p>
+                                        <ul class="nav-text-list">
+                                        <li><a href="/terms" class="nav-text-link">Terms of Service</a></li>
+                                        <li><a href="/privacy-policy" class="nav-text-link">Privacy: Games</a></li>
+                                        <li><a href="/gif-maker-privacy-policy" class="nav-text-link">Privacy: GIF Maker</a></li>
+                                        <li><a href="/clipr-privacy-policy" class="nav-text-link">Privacy: Clipr</a></li>
+                                        <li><a href="/loaney-privacy-policy" class="nav-text-link">Privacy: Loaney</a></li>
+                                        <li><a href="/linko-privacy-policy" class="nav-text-link">Privacy: Linko</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="/business" class="nav-cta" aria-label="Switch to Business site">
+                        <span>For Business</span>
+                        <svg class="nav-cta-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="container">
+        <nav class="breadcrumb-nav" aria-label="Breadcrumbs">
+            <ol class="breadcrumb-list">
+                <li class="breadcrumb-item"><a href="/">Studio Home</a></li>
+                <li class="breadcrumb-separator">/</li>
+                <li class="breadcrumb-item"><a href="/#apps">Apps</a></li>
+                <li class="breadcrumb-separator">/</li>
+                <li class="breadcrumb-item current" aria-current="page">AudioX: Video to MP3 Extractor</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main class="product-page-container">
+
+        <!-- Product Hero Card -->
+        <article class="product-hero">
+            <div class="product-hero-banner">
+                <img src="assets/images/audiox-banner.jpg" alt="AudioX Video to MP3 Audio Extractor Banner" width="960" height="420">
+            </div>
+            <div class="product-hero-body">
+                <div class="product-header-main">
+                    <img src="assets/images/audiox-icon.png" alt="AudioX App Icon" class="product-icon-large" width="84" height="84">
+                    <div class="product-title-group">
+                        <h1>AudioX: Video to MP3 Extractor</h1>
+                        <div class="tag-list">
+                            <span class="badge badge-subtle">Audio Extractor</span>
+                            <span class="badge badge-subtle">Flutter &amp; FFmpeg</span>
+                            <span class="badge badge-subtle">Batch Queue</span>
+                            <span class="badge badge-success"><span class="dot"></span> 100% On-Device &amp; Private</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="product-tagline">
+                    Extract audio from video. Save it. Done. AudioX is a focused, single-purpose Android utility built with Flutter and native FFmpeg that converts local device videos and shared video links into clean 192 kbps MP3s—with Share Sheet launch, in-app playback preview, custom renaming, and background batch extraction directly to <code>Music/AudioX/</code>.
+                </p>
+
+                <div class="product-actions-bar">
+                    <a href="https://github.com/hrud09/AudioX" target="_blank" rel="noopener noreferrer" class="btn-badge">
+                        <svg class="btn-badge-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                        </svg>
+                        <span class="btn-badge-content">
+                            <span class="btn-badge-sub">VIEW ON</span>
+                            <span class="btn-badge-title">GitHub</span>
+                        </span>
+                    </a>
+                    <a href="mailto:silverbytestudio@gmail.com?subject=[App%20Support]%20AudioX" class="btn btn-secondary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        Support &amp; Feedback
+                    </a>
+                </div>
+            </div>
+        </article>
+
+        <!-- Detailed Features Section -->
+        <section class="product-section">
+            <h2 class="product-section-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+                Core Audio Extraction Capabilities
+            </h2>
+
+            <div class="product-features-grid">
+                <div class="product-feature-card">
+                    <div class="product-feature-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="18" cy="5" r="3"></circle>
+                            <circle cx="6" cy="12" r="3"></circle>
+                            <circle cx="18" cy="19" r="3"></circle>
+                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                        </svg>
+                    </div>
+                    <h3>Share-First Android Workflow</h3>
+                    <p>Registered for <code>ACTION_SEND</code> and <code>ACTION_SEND_MULTIPLE</code> across video files, streams, and URLs. Share from your Gallery, File Manager, or browser to jump straight into extraction.</p>
+                </div>
+
+                <div class="product-feature-card">
+                    <div class="product-feature-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 18V5l12-2v13"></path>
+                            <circle cx="6" cy="18" r="3"></circle>
+                            <circle cx="18" cy="16" r="3"></circle>
+                        </svg>
+                    </div>
+                    <h3>Native On-Device FFmpeg Encoding</h3>
+                    <p>Extracts audio streams offline via <code>libmp3lame</code> at 192 kbps stereo, stripping bloated container metadata while writing clean ID3v2.3 tags for universal player compatibility.</p>
+                </div>
+
+                <div class="product-feature-card">
+                    <div class="product-feature-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="8" y1="6" x2="21" y2="6"></line>
+                            <line x1="8" y1="12" x2="21" y2="12"></line>
+                            <line x1="8" y1="18" x2="21" y2="18"></line>
+                            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                        </svg>
+                    </div>
+                    <h3>Batch Queue &amp; Background Service</h3>
+                    <p>Queue up to 50 videos at once with sequential low-memory processing, automatic transient error retries, and an Android foreground service with live progress notifications.</p>
+                </div>
+
+                <div class="product-feature-card">
+                    <div class="product-feature-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                    </div>
+                    <h3>In-App Audio Preview &amp; Rename</h3>
+                    <p>Audition extracted tracks immediately with play, pause, seek bar scrubbing, and duration readouts powered by <code>just_audio</code>, then customize filenames before saving.</p>
+                </div>
+
+                <div class="product-feature-card">
+                    <div class="product-feature-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3>Scoped Storage &amp; Collision Safety</h3>
+                    <p>Publishes MP3 files atomically to <code>Music/AudioX/</code> using Android's <code>MediaStore.Audio.Media</code> with automatic <code>(1)</code>, <code>(2)</code> deduplication and zero broad storage permissions.</p>
+                </div>
+
+                <div class="product-feature-card">
+                    <div class="product-feature-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                    </div>
+                    <h3>Modular URL Resolver Pipeline</h3>
+                    <p>Resolves direct media links (<code>.mp4</code>, <code>.webm</code>, <code>.mkv</code>) and OpenGraph video metadata with streaming byte progress, cancellation support, and clear DRM platform detection.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical & Architecture Details -->
+        <section class="product-section">
+            <h2 class="product-section-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+                Technical Specifications &amp; Details
+            </h2>
+
+            <div class="specs-card">
+                <div class="specs-row">
+                    <span class="specs-label">Developer</span>
+                    <span class="specs-value">Silverbyte Studio (SBS Apps)</span>
+                </div>
+                <div class="specs-row">
+                    <span class="specs-label">Tech Stack</span>
+                    <span class="specs-value">Flutter (Dart 3), Kotlin Platform Channels, FFmpeg (libmp3lame), just_audio</span>
+                </div>
+                <div class="specs-row">
+                    <span class="specs-label">Target Platform</span>
+                    <span class="specs-value">Android 10+ (minSdk 29 / compileSdk 37, Scoped Storage &amp; MediaStore)</span>
+                </div>
+                <div class="specs-row">
+                    <span class="specs-label">Output Format</span>
+                    <span class="specs-value">MP3 (192 kbps stereo, ID3v2.3 tags, saved to <code>Music/AudioX/</code>)</span>
+                </div>
+                <div class="specs-row">
+                    <span class="specs-label">Source Code</span>
+                    <span class="specs-value"><a href="https://github.com/hrud09/AudioX" target="_blank" rel="noopener noreferrer" class="link-inline">github.com/hrud09/AudioX</a></span>
+                </div>
+                <div class="specs-row">
+                    <span class="specs-label">Data Privacy Model</span>
+                    <span class="specs-value">100% On-Device Local Processing (Zero accounts, analytics, or cloud uploads)</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <img src="assets/images/studio-logo.png" alt="Silverbyte Studio Logo" width="28" height="28" class="footer-logo">
+                    <span>Silverbyte Studio</span>
+                </div>
+                <ul class="footer-links">
+                    <li><a href="/#games">Games</a></li>
+                    <li><a href="/#apps">Apps</a></li>
+                    <li><a href="/#desktop-apps">Desktop</a></li>
+                    <li><a href="/#about">About</a></li>
+                    <!-- cms:footer-products -->
+                    <li><a href="realigator">Realigator</a></li>
+                    <li><a href="bariwala">Bariwala</a></li>
+                    <li><a href="triple-tiles">Triple Tiles</a></li>
+                    <li><a href="loaney">Loaney</a></li>
+                    <li><a href="gif-maker">GIF Maker</a></li>
+                    <li><a href="linko">Linko</a></li>
+                    <li><a href="clipr">Clipr</a></li>
+                    <li><a href="prompter">Prompter</a></li>
+                    <li><a href="audiox">AudioX</a></li>
+                    <li><a href="video-downloader">Video Downloader</a></li>
+                    <li><a href="fallinko">Fallinko</a></li>
+                    <!-- /cms:footer-products -->
+                    <li><a href="/loaney-privacy-policy">Loaney Privacy</a></li>
+                    <li><a href="/gif-maker-privacy-policy">GIF Maker Privacy</a></li>
+                    <li><a href="/clipr-privacy-policy">Clipr Privacy</a></li>
+                    <li><a href="/privacy-policy">Games Privacy</a></li>
+                    <li><a href="/terms">Terms of Service</a></li>
+                    <li><a href="mailto:silverbytestudio@gmail.com">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year">2026</span> Silverbyte Studio. All rights reserved.</p>
+                <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script -->
+    <script src="assets/js/main.js?v=1.2"></script>
+</body>
+</html>

@@ -363,6 +363,49 @@
       }
     },
     {
+      "id": "audiox",
+      "name": "AudioX",
+      "category": "app",
+      "page": "audiox.html",
+      "icon": "assets/images/audiox-icon.png",
+      "banner": "assets/images/audiox-banner.jpg",
+      "navDesc": "Extract audio from video",
+      "navPill": "",
+      "showcaseTag": "App",
+      "showcaseMeta": "Video to MP3 extractor · Flutter, FFmpeg",
+      "shippedMeta": "Flutter · FFmpeg",
+      "audience": "b2c",
+      "shippedCategory": "tools",
+      "cardTitle": "AudioX: Video to MP3 Extractor",
+      "bannerAlt": "AudioX: Video to MP3 Extractor",
+      "badges": [
+        {
+          "text": "On-Device FFmpeg",
+          "style": "success",
+          "dot": true
+        },
+        {
+          "text": "Flutter",
+          "style": "subtle",
+          "dot": false
+        }
+      ],
+      "description": "Focused, single-purpose Android audio extractor. Share videos or links from any app, preview and rename tracks, or batch-extract up to 50 videos offline to Music/AudioX/.",
+      "detailsLabel": "View Details",
+      "link": {
+        "type": "github",
+        "url": "https://github.com/hrud09/AudioX"
+      },
+      "pendingLabel": "",
+      "show": {
+        "nav": true,
+        "showcase": true,
+        "shipped": true,
+        "grid": true,
+        "footer": true
+      }
+    },
+    {
       "id": "video-downloader",
       "name": "Video Downloader",
       "category": "desktop",
