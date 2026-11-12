@@ -32,18 +32,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
-    <link rel="stylesheet" href="assets/css/style.css?v=2.2">
-    <!-- Decide gating before first paint so neither the lock nor the finder flashes -->
-    <script>
-        (function () {
-            var c = document.documentElement.classList;
-            try {
-                var p = JSON.parse(localStorage.getItem('silverbyte_studio_preference') || 'null');
-                c.add(p && p.isActivated ? 'sb-returning' : 'sb-gated');
-            } catch (e) { c.add('sb-gated'); }
-        })();
-    </script>
-
+    <link rel="stylesheet" href="assets/css/style.css?v=2.7">
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
     {
@@ -214,8 +203,19 @@
 
     <!-- Hero Section -->
     <section class="hero hero-split" id="hero">
-        <div class="container hero-split-grid">
-            <!-- Left Side: Interactive Question-Answering Session & Matched Studio Profile -->
+        <div class="container">
+            <!-- Intro copy: full width, centered above both columns -->
+            <header class="hero-intro">
+                <p class="eyebrow">
+                    <span class="eyebrow-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+                    Silverbyte Studio
+                </p>
+                <h1>Polished apps and games, built and shipped in-house.</h1>
+                <p class="lead">Android apps, desktop tools, Unity games and custom software for businesses.</p>
+            </header>
+
+            <div class="hero-split-grid">
+            <!-- Left Side: project showcase -->
             <div class="hero-interactive-container">
                 <!-- Icon sprite (Lucide outlines, DESIGN.md §6) -->
                 <svg class="sb-sprite" aria-hidden="true" focusable="false">
@@ -241,195 +241,102 @@
                     <symbol id="i-idcard" viewBox="0 0 24 24"><path d="M16 10h2M16 14h2"/><path d="M6.17 15a3 3 0 0 1 5.66 0"/><circle cx="9" cy="11" r="2"/><rect x="2" y="5" width="20" height="14" rx="2"/></symbol>
                 </svg>
 
-                <!-- View A: Studio Algorithm Finder (first visit & re-tuning) -->
-                <div class="hero-interactive-session" id="hero-interactive-session">
-                    <div class="qa-header">
-                        <div class="qa-header-top">
-                            <p class="eyebrow">
-                                <span class="eyebrow-dots" aria-hidden="true"><span></span><span></span><span></span></span>
-                                Studio Algorithm Finder
-                            </p>
-                            <button type="button" class="btn-skip-text" id="btn-skip-interactive">Skip &amp; browse everything</button>
+                <!-- Project showcase carousel -->
+                <div class="hero-showcase">
+                    <!--
+                      Project showcase. A slide can hold an <img> or a video, e.g.
+                      <video class="showcase-media" src="assets/videos/clipr.mp4" poster="assets/images/clipr-banner.jpg" muted playsinline preload="metadata"></video>
+                      A video plays while its slide is shown and the carousel moves on when it ends.
+                    -->
+                    <div class="showcase" id="showcase" role="region" aria-roledescription="carousel" aria-label="Project showcase">
+                        <div class="showcase-viewport">
+                            <ul class="showcase-track">
+                                <li class="showcase-slide" role="group" aria-roledescription="slide" aria-label="1 of 8: Realigator">
+                                    <a href="realigator.html" class="showcase-link">
+                                        <img class="showcase-media" src="assets/images/realigator-banner.jpg" alt="Realigator" decoding="async">
+                                        <span class="showcase-caption">
+                                            <span class="showcase-title">Realigator <span class="showcase-tag">B2B</span></span>
+                                            <span class="showcase-meta">Property &amp; lease OS · Supabase, Expo, Web</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="showcase-slide" role="group" aria-roledescription="slide" aria-label="2 of 8: Triple Tiles">
+                                    <a href="triple-tiles.html" class="showcase-link">
+                                        <img class="showcase-media" src="assets/images/triple-tiles-banner.jpg" alt="Triple Tiles" loading="lazy" decoding="async">
+                                        <span class="showcase-caption">
+                                            <span class="showcase-title">Triple Tiles <span class="showcase-tag">Game</span></span>
+                                            <span class="showcase-meta">3D tile-matching puzzle · Unity</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="showcase-slide" role="group" aria-roledescription="slide" aria-label="3 of 8: Loaney">
+                                    <a href="loaney.html" class="showcase-link">
+                                        <img class="showcase-media" src="assets/images/loaney-banner.jpg" alt="Loaney" loading="lazy" decoding="async">
+                                        <span class="showcase-caption">
+                                            <span class="showcase-title">Loaney <span class="showcase-tag">App</span></span>
+                                            <span class="showcase-meta">Personal debt ledger · Jetpack Compose</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="showcase-slide" role="group" aria-roledescription="slide" aria-label="4 of 8: GIF Maker">
+                                    <a href="gif-maker.html" class="showcase-link">
+                                        <img class="showcase-media" src="assets/images/gif-maker-banner.jpg" alt="GIF Maker" loading="lazy" decoding="async">
+                                        <span class="showcase-caption">
+                                            <span class="showcase-title">GIF Maker <span class="showcase-tag">App</span></span>
+                                            <span class="showcase-meta">Turn videos into GIFs · Jetpack Compose</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="showcase-slide" role="group" aria-roledescription="slide" aria-label="5 of 8: Clipr">
+                                    <a href="clipr.html" class="showcase-link">
+                                        <img class="showcase-media" src="assets/images/clipr-banner.jpg" alt="Clipr" loading="lazy" decoding="async">
+                                        <span class="showcase-caption">
+                                            <span class="showcase-title">Clipr <span class="showcase-tag">App</span></span>
+                                            <span class="showcase-meta">Quick video editing · Jetpack Compose</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="showcase-slide" role="group" aria-roledescription="slide" aria-label="6 of 8: Linko">
+                                    <a href="linko.html" class="showcase-link">
+                                        <img class="showcase-media" src="assets/images/linko-banner.jpg" alt="Linko" loading="lazy" decoding="async">
+                                        <span class="showcase-caption">
+                                            <span class="showcase-title">Linko <span class="showcase-tag">App</span></span>
+                                            <span class="showcase-meta">Link vault · Jetpack Compose</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="showcase-slide" role="group" aria-roledescription="slide" aria-label="7 of 8: Prompter">
+                                    <a href="prompter.html" class="showcase-link">
+                                        <img class="showcase-media" src="assets/images/prompter-banner.jpg" alt="Prompter" loading="lazy" decoding="async">
+                                        <span class="showcase-caption">
+                                            <span class="showcase-title">Prompter <span class="showcase-tag">App</span></span>
+                                            <span class="showcase-meta">AI prompt library · Flutter</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="showcase-slide" role="group" aria-roledescription="slide" aria-label="8 of 8: Video Downloader">
+                                    <a href="video-downloader.html" class="showcase-link">
+                                        <img class="showcase-media" src="assets/images/video-downloader-banner.jpg" alt="Video Downloader" loading="lazy" decoding="async">
+                                        <span class="showcase-caption">
+                                            <span class="showcase-title">Video Downloader <span class="showcase-tag">Desktop</span></span>
+                                            <span class="showcase-meta">Save videos &amp; audio · Electron, Windows</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <span class="showcase-progress" aria-hidden="true"><span class="showcase-progress-bar"></span></span>
                         </div>
-                        <h1>What kind of software do you need built?</h1>
-                        <p class="lead">Two quick answers and the portal rearranges around what fits you.</p>
-                    </div>
-
-                    <div class="qa-card" id="qa-card" style="--qa-step: 1">
-                        <ol class="qa-stepper" aria-label="Finder steps">
-                            <li><button type="button" class="qa-stepper-btn" data-goto="1" aria-controls="qa-panel-1" aria-current="step">
-                                <span class="qa-stepper-num">01</span>
-                                <span class="qa-stepper-label">Organization</span>
-                                <span class="qa-stepper-value" data-summary="business"></span>
-                            </button></li>
-                            <li><button type="button" class="qa-stepper-btn" data-goto="2" aria-controls="qa-panel-2">
-                                <span class="qa-stepper-num">02</span>
-                                <span class="qa-stepper-label">Model</span>
-                                <span class="qa-stepper-value" data-summary="type"></span>
-                            </button></li>
-                            <li><button type="button" class="qa-stepper-btn" data-goto="3" aria-controls="qa-panel-3">
-                                <span class="qa-stepper-num">03</span>
-                                <span class="qa-stepper-label">Focus</span>
-                                <span class="qa-stepper-value" data-summary="categories" data-empty="Optional"></span>
-                            </button></li>
-                        </ol>
-
-                        <div class="qa-panels">
-                            <!-- Step 01: Organization -->
-                            <section class="qa-panel is-active" id="qa-panel-1" data-panel="1" aria-labelledby="qa-q1">
-                                <div class="qa-question-row">
-                                    <h2 class="qa-question" id="qa-q1">Who are you building for?</h2>
-                                    <div class="qa-question-side"><span class="qa-question-hint">Pick one</span><div class="qa-panel-nav"><button type="button" class="qa-nav-btn" data-goto="2">Next <svg class="sb-icon"><use href="#i-arrow-right"/></svg></button></div></div>
-                                </div>
-                                <div class="qa-grid-business" role="radiogroup" aria-labelledby="qa-q1">
-                                    <button type="button" role="radio" class="qa-option qa-pill" data-name="business" data-val="enterprise" data-label="Enterprise" aria-checked="false" tabindex="0">
-                                        <span class="qa-option-icon"><svg class="sb-icon"><use href="#i-building"/></svg></span>
-                                        <span class="qa-option-text">
-                                            <span class="qa-option-title">Enterprise &amp; ops</span>
-                                            <span class="qa-option-desc">Property, corporate, ops</span>
-                                        </span>
-                                        <span class="qa-check" aria-hidden="true"><svg class="sb-icon"><use href="#i-check"/></svg></span>
-                                    </button>
-                                    <button type="button" role="radio" class="qa-option qa-pill" data-name="business" data-val="startup" data-label="Startup" aria-checked="false" tabindex="-1">
-                                        <span class="qa-option-icon"><svg class="sb-icon"><use href="#i-rocket"/></svg></span>
-                                        <span class="qa-option-text">
-                                            <span class="qa-option-title">Startup &amp; founder</span>
-                                            <span class="qa-option-desc">MVP, SaaS, launch</span>
-                                        </span>
-                                        <span class="qa-check" aria-hidden="true"><svg class="sb-icon"><use href="#i-check"/></svg></span>
-                                    </button>
-                                    <button type="button" role="radio" class="qa-option qa-pill" data-name="business" data-val="smallbiz" data-label="Small business" aria-checked="false" tabindex="-1">
-                                        <span class="qa-option-icon"><svg class="sb-icon"><use href="#i-store"/></svg></span>
-                                        <span class="qa-option-text">
-                                            <span class="qa-option-title">Small business</span>
-                                            <span class="qa-option-desc">Internal tools</span>
-                                        </span>
-                                        <span class="qa-check" aria-hidden="true"><svg class="sb-icon"><use href="#i-check"/></svg></span>
-                                    </button>
-                                    <button type="button" role="radio" class="qa-option qa-pill" data-name="business" data-val="individual" data-label="Individual" aria-checked="false" tabindex="-1">
-                                        <span class="qa-option-icon"><svg class="sb-icon"><use href="#i-user"/></svg></span>
-                                        <span class="qa-option-text">
-                                            <span class="qa-option-title">Individual</span>
-                                            <span class="qa-option-desc">Everyday apps &amp; games</span>
-                                        </span>
-                                        <span class="qa-check" aria-hidden="true"><svg class="sb-icon"><use href="#i-check"/></svg></span>
-                                    </button>
-                                </div>
-                            </section>
-
-                            <!-- Step 02: Software model -->
-                            <section class="qa-panel" id="qa-panel-2" data-panel="2" aria-labelledby="qa-q2">
-                                <div class="qa-question-row">
-                                    <h2 class="qa-question" id="qa-q2">What kind of software?</h2>
-                                    <div class="qa-question-side"><span class="qa-question-hint" id="qa-type-hint">Pick one</span><div class="qa-panel-nav"><button type="button" class="qa-nav-btn" data-goto="1"><svg class="sb-icon"><use href="#i-arrow-left"/></svg> Back</button><button type="button" class="qa-nav-btn" data-goto="3">Next <svg class="sb-icon"><use href="#i-arrow-right"/></svg></button></div></div>
-                                </div>
-                                <div class="qa-grid-type" role="radiogroup" aria-labelledby="qa-q2">
-                                    <button type="button" role="radio" class="qa-option qa-type-btn" data-name="type" data-val="b2b" data-label="B2B" aria-checked="false" tabindex="0">
-                                        <span class="qa-option-icon"><svg class="sb-icon"><use href="#i-briefcase"/></svg></span>
-                                        <span class="qa-option-text">
-                                            <span class="qa-option-title">Business software <span class="qa-option-tag">B2B</span></span>
-                                            <span class="qa-option-desc">Lease OS, internal tools</span>
-                                        </span>
-                                        <span class="qa-check" aria-hidden="true"><svg class="sb-icon"><use href="#i-check"/></svg></span>
-                                    </button>
-                                    <button type="button" role="radio" class="qa-option qa-type-btn" data-name="type" data-val="b2c" data-label="B2C" aria-checked="false" tabindex="-1">
-                                        <span class="qa-option-icon"><svg class="sb-icon"><use href="#i-users"/></svg></span>
-                                        <span class="qa-option-text">
-                                            <span class="qa-option-title">Consumer apps <span class="qa-option-tag">B2C</span></span>
-                                            <span class="qa-option-desc">Utilities, ledgers, games</span>
-                                        </span>
-                                        <span class="qa-check" aria-hidden="true"><svg class="sb-icon"><use href="#i-check"/></svg></span>
-                                    </button>
-                                </div>
-                            </section>
-
-                            <!-- Step 03: Focus categories (optional, multi-select) -->
-                            <section class="qa-panel" id="qa-panel-3" data-panel="3" aria-labelledby="qa-q3">
-                                <div class="qa-question-row">
-                                    <h2 class="qa-question" id="qa-q3">Anything specific in mind?</h2>
-                                    <div class="qa-question-side"><span class="qa-question-hint">Optional &middot; any</span><div class="qa-panel-nav"><button type="button" class="qa-nav-btn" data-goto="2"><svg class="sb-icon"><use href="#i-arrow-left"/></svg> Back</button></div></div>
-                                </div>
-                                <div class="qa-categories-wrap" role="group" aria-labelledby="qa-q3">
-                                    <button type="button" class="qa-cat-chip" data-cat="enterprise-saas" data-target="b2b" aria-pressed="false"><span class="qa-cat-dot"></span>Real estate &amp; lease OS</button>
-                                    <button type="button" class="qa-cat-chip" data-cat="custom-erp" data-target="b2b" aria-pressed="false"><span class="qa-cat-dot"></span>Custom B2B systems</button>
-                                    <button type="button" class="qa-cat-chip" data-cat="compose-apps" data-target="b2c" aria-pressed="false"><span class="qa-cat-dot"></span>Native Android (Compose)</button>
-                                    <button type="button" class="qa-cat-chip" data-cat="unity-games" data-target="b2c" aria-pressed="false"><span class="qa-cat-dot"></span>Unity games</button>
-                                    <button type="button" class="qa-cat-chip" data-cat="desktop-tools" data-target="b2c b2b" aria-pressed="false"><span class="qa-cat-dot"></span>Desktop tools (Electron)</button>
-                                    <button type="button" class="qa-cat-chip" data-cat="ai-vision" data-target="b2c b2b" aria-pressed="false"><span class="qa-cat-dot"></span>On-device AI &amp; video</button>
-                                    <button type="button" class="qa-cat-chip" data-cat="fintech" data-target="b2c b2b" aria-pressed="false"><span class="qa-cat-dot"></span>Ledgers &amp; wallets</button>
-                                    <button type="button" class="qa-cat-chip" data-cat="productivity" data-target="b2c b2b" aria-pressed="false"><span class="qa-cat-dot"></span>Link &amp; prompt vaults</button>
-                                </div>
-                            </section>
-                        </div>
-
-                        <!-- Algorithm telemetry & actions -->
-                        <div class="qa-footer">
-                            <div class="qa-telemetry" id="qa-telemetry" data-state="standby" role="status" aria-live="polite" aria-atomic="true">
-                                <span class="qa-telemetry-led" aria-hidden="true"></span>
-                                <span class="qa-telemetry-tag" id="qa-telemetry-tag">[STANDBY]</span>
-                                <span class="qa-telemetry-msg" id="qa-telemetry-msg">Awaiting input</span>
-                                <span class="qa-telemetry-meter" aria-hidden="true"><span class="seg"></span><span class="seg"></span></span>
-                                <span class="qa-telemetry-count" id="qa-telemetry-count">0/2</span>
-                            </div>
-                            <div class="qa-actions">
-                                <button type="button" class="btn btn-primary btn-activate" id="btn-activate-profile" disabled>
-                                    <span id="btn-activate-label">Activate space</span>
-                                    <svg class="sb-icon" aria-hidden="true"><use href="#i-arrow-right"/></svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- View B: Matched studio profile -->
-                <div class="hero-matched-profile" id="hero-matched-profile" data-space="b2b" hidden>
-                    <div class="matched-topbar stagger" style="--i: 0">
-                        <span class="matched-status">
-                            <span class="matched-led" aria-hidden="true"></span>
-                            <span class="matched-status-tag">[MATCH]</span>
-                            <span id="matched-badge-text">B2B business space</span>
-                        </span>
-                        <button type="button" class="btn-retune" id="btn-retune-qa">
-                            <svg class="sb-icon" aria-hidden="true"><use href="#i-rotate"/></svg>
-                            <span>Re-tune answers</span>
-                        </button>
-                    </div>
-
-                    <h1 id="matched-headline" class="stagger" style="--i: 1">Enterprise &amp; custom software, built for modern businesses.</h1>
-                    <p class="lead stagger" id="matched-description" style="--i: 2">Silverbyte Studio designs and engineers property platforms like Realigator and custom operational tools on private, high-performance architectures.</p>
-
-                    <div class="hero-actions stagger" id="matched-actions" style="--i: 3">
-                        <a href="#business-space" class="btn btn-primary" id="matched-primary-btn">Explore B2B solutions</a>
-                        <a href="mailto:silverbytestudio@gmail.com?subject=[B2B%20Project%20Inquiry]%20Silverbyte%20Studio" class="btn btn-secondary" id="matched-secondary-btn">Consult with the studio</a>
-                    </div>
-
-                    <div class="space-switch stagger" style="--i: 4">
-                        <div class="space-switch-head">
-                            <span id="space-switch-label">Switch space</span>
-                            <span class="space-switch-hint" aria-hidden="true">&larr; &rarr;</span>
-                        </div>
-                        <div class="space-seg" role="radiogroup" aria-labelledby="space-switch-label" style="--seg-index: 0">
-                            <span class="space-seg-indicator" aria-hidden="true"></span>
-                            <button type="button" role="radio" class="quick-space-pill" data-switch="b2b" aria-checked="true" tabindex="0">
-                                <svg class="sb-icon" aria-hidden="true"><use href="#i-briefcase"/></svg><span class="seg-label">Business</span><span class="seg-tag">B2B</span>
+                        <div class="showcase-controls">
+                            <button type="button" class="showcase-btn" data-dir="-1" aria-label="Previous project"><svg class="sb-icon" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+                            <div class="showcase-dots" role="group" aria-label="Choose a project"></div>
+                            <span class="showcase-count" aria-hidden="true"><span class="showcase-count-cur">01</span> / 08</span>
+                            <button type="button" class="showcase-btn showcase-toggle" aria-label="Pause slideshow" aria-pressed="false">
+                                <svg class="sb-icon icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg>
+                                <svg class="sb-icon icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg>
                             </button>
-                            <button type="button" role="radio" class="quick-space-pill" data-switch="b2c" aria-checked="false" tabindex="-1">
-                                <svg class="sb-icon" aria-hidden="true"><use href="#i-users"/></svg><span class="seg-label">Consumer</span><span class="seg-tag">B2C</span>
-                            </button>
-                            <button type="button" role="radio" class="quick-space-pill" data-switch="games" aria-checked="false" tabindex="-1">
-                                <svg class="sb-icon" aria-hidden="true"><use href="#i-gamepad"/></svg><span class="seg-label">Games</span>
-                            </button>
-                            <button type="button" role="radio" class="quick-space-pill" data-switch="all" aria-checked="false" tabindex="-1">
-                                <svg class="sb-icon" aria-hidden="true"><use href="#i-grid"/></svg><span class="seg-label">All</span>
-                            </button>
+                            <button type="button" class="showcase-btn" data-dir="1" aria-label="Next project"><svg class="sb-icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
                         </div>
                     </div>
-
-                    <dl class="matched-metrics stagger" id="matched-metrics" style="--i: 5" aria-label="Studio at a glance">
-                        <div class="metric" style="--m: 0"><dt></dt><dd class="metric-value"></dd><dd class="metric-note"></dd></div>
-                        <div class="metric" style="--m: 1"><dt></dt><dd class="metric-value"></dd><dd class="metric-note"></dd></div>
-                        <div class="metric" style="--m: 2"><dt></dt><dd class="metric-value"></dd><dd class="metric-note"></dd></div>
-                    </dl>
                 </div>
             </div>
 
@@ -484,45 +391,14 @@
                     </a></li>
                 </ul>
             </div>
+            </div>
         </div>
     </section>
 
-    <!-- Lower Sections Container: Gated for First-Time Visitors Until Algorithm Activation -->
+    <!-- Lower Sections Container -->
     <div id="portal-lower-container" class="portal-lower-container">
-        <!-- First-visit calibration HUD: shown until the finder is answered or bypassed -->
-        <div class="container portal-gating-banner" id="portal-gating-banner">
-            <div class="portal-gating-card" role="region" aria-labelledby="gating-title">
-                <span class="notch notch--tl" aria-hidden="true"></span>
-                <span class="notch notch--tr" aria-hidden="true"></span>
-                <span class="notch notch--bl" aria-hidden="true"></span>
-                <span class="notch notch--br" aria-hidden="true"></span>
-
-                <div class="gating-glyph" aria-hidden="true">
-                    <svg class="sb-icon"><use href="#i-lock"/></svg>
-                </div>
-
-                <div class="gating-body">
-                    <p class="gating-kicker">[PORTAL LOCKED] &middot; calibration pending</p>
-                    <h2 class="gating-title" id="gating-title">Your portal is calibrating</h2>
-                    <p class="gating-desc">Answer the two questions in the finder and the sections below reorder around what you need. Prefer to look around first? Skip it.</p>
-                </div>
-
-                <div class="gating-progress">
-                    <div class="gating-progress-head">
-                        <span id="gating-progress-text">0 of 2 inputs answered</span>
-                        <span class="gating-progress-pct" id="gating-progress-pct">0%</span>
-                    </div>
-                    <div class="gating-meter" aria-hidden="true"><span class="seg"></span><span class="seg"></span></div>
-                    <div class="gating-actions">
-                        <button type="button" class="btn btn-secondary btn-sm" id="btn-gating-focus">Go to the finder</button>
-                        <button type="button" class="gating-bypass" id="btn-unlock-gating">Bypass algorithm &amp; view entire catalog <svg class="sb-icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="portal-sections-content" id="portal-sections-content">
-            <div class="portal-veil" aria-hidden="true"></div>
             <!-- Dedicated B2B Business Space -->
             <section id="business-space" class="section section-b2b" data-space="b2b">
                 <div class="container">
@@ -1111,6 +987,6 @@
     </footer>
 
     <!-- Script -->
-    <script src="assets/js/main.js?v=2.2"></script>
+    <script src="assets/js/main.js?v=2.3"></script>
 </body>
 </html>
