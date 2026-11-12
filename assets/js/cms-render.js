@@ -100,7 +100,16 @@ function renderDefaultSpace(data) {
     return `<script>(function(){var d=${JSON.stringify(space)};if(d!=="business")return;if(location.hash||/[?&]space=customers/.test(location.search))return;try{if(document.referrer&&new URL(document.referrer).origin===location.origin)return;}catch(e){}location.replace("business.html");})();</script>`;
 }
 
-function renderHeroIntro(data) {
+function renderHeroIntro(data, file) {
+    if (file === 'business.html') {
+        const b = data.sections?.business || {};
+        return `<p class="eyebrow">
+    <span class="eyebrow-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+    Business Solutions
+</p>
+<h1>${esc(b.title ? 'Software Built for Businesses' : 'Software Built for Businesses')}</h1>
+<p class="lead">${esc(b.subtitle || 'Custom platforms, management systems and operational software for companies and growing teams.')}</p>`;
+    }
     const h = data.hero || {};
     return `<p class="eyebrow">
     <span class="eyebrow-dots" aria-hidden="true"><span></span><span></span><span></span></span>

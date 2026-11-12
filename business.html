@@ -32,9 +32,25 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
-    <link rel="stylesheet" href="assets/css/style.css?v=1.9">
+    <link rel="stylesheet" href="assets/css/style.css?v=2.7">
 
-    </head>
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Silverbyte Studio",
+      "alternateName": ["Silver Byte Games", "SBS Apps"],
+      "url": "https://silverbytegames.github.io/",
+      "logo": "https://silverbytegames.github.io/assets/images/studio-logo.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "silverbytestudio@gmail.com",
+        "contactType": "customer support"
+      }
+    }
+    </script>
+</head>
 <body>
 
     <!-- Site Header & Navigation -->
@@ -78,7 +94,7 @@
                                     </div>
                                     <!-- /cms:nav-games -->
                                 </div>
-                                <a href="index.html#games" class="nav-panel-footer">See all games <span aria-hidden="true">&rarr;</span></a>
+                                <a href="#games" class="nav-panel-footer">See all games <span aria-hidden="true">&rarr;</span></a>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -145,14 +161,11 @@
                                     </div>
                                     <!-- /cms:nav-apps -->
                                 </div>
-                                <a href="index.html#apps" class="nav-panel-footer">See all apps <span aria-hidden="true">&rarr;</span></a>
+                                <a href="#apps" class="nav-panel-footer">See all apps <span aria-hidden="true">&rarr;</span></a>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a href="#b2b-projects" class="nav-trigger">Projects</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="index.html#about" class="nav-trigger">About</a>
+                            <a href="#about" class="nav-trigger">About</a>
                         </li>
                         <li class="nav-item">
                         <button type="button" class="nav-trigger" aria-expanded="false" aria-controls="nav-panel-support">
@@ -162,7 +175,7 @@
                                 <div class="nav-panel-body">
                                     <div class="nav-group">
                                         <p class="nav-group-label">Get help</p>
-                                        <a href="index.html#support" class="nav-card nav-card-plain">
+                                        <a href="#support" class="nav-card nav-card-plain">
                                             <span class="nav-card-text">
                                                 <span class="nav-card-title">Contact support</span>
                                                 <span class="nav-card-desc">Questions, bugs or feedback on any app or game</span>
@@ -193,55 +206,447 @@
         </div>
     </header>
 
-        <!-- Hero Section -->
-    <section class="hero">
+    <!-- Hero Section -->
+    <section class="hero hero-split" id="hero">
         <div class="container">
-            <div class="hero-content">
-                <p class="eyebrow">Business Solutions</p>
-                <h1>Software Built for Businesses</h1>
-                <p class="lead">
-                    Custom apps, games and tools for companies and teams, built with the same care we put into our consumer products.
+            <!-- Intro copy: full width, centered above both columns -->
+            <header class="hero-intro">
+                <!-- cms:hero-intro -->
+                <p class="eyebrow">
+                    <span class="eyebrow-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+                    Business Solutions
                 </p>
+                <h1>Software Built for Businesses</h1>
+                <p class="lead">Custom platforms, management systems and operational software for companies and growing teams.</p>
+                <!-- /cms:hero-intro -->
+            </header>
+
+            <div class="hero-split-grid">
+            <!-- Left Side: project showcase -->
+            <div class="hero-interactive-container">
+                <!-- Icon sprite (Lucide outlines, DESIGN.md §6) -->
+                <svg class="sb-sprite" aria-hidden="true" focusable="false">
+                    <symbol id="i-building" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/></symbol>
+                    <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></symbol>
+                    <symbol id="i-store" viewBox="0 0 24 24"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2 2.7 2.7 0 0 1-2-1 2.7 2.7 0 0 1-2 1 2.7 2.7 0 0 1-2-1 2.7 2.7 0 0 1-2 1 2.7 2.7 0 0 1-2-1 2.7 2.7 0 0 1-2 1 2 2 0 0 1-2-2V7"/></symbol>
+                    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></symbol>
+                    <symbol id="i-briefcase" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
+                    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+                    <symbol id="i-gamepad" viewBox="0 0 24 24"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><path d="M17.32 5H6.68a4 4 0 0 0-3.98 3.59C2.6 9.42 2 14.46 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.41-1.41A2 2 0 0 1 9.83 16h4.34a2 2 0 0 1 1.41.59L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.55-.6-6.58-.69-7.26A4 4 0 0 0 17.32 5z"/></symbol>
+                    <symbol id="i-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol>
+                    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+                    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+                    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></symbol>
+                    <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol>
+                    <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+                    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+                    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></symbol>
+                    <symbol id="i-handshake" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m16 11 2 2 4-4"/></symbol>
+                    <symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8M16 17H8M10 9H8"/></symbol>
+                    <symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></symbol>
+                    <symbol id="i-devices" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></symbol>
+                    <symbol id="i-idcard" viewBox="0 0 24 24"><path d="M16 10h2M16 14h2"/><path d="M6.17 15a3 3 0 0 1 5.66 0"/><circle cx="9" cy="11" r="2"/><rect x="2" y="5" width="20" height="14" rx="2"/></symbol>
+                </svg>
+
+                <!-- Project showcase carousel -->
+                <div class="hero-showcase">
+                    <div class="showcase" id="showcase" role="region" aria-roledescription="carousel" aria-label="Project showcase">
+                        <div class="showcase-viewport">
+                            <ul class="showcase-track">
+                                <!-- cms:showcase-slides -->
+                                <li class="showcase-slide" role="group" aria-roledescription="slide" aria-label="1 of 8: Realigator">
+                                    <a href="realigator.html" class="showcase-link">
+                                        <img class="showcase-media" src="assets/images/realigator-banner.jpg" alt="Realigator" decoding="async">
+                                        <span class="showcase-caption">
+                                            <span class="showcase-title">Realigator <span class="showcase-tag">B2B</span></span>
+                                            <span class="showcase-meta">Property &amp; lease OS · Supabase, Expo, Web</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="showcase-slide" role="group" aria-roledescription="slide" aria-label="2 of 8: Triple Tiles">
+                                    <a href="triple-tiles.html" class="showcase-link">
+                                        <img class="showcase-media" src="assets/images/triple-tiles-banner.jpg" alt="Triple Tiles" loading="lazy" decoding="async">
+                                        <span class="showcase-caption">
+                                            <span class="showcase-title">Triple Tiles <span class="showcase-tag">Game</span></span>
+                                            <span class="showcase-meta">3D tile-matching puzzle · Unity</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="showcase-slide" role="group" aria-roledescription="slide" aria-label="3 of 8: Loaney">
+                                    <a href="loaney.html" class="showcase-link">
+                                        <img class="showcase-media" src="assets/images/loaney-banner.jpg" alt="Loaney" loading="lazy" decoding="async">
+                                        <span class="showcase-caption">
+                                            <span class="showcase-title">Loaney <span class="showcase-tag">App</span></span>
+                                            <span class="showcase-meta">Personal debt ledger · Jetpack Compose</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="showcase-slide" role="group" aria-roledescription="slide" aria-label="4 of 8: GIF Maker">
+                                    <a href="gif-maker.html" class="showcase-link">
+                                        <img class="showcase-media" src="assets/images/gif-maker-banner.jpg" alt="GIF Maker" loading="lazy" decoding="async">
+                                        <span class="showcase-caption">
+                                            <span class="showcase-title">GIF Maker <span class="showcase-tag">App</span></span>
+                                            <span class="showcase-meta">Turn videos into GIFs · Jetpack Compose</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="showcase-slide" role="group" aria-roledescription="slide" aria-label="5 of 8: Linko">
+                                    <a href="linko.html" class="showcase-link">
+                                        <img class="showcase-media" src="assets/images/linko-banner.jpg" alt="Linko" loading="lazy" decoding="async">
+                                        <span class="showcase-caption">
+                                            <span class="showcase-title">Linko <span class="showcase-tag">App</span></span>
+                                            <span class="showcase-meta">Link vault · Jetpack Compose</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="showcase-slide" role="group" aria-roledescription="slide" aria-label="6 of 8: Clipr">
+                                    <a href="clipr.html" class="showcase-link">
+                                        <img class="showcase-media" src="assets/images/clipr-banner.jpg" alt="Clipr" loading="lazy" decoding="async">
+                                        <span class="showcase-caption">
+                                            <span class="showcase-title">Clipr <span class="showcase-tag">App</span></span>
+                                            <span class="showcase-meta">Quick video editing · Jetpack Compose</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="showcase-slide" role="group" aria-roledescription="slide" aria-label="7 of 8: Prompter">
+                                    <a href="prompter.html" class="showcase-link">
+                                        <img class="showcase-media" src="assets/images/prompter-banner.jpg" alt="Prompter" loading="lazy" decoding="async">
+                                        <span class="showcase-caption">
+                                            <span class="showcase-title">Prompter <span class="showcase-tag">App</span></span>
+                                            <span class="showcase-meta">AI prompt library · Flutter</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="showcase-slide" role="group" aria-roledescription="slide" aria-label="8 of 8: Video Downloader">
+                                    <a href="video-downloader.html" class="showcase-link">
+                                        <img class="showcase-media" src="assets/images/video-downloader-banner.jpg" alt="Video Downloader" loading="lazy" decoding="async">
+                                        <span class="showcase-caption">
+                                            <span class="showcase-title">Video Downloader <span class="showcase-tag">Desktop</span></span>
+                                            <span class="showcase-meta">Save videos &amp; audio · Electron, Windows</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <!-- /cms:showcase-slides -->
+                            </ul>
+                            <span class="showcase-progress" aria-hidden="true"><span class="showcase-progress-bar"></span></span>
+                        </div>
+                        <div class="showcase-controls">
+                            <button type="button" class="showcase-btn" data-dir="-1" aria-label="Previous project"><svg class="sb-icon" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+                            <div class="showcase-dots" role="group" aria-label="Choose a project"></div>
+                            <!-- cms:showcase-count -->
+                            <span class="showcase-count" aria-hidden="true"><span class="showcase-count-cur">01</span> / 08</span>
+                            <!-- /cms:showcase-count -->
+                            <button type="button" class="showcase-btn showcase-toggle" aria-label="Pause slideshow" aria-pressed="false">
+                                <svg class="sb-icon icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg>
+                                <svg class="sb-icon icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg>
+                            </button>
+                            <button type="button" class="showcase-btn" data-dir="1" aria-label="Next project"><svg class="sb-icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Shipped by Us Panel -->
+            <div class="shipped-panel" id="hero-shipped-panel">
+                <!-- cms:shipped -->
+                <p class="shipped-panel-title"><span>Shipped by us</span><span class="shipped-panel-count" id="shipped-count-display">09</span></p>
+                <ul class="shipped-list" id="hero-shipped-list">
+                    <li data-card-audience="b2b" data-card-category="saas"><a href="realigator.html" class="shipped-item shipped-item--b2b">
+                        <img src="assets/images/realigator-icon.png" alt="Realigator" width="40" height="40" loading="lazy">
+                        <span class="shipped-name">Realigator <span class="shipped-badge-pill">B2B</span></span>
+                        <span class="shipped-meta">Supabase · Expo · Web</span>
+                    </a></li>
+                    <li data-card-audience="b2c" data-card-category="games"><a href="triple-tiles.html" class="shipped-item">
+                        <img src="assets/images/triple-tiles-icon.png" alt="Triple Tiles" width="40" height="40" loading="lazy">
+                        <span class="shipped-name">Triple Tiles</span>
+                        <span class="shipped-meta">Unity · Google Play</span>
+                    </a></li>
+                    <li data-card-audience="b2c" data-card-category="tools"><a href="loaney.html" class="shipped-item">
+                        <img src="assets/images/loaney-icon.png" alt="Loaney" width="40" height="40" loading="lazy">
+                        <span class="shipped-name">Loaney</span>
+                        <span class="shipped-meta">Jetpack Compose</span>
+                    </a></li>
+                    <li data-card-audience="b2c" data-card-category="tools"><a href="gif-maker.html" class="shipped-item">
+                        <img src="assets/images/gif-maker-icon.png" alt="GIF Maker" width="40" height="40" loading="lazy">
+                        <span class="shipped-name">GIF Maker</span>
+                        <span class="shipped-meta">Jetpack Compose</span>
+                    </a></li>
+                    <li data-card-audience="b2c" data-card-category="tools"><a href="linko.html" class="shipped-item">
+                        <img src="assets/images/linko-icon.png" alt="Linko" width="40" height="40" loading="lazy">
+                        <span class="shipped-name">Linko</span>
+                        <span class="shipped-meta">Jetpack Compose</span>
+                    </a></li>
+                    <li data-card-audience="b2c" data-card-category="tools"><a href="clipr.html" class="shipped-item">
+                        <img src="assets/images/clipr-icon.png" alt="Clipr" width="40" height="40" loading="lazy">
+                        <span class="shipped-name">Clipr</span>
+                        <span class="shipped-meta">Jetpack Compose</span>
+                    </a></li>
+                    <li data-card-audience="b2c" data-card-category="tools"><a href="prompter.html" class="shipped-item">
+                        <img src="assets/images/prompter-icon.png" alt="Prompter" width="40" height="40" loading="lazy">
+                        <span class="shipped-name">Prompter</span>
+                        <span class="shipped-meta">Flutter</span>
+                    </a></li>
+                    <li data-card-audience="b2c b2b" data-card-category="desktop"><a href="video-downloader.html" class="shipped-item">
+                        <img src="assets/images/video-downloader-icon.png" alt="Video Downloader" width="40" height="40" loading="lazy">
+                        <span class="shipped-name">Video Downloader</span>
+                        <span class="shipped-meta">Electron · Windows</span>
+                    </a></li>
+                    <li data-card-audience="b2c" data-card-category="games"><a href="fallinko.html" class="shipped-item">
+                        <img src="assets/images/fallinko-icon.png" alt="Fallinko" width="40" height="40" loading="lazy">
+                        <span class="shipped-name">Fallinko</span>
+                        <span class="shipped-meta">Unity · In development</span>
+                    </a></li>
+                </ul>
+                <!-- /cms:shipped -->
+            </div>
             </div>
         </div>
     </section>
 
-    <!-- B2B Projects Section -->
-    <section id="b2b-projects" class="section">
+    <!-- Lower Sections Container -->
+    <div id="portal-lower-container" class="portal-lower-container">
+
+        <div class="portal-sections-content" id="portal-sections-content">
+            <!-- Dedicated B2B Business Space -->
+            <section id="business-space" class="section section-b2b" data-space="b2b">
+                <div class="container">
+                    <div class="b2b-space">
+                        <span class="notch notch--tl" aria-hidden="true"></span>
+                        <span class="notch notch--tr" aria-hidden="true"></span>
+                        <span class="notch notch--bl" aria-hidden="true"></span>
+                        <span class="notch notch--br" aria-hidden="true"></span>
+
+                        <div class="section-header b2b-header">
+                            <p class="eyebrow">
+                                <span class="eyebrow-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+                                B2B enterprise portfolio
+                            </p>
+                            <!-- cms:business-heading -->
+                            <h2 class="section-title">Software built for businesses</h2>
+                            <p class="section-subtitle">Custom platforms, management systems and operational software for companies and growing teams.</p>
+                            <!-- /cms:business-heading -->
+                        </div>
+
+                        <!-- Flagship: Realigator -->
+                        <article class="b2b-flagship" data-audience="b2b">
+                            <div class="b2b-flagship-media">
+                                <img src="assets/images/realigator-banner.jpg" alt="Realigator dashboard: buildings, units, tenants and rent invoices" width="1376" height="768" loading="lazy">
+                                <span class="b2b-flagship-label">Flagship &middot; B2B</span>
+                            </div>
+                            <div class="b2b-flagship-body">
+                                <div class="b2b-flagship-head">
+                                    <img src="assets/images/realigator-icon.png" alt="" class="b2b-flagship-icon" width="48" height="48">
+                                    <div>
+                                        <h3 class="b2b-flagship-title">Realigator</h3>
+                                        <p class="b2b-flagship-kicker">Property &amp; lease operating system</p>
+                                    </div>
+                                </div>
+                                <p class="b2b-flagship-desc">Real estate and rental management for owners, operators and landlords: multi-unit building hierarchies, tenant records, itemized rent invoicing and live cashflow, on every device the team uses.</p>
+
+                                <ul class="b2b-arch" aria-label="Realigator architecture">
+                                    <li class="b2b-arch-cell">
+                                        <svg class="sb-icon" aria-hidden="true"><use href="#i-shield"/></svg>
+                                        <span class="b2b-arch-key">Auth</span>
+                                        <span class="b2b-arch-val">Supabase Auth &amp; row-level security</span>
+                                    </li>
+                                    <li class="b2b-arch-cell">
+                                        <svg class="sb-icon" aria-hidden="true"><use href="#i-devices"/></svg>
+                                        <span class="b2b-arch-key">Clients</span>
+                                        <span class="b2b-arch-val">Expo cross-platform: iOS, Android, desktop</span>
+                                    </li>
+                                    <li class="b2b-arch-cell">
+                                        <svg class="sb-icon" aria-hidden="true"><use href="#i-file"/></svg>
+                                        <span class="b2b-arch-key">Billing</span>
+                                        <span class="b2b-arch-val">Automated invoicing &amp; branded PDF receipts</span>
+                                    </li>
+                                    <li class="b2b-arch-cell">
+                                        <svg class="sb-icon" aria-hidden="true"><use href="#i-idcard"/></svg>
+                                        <span class="b2b-arch-key">Tenants</span>
+                                        <span class="b2b-arch-val">KYC registry, leases &amp; cashflow telemetry</span>
+                                    </li>
+                                </ul>
+
+                                <div class="b2b-flagship-footer">
+                                    <a href="realigator.html" class="btn btn-secondary btn-sm">View details &amp; specs</a>
+                                    <a href="https://github.com/hrud09/Realigator" target="_blank" rel="noopener noreferrer" class="btn-badge btn-badge-sm">
+                                        <svg class="btn-badge-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                                        </svg>
+                                        <span class="btn-badge-content">
+                                            <span class="btn-badge-sub">VIEW ON</span>
+                                            <span class="btn-badge-title">GitHub</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Custom B2B capabilities -->
+                        <article class="b2b-capabilities" data-audience="b2b">
+                            <div class="b2b-cap-intro">
+                                <p class="b2b-cap-kicker">Bespoke engineering</p>
+                                <h3 class="b2b-cap-title">Custom business &amp; team software</h3>
+                                <p class="b2b-cap-desc">Operational workflows, client management platforms, desktop batch utilities and secure internal tools, built with the same care we ship our own apps.</p>
+                                <div class="b2b-cap-actions">
+                                    <a href="mailto:silverbytestudio@gmail.com?subject=[Business%20Inquiry]%20Silverbyte%20Studio" class="btn btn-primary btn-sm">Start a project conversation</a>
+                                    <a href="#support" class="btn-quiet">Consult with our team &rarr;</a>
+                                </div>
+                            </div>
+
+                            <ul class="b2b-modules">
+                                <li class="b2b-module">
+                                    <div class="b2b-module-top">
+                                        <span class="b2b-module-icon"><svg class="sb-icon" aria-hidden="true"><use href="#i-layers"/></svg></span>
+                                        <span class="b2b-module-idx">M.01</span>
+                                    </div>
+                                    <h4>Architecture</h4>
+                                    <p>Native and cross-platform clients (Compose, Flutter, Expo, Electron) on Supabase or your own backend.</p>
+                                </li>
+                                <li class="b2b-module">
+                                    <div class="b2b-module-top">
+                                        <span class="b2b-module-icon"><svg class="sb-icon" aria-hidden="true"><use href="#i-shield"/></svg></span>
+                                        <span class="b2b-module-idx">M.02</span>
+                                    </div>
+                                    <h4>Security</h4>
+                                    <p>Row-level access rules, isolated tenant data, offline-first sync and private deployments.</p>
+                                </li>
+                                <li class="b2b-module">
+                                    <div class="b2b-module-top">
+                                        <span class="b2b-module-icon"><svg class="sb-icon" aria-hidden="true"><use href="#i-database"/></svg></span>
+                                        <span class="b2b-module-idx">M.03</span>
+                                    </div>
+                                    <h4>Automation</h4>
+                                    <p>Invoicing, ledger calculations and PDF generation that run without anyone babysitting them.</p>
+                                </li>
+                                <li class="b2b-module">
+                                    <div class="b2b-module-top">
+                                        <span class="b2b-module-icon"><svg class="sb-icon" aria-hidden="true"><use href="#i-handshake"/></svg></span>
+                                        <span class="b2b-module-idx">M.04</span>
+                                    </div>
+                                    <h4>Direct partnership</h4>
+                                    <p>You talk to the engineers who build it. No agency layers, no hand-offs.</p>
+                                </li>
+                            </ul>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+    <!-- Games Section -->
+    <section id="games" class="section">
         <div class="container">
             <div class="section-header">
-                <p class="eyebrow">B2B Portfolio</p>
-                <h2 class="section-title">Business Projects</h2>
-                <p class="section-subtitle">Products and services we build for businesses.</p>
+                <!-- cms:games-heading -->
+                <p class="eyebrow">Game Portfolio</p>
+                <h2 class="section-title">Games</h2>
+                <p class="section-subtitle">Original casual and puzzle titles built with the Unity game engine.</p>
+                <!-- /cms:games-heading -->
             </div>
 
             <div class="portal-showcase-grid">
-                <!-- B2B Project 1: Realigator -->
-                <article class="portal-card" data-audience="b2b">
+                <!-- cms:games-grid -->
+                <article class="portal-card" data-audience="b2c">
                     <div class="portal-card-banner">
-                        <img src="assets/images/realigator-banner.jpg" alt="Realigator: Real Estate &amp; Rental Management Platform" loading="lazy">
+                        <img src="assets/images/triple-tiles-banner.jpg" alt="Triple Tiles: Face Match Puzzle" loading="lazy">
                     </div>
                     <div class="portal-card-body">
                         <div class="portal-card-header">
-                            <img src="assets/images/realigator-icon.png" alt="Realigator Icon" class="portal-card-icon" width="54" height="54">
+                            <img src="assets/images/triple-tiles-icon.png" alt="Triple Tiles Icon" class="portal-card-icon" width="54" height="54">
                             <div>
-                                <h3 class="portal-card-title">Realigator</h3>
+                                <h3 class="portal-card-title">Triple Tiles: Face Match</h3>
                                 <div class="tag-list">
-                                    <span class="badge badge-success"><span class="dot"></span> Cross-Platform</span>
-                                    <span class="badge badge-subtle">B2B SaaS</span>
-                                    <span class="badge badge-subtle">Property &amp; Lease OS</span>
-                                    <span class="badge badge-subtle">Expo &amp; Supabase</span>
+                                    <span class="badge badge-success"><span class="dot"></span> Google Play</span>
+                                    <span class="badge badge-subtle">Match-3</span>
                                 </div>
                             </div>
                         </div>
                         <p class="portal-card-desc">
-                            Enterprise-grade real estate and rental management platform for property owners, operators, and landlords. Streamlines multi-unit building hierarchies, tenant KYC registries, automated itemized rent invoicing, printable PDF receipts, and live cashflow telemetry.
+                            A relaxing, tactile match-3 puzzle game featuring expressive face tiles, layered 3D board formations, unlockable themes, and responsive haptics.
                         </p>
                         <div class="portal-card-footer">
-                            <a href="realigator.html" class="btn btn-secondary btn-sm">
+                            <a href="triple-tiles.html" class="btn btn-secondary btn-sm">
+                                View Details &amp; Features &rarr;
+                            </a>
+                            <a href="https://play.google.com/store/apps/details?id=com.SilverByteGames.FaceTilesMatch" target="_blank" rel="noopener noreferrer" class="btn-badge btn-badge-sm">
+                                <svg class="btn-badge-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M3.608 1.62C3.238 2.016 3 2.622 3 3.414v17.172c0 .792.238 1.398.608 1.794l.092.086 9.617-9.617v-2.148L3.7 1.534l-.092.086z" fill="#00D2FF"/>
+                                    <path d="M16.535 16.07l-3.218-3.219v-2.148l3.218-3.219.073.042 3.812 2.167c1.089.618 1.089 1.632 0 2.25l-3.812 2.167-.073.042z" fill="#FFC107"/>
+                                    <path d="M13.317 12.851L3.608 22.56c.358.381.954.428 1.61.056l11.317-6.43-3.218-3.335z" fill="#FF4B2B"/>
+                                    <path d="M13.317 10.701l3.218-3.335L5.218 1.384C4.562 1.012 3.966 1.059 3.608 1.44l9.709 9.261z" fill="#00E676"/>
+                                </svg>
+                                <span class="btn-badge-content">
+                                    <span class="btn-badge-sub">GET IT ON</span>
+                                    <span class="btn-badge-title">Google Play</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="portal-card" data-audience="b2c">
+                    <div class="portal-card-body portal-card-body--no-banner">
+                        <div class="portal-card-header">
+                            <img src="assets/images/fallinko-icon.png" alt="Fallinko Icon" class="portal-card-icon" width="54" height="54">
+                            <div>
+                                <h3 class="portal-card-title">Fallinko</h3>
+                                <div class="tag-list">
+                                    <span class="badge badge-amber"><span class="dot"></span> In Development</span>
+                                    <span class="badge badge-subtle">Physics Arcade</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="portal-card-desc">
+                            A physics-driven kinetic arcade title combining pinball-inspired ball drops, multiplier buckets, upgrade loops, and satisfying peg board collisions.
+                        </p>
+                        <div class="portal-card-footer">
+                            <a href="fallinko.html" class="btn btn-secondary btn-sm">
+                                View Details &amp; Features &rarr;
+                            </a>
+                            <span class="badge badge-amber">Under Development</span>
+                        </div>
+                    </div>
+                </article>
+                <!-- /cms:games-grid -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Apps Section -->
+    <section id="apps" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <!-- cms:apps-heading -->
+                <p class="eyebrow">Native Mobile Applications</p>
+                <h2 class="section-title">Applications</h2>
+                <p class="section-subtitle">Modern, native Android utility tools built with privacy-first on-device architecture.</p>
+                <!-- /cms:apps-heading -->
+            </div>
+
+            <div class="portal-showcase-grid">
+                <!-- cms:apps-grid -->
+                <article class="portal-card" data-audience="b2c">
+                    <div class="portal-card-banner">
+                        <img src="assets/images/loaney-banner.jpg" alt="Loaney: Debt &amp; Loan Tracker" loading="lazy">
+                    </div>
+                    <div class="portal-card-body">
+                        <div class="portal-card-header">
+                            <img src="assets/images/loaney-icon.png" alt="Loaney Icon" class="portal-card-icon" width="54" height="54">
+                            <div>
+                                <h3 class="portal-card-title">Loaney: Debt &amp; Loan Tracker</h3>
+                                <div class="tag-list">
+                                    <span class="badge badge-success"><span class="dot"></span> 100% Private</span>
+                                    <span class="badge badge-subtle">Finance</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="portal-card-desc">
+                            Comprehensive personal debt and loan tracking ledger with 360° net balance dashboard, digital wallet &amp; MFS QR storage, and repayment calendar.
+                        </p>
+                        <div class="portal-card-footer">
+                            <a href="loaney.html" class="btn btn-secondary btn-sm">
                                 View Details &rarr;
                             </a>
-                            <a href="https://github.com/hrud09/Realigator" target="_blank" rel="noopener noreferrer" class="btn-badge btn-badge-sm">
+                            <a href="https://github.com/hrud09/Loaney" target="_blank" rel="noopener noreferrer" class="btn-badge btn-badge-sm">
                                 <svg class="btn-badge-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
                                 </svg>
@@ -253,22 +658,313 @@
                         </div>
                     </div>
                 </article>
+
+                <article class="portal-card" data-audience="b2c">
+                    <div class="portal-card-banner">
+                        <img src="assets/images/gif-maker-banner.jpg" alt="GIF Maker: Video to GIF" loading="lazy">
+                    </div>
+                    <div class="portal-card-body">
+                        <div class="portal-card-header">
+                            <img src="assets/images/gif-maker-icon.png" alt="GIF Maker Icon" class="portal-card-icon" width="54" height="54">
+                            <div>
+                                <h3 class="portal-card-title">GIF Maker: Video to GIF</h3>
+                                <div class="tag-list">
+                                    <span class="badge badge-amber"><span class="dot"></span> Closed Testing</span>
+                                    <span class="badge badge-subtle">Compose</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="portal-card-desc">
+                            Fast and offline GIF creator and converter. Video to GIF, photos to GIF, GIF to MP4, and pinpoint frame extraction with zero watermarks.
+                        </p>
+                        <div class="portal-card-footer">
+                            <a href="gif-maker.html" class="btn btn-secondary btn-sm">
+                                View Details &rarr;
+                            </a>
+                            <a href="https://play.google.com/store/apps/details?id=com.sbs.gifmaker" target="_blank" rel="noopener noreferrer" class="btn-badge btn-badge-sm">
+                                <svg class="btn-badge-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M3.608 1.62C3.238 2.016 3 2.622 3 3.414v17.172c0 .792.238 1.398.608 1.794l.092.086 9.617-9.617v-2.148L3.7 1.534l-.092.086z" fill="#00D2FF"/>
+                                    <path d="M16.535 16.07l-3.218-3.219v-2.148l3.218-3.219.073.042 3.812 2.167c1.089.618 1.089 1.632 0 2.25l-3.812 2.167-.073.042z" fill="#FFC107"/>
+                                    <path d="M13.317 12.851L3.608 22.56c.358.381.954.428 1.61.056l11.317-6.43-3.218-3.335z" fill="#FF4B2B"/>
+                                    <path d="M13.317 10.701l3.218-3.335L5.218 1.384C4.562 1.012 3.966 1.059 3.608 1.44l9.709 9.261z" fill="#00E676"/>
+                                </svg>
+                                <span class="btn-badge-content">
+                                    <span class="btn-badge-sub">GET IT ON</span>
+                                    <span class="btn-badge-title">Google Play</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="portal-card" data-audience="b2c">
+                    <div class="portal-card-banner">
+                        <img src="assets/images/linko-banner.jpg" alt="Linko: Bookmark &amp; Link Manager" loading="lazy">
+                    </div>
+                    <div class="portal-card-body">
+                        <div class="portal-card-header">
+                            <img src="assets/images/linko-icon.png" alt="Linko Icon" class="portal-card-icon" width="54" height="54">
+                            <div>
+                                <h3 class="portal-card-title">Linko: Bookmark &amp; Link Vault</h3>
+                                <div class="tag-list">
+                                    <span class="badge badge-success"><span class="dot"></span> Quick Save</span>
+                                    <span class="badge badge-subtle">Bookmarks</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="portal-card-desc">
+                            Fast and privacy-first bookmark manager &amp; note vault. Quick Save share sheet, system text toolbar integration, Quick Settings tile, and biometric PIN protection.
+                        </p>
+                        <div class="portal-card-footer">
+                            <a href="linko.html" class="btn btn-secondary btn-sm">
+                                View Details &rarr;
+                            </a>
+                            <a href="https://github.com/hrud09/Linko" target="_blank" rel="noopener noreferrer" class="btn-badge btn-badge-sm">
+                                <svg class="btn-badge-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                                </svg>
+                                <span class="btn-badge-content">
+                                    <span class="btn-badge-sub">VIEW ON</span>
+                                    <span class="btn-badge-title">GitHub</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="portal-card" data-audience="b2c">
+                    <div class="portal-card-banner">
+                        <img src="assets/images/clipr-banner.jpg" alt="Clipr: Quick Video Tools" loading="lazy">
+                    </div>
+                    <div class="portal-card-body">
+                        <div class="portal-card-header">
+                            <img src="assets/images/clipr-icon.png" alt="Clipr Icon" class="portal-card-icon" width="54" height="54">
+                            <div>
+                                <h3 class="portal-card-title">Clipr: Quick Video Tools</h3>
+                                <div class="tag-list">
+                                    <span class="badge badge-success"><span class="dot"></span> On-Device AI</span>
+                                    <span class="badge badge-subtle">Video Editor</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="portal-card-desc">
+                            Privacy-first mobile video editor with precision trimming, clip merging, Google ML Kit subject segmentation, intro frames, and local Room drafts.
+                        </p>
+                        <div class="portal-card-footer">
+                            <a href="clipr.html" class="btn btn-secondary btn-sm">
+                                View Details &rarr;
+                            </a>
+                            <a href="https://github.com/hrud09/Clipr" target="_blank" rel="noopener noreferrer" class="btn-badge btn-badge-sm">
+                                <svg class="btn-badge-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                                </svg>
+                                <span class="btn-badge-content">
+                                    <span class="btn-badge-sub">VIEW ON</span>
+                                    <span class="btn-badge-title">GitHub</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="portal-card" data-audience="b2c">
+                    <div class="portal-card-banner">
+                        <img src="assets/images/prompter-banner.jpg" alt="Prompter: AI Prompt Manager" loading="lazy">
+                    </div>
+                    <div class="portal-card-body">
+                        <div class="portal-card-header">
+                            <img src="assets/images/prompter-icon.png" alt="Prompter Icon" class="portal-card-icon" width="54" height="54">
+                            <div>
+                                <h3 class="portal-card-title">Prompter: AI Prompt Manager</h3>
+                                <div class="tag-list">
+                                    <span class="badge badge-subtle">Prompt Engineering</span>
+                                    <span class="badge badge-subtle">Flutter</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="portal-card-desc">
+                            Personal offline library for engineering and versioning AI prompts. Multi-version history, dynamic variable placeholders, image attachments, and instant search.
+                        </p>
+                        <div class="portal-card-footer">
+                            <a href="prompter.html" class="btn btn-secondary btn-sm">
+                                View Details &rarr;
+                            </a>
+                            <a href="https://github.com/hrud09/Prompter" target="_blank" rel="noopener noreferrer" class="btn-badge btn-badge-sm">
+                                <svg class="btn-badge-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                                </svg>
+                                <span class="btn-badge-content">
+                                    <span class="btn-badge-sub">VIEW ON</span>
+                                    <span class="btn-badge-title">GitHub</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <!-- /cms:apps-grid -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Desktop Apps Section -->
+    <section id="desktop-apps" class="section">
+        <div class="container">
+            <div class="section-header">
+                <!-- cms:desktop-heading -->
+                <p class="eyebrow">Desktop Applications</p>
+                <h2 class="section-title">Desktop Apps</h2>
+                <p class="section-subtitle">High-performance desktop software crafted for speed, productivity, and privacy.</p>
+                <!-- /cms:desktop-heading -->
             </div>
 
-            <div class="contact-card" style="margin-top: 3.5rem;">
-                <p class="eyebrow">Custom B2B Solutions</p>
-                <h3 class="section-title" style="font-size: 1.5rem;">Need custom software for your company?</h3>
-                <p class="contact-lead">
-                    We build specialized operational workflows, client management platforms, and bespoke internal tools for businesses and startups.
-                </p>
-                <div style="margin-top: 1.5rem;">
-                    <a href="mailto:silverbytestudio@gmail.com?subject=[Business%20Inquiry]%20Silverbyte%20Studio" class="btn btn-primary btn-sm">Start a Conversation</a>
+            <div class="portal-showcase-grid">
+                <!-- cms:desktop-grid -->
+                <article class="portal-card" data-audience="b2c">
+                    <div class="portal-card-banner">
+                        <img src="assets/images/video-downloader-banner.jpg" alt="Video Downloader" loading="lazy">
+                    </div>
+                    <div class="portal-card-body">
+                        <div class="portal-card-header">
+                            <img src="assets/images/video-downloader-icon.png" alt="Video Downloader Icon" class="portal-card-icon" width="54" height="54">
+                            <div>
+                                <h3 class="portal-card-title">Video Downloader</h3>
+                                <div class="tag-list">
+                                    <span class="badge badge-success"><span class="dot"></span> Windows</span>
+                                    <span class="badge badge-subtle">Electron &amp; React</span>
+                                    <span class="badge badge-subtle">yt-dlp + FFmpeg</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="portal-card-desc">
+                            Fast, lightweight desktop media downloader wrapping yt-dlp and FFmpeg. Features automatic clipboard prefill, concurrent queue manager, 4K quality presets, audio extraction, and built-in playback.
+                        </p>
+                        <div class="portal-card-footer">
+                            <a href="video-downloader.html" class="btn btn-secondary btn-sm">
+                                View Details &amp; Features &rarr;
+                            </a>
+                            <a href="https://github.com/hrud09/Video-Downloader-for-PC" target="_blank" rel="noopener noreferrer" class="btn-badge btn-badge-sm">
+                                <svg class="btn-badge-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                                </svg>
+                                <span class="btn-badge-content">
+                                    <span class="btn-badge-sub">VIEW ON</span>
+                                    <span class="btn-badge-title">GitHub</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                <!-- /cms:desktop-grid -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section / Philosophy -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-header text-center">
+                <!-- cms:about-heading -->
+                <p class="eyebrow">Philosophy</p>
+                <h2 class="section-title">How We Build</h2>
+                <p class="section-subtitle">Every project is built with care, focusing on tactile feedback, optimized performance, and respectful user treatment.</p>
+                <!-- /cms:about-heading -->
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-box">
+                    <div class="feature-icon-wrap">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="m4.93 4.93 4.24 4.24"></path>
+                            <path d="m14.83 9.17 4.24-4.24"></path>
+                            <path d="m14.83 14.83 4.24 4.24"></path>
+                            <path d="m9.17 14.83-4.24 4.24"></path>
+                        </svg>
+                    </div>
+                    <h3>Satisfying Feel</h3>
+                    <p>We focus on micro-animations, tactile haptic sensations, and instant touch responses that make interactions pleasurable.</p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="feature-icon-wrap">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                    </div>
+                    <h3>Native &amp; Engine Optimization</h3>
+                    <p>Built with Android Jetpack Compose, Flutter, and Unity pipelines, optimized for steady framerates, low memory, and battery efficiency.</p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="feature-icon-wrap">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <h3>User Privacy First</h3>
+                    <p>Our tools run 100% on-device with zero data tracking, and our casual games adhere strictly to transparent, compliant privacy standards.</p>
                 </div>
             </div>
         </div>
     </section>
 
-<!-- Site Footer -->
+    <!-- Contact & Support Section -->
+    <section id="support" class="section section-alt">
+        <div class="container">
+            <div class="contact-card">
+                <!-- cms:support-heading -->
+                <p class="eyebrow">Get In Touch</p>
+                <h2 class="section-title">Support &amp; Inquiries</h2>
+                <p class="contact-lead">
+                    Have feedback, need technical support, or inquiring about partnerships? Reach out to our team directly.
+                </p>
+                <!-- /cms:support-heading -->
+
+                <div class="contact-email-row">
+                    <span class="contact-email-text">silverbytestudio@gmail.com</span>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="copyEmail('silverbytestudio@gmail.com', this)" aria-label="Copy email address to clipboard">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        Copy Email
+                    </button>
+                </div>
+
+                <div class="contact-channels">
+                    <a href="mailto:silverbytestudio@gmail.com?subject=[App%20Support]%20Linko" class="btn btn-secondary btn-sm">
+                        Linko Support
+                    </a>
+                    <a href="mailto:silverbytestudio@gmail.com?subject=[App%20Support]%20Loaney" class="btn btn-secondary btn-sm">
+                        Loaney Support
+                    </a>
+                    <a href="mailto:silverbytestudio@gmail.com?subject=[App%20Support]%20GIF%20Maker" class="btn btn-secondary btn-sm">
+                        GIF Maker Support
+                    </a>
+                    <a href="mailto:silverbytestudio@gmail.com?subject=[App%20Support]%20Clipr" class="btn btn-secondary btn-sm">
+                        Clipr Support
+                    </a>
+                    <a href="mailto:silverbytestudio@gmail.com?subject=[App%20Support]%20Prompter" class="btn btn-secondary btn-sm">
+                        Prompter Support
+                    </a>
+                    <a href="mailto:silverbytestudio@gmail.com?subject=[Desktop%20App%20Support]%20Video%20Downloader" class="btn btn-secondary btn-sm">
+                        Video Downloader Support
+                    </a>
+                    <a href="mailto:silverbytestudio@gmail.com?subject=[Player%20Support]%20Triple%20Tiles" class="btn btn-secondary btn-sm">
+                        Game Support
+                    </a>
+                    <a href="mailto:silverbytestudio@gmail.com?subject=[Business%20Inquiry]%20Silverbyte%20Studio" class="btn btn-secondary btn-sm">
+                        Business Inquiry
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+        </div><!-- /.portal-sections-content -->
+    </div><!-- /#portal-lower-container -->
+
+    <!-- Site Footer -->
     <footer class="site-footer">
         <div class="container">
             <div class="footer-top">
@@ -277,10 +973,10 @@
                     <span>Silverbyte Studio</span>
                 </div>
                 <ul class="footer-links">
-                    <li><a href="index.html#games">Games</a></li>
-                    <li><a href="index.html#apps">Apps</a></li>
-                    <li><a href="index.html#desktop-apps">Desktop</a></li>
-                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="#games">Games</a></li>
+                    <li><a href="#apps">Apps</a></li>
+                    <li><a href="#desktop-apps">Desktop</a></li>
+                    <li><a href="#about">About</a></li>
                     <li><a href="index.html">For Customers (B2C)</a></li>
                     <!-- cms:footer-products -->
                     <li><a href="realigator.html">Realigator</a></li>
@@ -310,6 +1006,6 @@
     </footer>
 
     <!-- Script -->
-    <script src="assets/js/main.js?v=1.2"></script>
+    <script src="assets/js/main.js?v=2.3"></script>
 </body>
 </html>
