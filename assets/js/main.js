@@ -2,6 +2,16 @@
  * Silverbyte Studio - Lightweight Interactive Script
  */
 
+// Clean .html from address bar immediately if accessed directly
+(function () {
+    if (window.location.pathname.endsWith('.html')) {
+        let clean = window.location.pathname.replace(/\.html$/, '');
+        if (clean.endsWith('/index')) clean = clean.slice(0, -5);
+        if (clean === '') clean = '/';
+        window.history.replaceState(null, '', clean + window.location.search + window.location.hash);
+    }
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
     initSiteNav();
     initShowcase();
@@ -161,7 +171,7 @@ function showCopyFeedback(btnEl) {
  */
 function initShowcase() {
     const root = document.getElementById('showcase');
-    if (!root) return;
+    if (!root || root.closest('[hidden]')) return;
 
     const IMAGE_MS = 5000;
     const track = root.querySelector('.showcase-track');

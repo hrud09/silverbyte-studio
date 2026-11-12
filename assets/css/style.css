@@ -96,6 +96,12 @@ html {
     text-size-adjust: 100%;
 }
 
+[hidden],
+#hero[hidden],
+.hero[hidden] {
+    display: none !important;
+}
+
 body {
     font-family: var(--font-sans);
     background-color: var(--bg-base);

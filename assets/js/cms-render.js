@@ -47,8 +47,15 @@ export const CATEGORIES = {
     business: 'Business (B2B)',
 };
 
+// Clean .html from URLs for professional appearance
+const cleanUrl = (url) => {
+    if (!url) return url;
+    if (url === 'index.html') return '/';
+    return url.replace(/\.html$/, '');
+};
+
 // Where a product links when it has no details page yet: its store link, else nowhere.
-const hrefOf = (p) => p.page || p.link?.url || '#';
+const hrefOf = (p) => (p.page ? cleanUrl(p.page) : p.link?.url || '#');
 
 const visible = (data, where) => (data.products || []).filter(p => p.show?.[where] !== false && p.name);
 
@@ -97,7 +104,12 @@ function renderDefaultSpace(data) {
     const space = data.settings?.defaultSpace === 'business' ? 'business' : 'customers';
     // Visitors arriving from outside the site land on the default space. Links between
     // the two spaces (same-origin referrer), #anchors and ?space=customers are respected.
-    return `<script>(function(){var d=${JSON.stringify(space)};if(d!=="business")return;if(location.hash||/[?&]space=customers/.test(location.search))return;try{if(document.referrer&&new URL(document.referrer).origin===location.origin)return;}catch(e){}location.replace("business.html");})();</script>`;
+    return `<script>(function(){var d=${JSON.stringify(space)};if(d!=="business")return;if(location.hash||/[?&]space=customers/.test(location.search))return;try{if(document.referrer&&new URL(document.referrer).origin===location.origin)return;}catch(e){}location.replace("business");})();</script>`;
+}
+
+function renderHeroSection(data, file) {
+    const show = data.hero?.show !== false;
+    return `<section class="hero hero-split" id="hero"${show ? '' : ' hidden'}>`;
 }
 
 function renderHeroIntro(data, file) {
@@ -205,7 +217,7 @@ ${indent(lt.icon, 4)}
     } else if (p.pendingLabel) {
         action = `<span class="badge badge-amber">${esc(p.pendingLabel)}</span>`;
     }
-    const details = p.page ? `<a href="${esc(p.page)}" class="btn btn-secondary btn-sm">
+    const details = p.page ? `<a href="${esc(cleanUrl(p.page))}" class="btn btn-secondary btn-sm">
     ${esc(p.detailsLabel || 'View Details')} &rarr;
 </a>` : '';
     return `<article class="portal-card" data-audience="${esc((p.audience || 'b2c').split(' ')[0])}">
@@ -240,6 +252,7 @@ function renderGrid(data, category) {
 
 export const REGIONS = {
     'default-space': renderDefaultSpace,
+    'hero-section': renderHeroSection,
     'nav-games': renderNavGames,
     'nav-apps': renderNavApps,
     'footer-products': renderFooterProducts,

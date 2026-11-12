@@ -992,7 +992,10 @@ function viewText() {
     return `
     <div class="page-head"><div><h1>Homepage text</h1><p>Headings and intro copy on the homepage.</p></div></div>
     <section class="card">
-        <h2>Hero</h2>
+        <div class="card-head">
+            <h2>Hero</h2>
+            <label class="check"><input type="checkbox" data-bind="d.hero.show"${d.hero?.show !== false ? ' checked' : ''}> Show section</label>
+        </div>
         <p class="card-desc">The first thing visitors read, above the slideshow.</p>
         ${field('Eyebrow', 'd.hero.eyebrow', d.hero?.eyebrow)}
         ${area('Headline', 'd.hero.title', d.hero?.title, { rows: 2 })}
