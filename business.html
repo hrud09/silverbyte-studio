@@ -32,7 +32,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Lilita+One&family=Nunito:wght@500;600;700;800;900&display=swap">
-    <link rel="stylesheet" href="assets/css/style.css?v=2.8">
+    <link rel="stylesheet" href="assets/css/style.css?v=2.10">
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
@@ -285,11 +285,41 @@
                             <!-- /cms:business-heading -->
                         </div>
 
+                        <div class="b2b-pitch">
+                            <p class="b2b-pitch-lead">We design, build and ship the software your team runs on: management systems, client portals, mobile apps and internal tools. You talk directly to the engineers writing the code, and you can read our code before you hire us.</p>
+                            <div class="b2b-pitch-actions">
+                                <a href="mailto:silverbytestudio@gmail.com?subject=[Project%20Inquiry]%20Free%20scoping%20call" class="btn gx-btn-red">Book a free scoping call</a>
+                                <a href="#case-realigator" class="btn-quiet btn btn-sm">See the case studies &darr;</a>
+                            </div>
+                            <ul class="b2b-proof" aria-label="Track record">
+                                <li><strong>11</strong><span>products built &amp; shipped in-house</span></li>
+                                <li><strong>4</strong><span>platforms: Android, iOS, Windows, Web</span></li>
+                                <li><strong>Open</strong><span>source code on GitHub you can inspect today</span></li>
+                                <li><strong>0</strong><span>middlemen: you work with the people who build it</span></li>
+                            </ul>
+                            <div class="b2b-proof-shelf">
+                                <p class="b2b-proof-shelf-label">Built &amp; shipped by us</p>
+                                <ul class="b2b-proof-icons">
+                                <li><a href="realigator" title="Realigator"><img src="assets/images/realigator-icon.png" alt="Realigator" width="40" height="40" loading="lazy"></a></li>
+                                <li><a href="bariwala" title="Bariwala"><img src="assets/images/bariwala-icon.png" alt="Bariwala" width="40" height="40" loading="lazy"></a></li>
+                                <li><a href="triple-tiles" title="Triple Tiles"><img src="assets/images/triple-tiles-icon.png" alt="Triple Tiles" width="40" height="40" loading="lazy"></a></li>
+                                <li><a href="loaney" title="Loaney"><img src="assets/images/loaney-icon.png" alt="Loaney" width="40" height="40" loading="lazy"></a></li>
+                                <li><a href="gif-maker" title="GIF Maker"><img src="assets/images/gif-maker-icon.png" alt="GIF Maker" width="40" height="40" loading="lazy"></a></li>
+                                <li><a href="linko" title="Linko"><img src="assets/images/linko-icon.png" alt="Linko" width="40" height="40" loading="lazy"></a></li>
+                                <li><a href="clipr" title="Clipr"><img src="assets/images/clipr-icon.png" alt="Clipr" width="40" height="40" loading="lazy"></a></li>
+                                <li><a href="prompter" title="Prompter"><img src="assets/images/prompter-icon.png" alt="Prompter" width="40" height="40" loading="lazy"></a></li>
+                                <li><a href="audiox" title="AudioX"><img src="assets/images/audiox-icon.png" alt="AudioX" width="40" height="40" loading="lazy"></a></li>
+                                <li><a href="video-downloader" title="Video Downloader"><img src="assets/images/video-downloader-icon.png" alt="Video Downloader" width="40" height="40" loading="lazy"></a></li>
+                                <li><a href="fallinko" title="Fallinko"><img src="assets/images/fallinko-icon.png" alt="Fallinko" width="40" height="40" loading="lazy"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
                         <!-- Flagship: Realigator -->
-                        <article class="b2b-flagship" data-audience="b2b">
+                        <article class="b2b-flagship" id="case-realigator" data-audience="b2b">
                             <div class="b2b-flagship-media">
                                 <img src="assets/images/realigator-banner.jpg" alt="Realigator dashboard: buildings, units, tenants and rent invoices" width="1376" height="768" loading="lazy">
-                                <span class="b2b-flagship-label">Flagship &middot; B2B</span>
+                                <span class="b2b-flagship-label">Case study 01 &middot; SaaS platform</span>
                             </div>
                             <div class="b2b-flagship-body">
                                 <div class="b2b-flagship-head">
@@ -299,8 +329,14 @@
                                         <p class="b2b-flagship-kicker">Property &amp; lease operating system</p>
                                     </div>
                                 </div>
-                                <p class="b2b-flagship-desc">Real estate and rental management for owners, operators and landlords: multi-unit building hierarchies, tenant records, itemized rent invoicing and live cashflow, on every device the team uses.</p>
 
+                                <dl class="b2b-story">
+                                    <div class="b2b-story-row"><dt>The problem</dt><dd>Owners running several buildings were tracking units, tenants and rent across spreadsheets, paper receipts and chat threads. Nobody had one accurate view of who owed what.</dd></div>
+                                    <div class="b2b-story-row"><dt>What we built</dt><dd>One system that models buildings &rarr; units &rarr; tenants &rarr; leases &rarr; invoices, with role-based access for owners and staff, running on phone, tablet, desktop and web from one codebase.</dd></div>
+                                    <div class="b2b-story-row b2b-story-row--result"><dt>The result</dt><dd>Rent is invoiced automatically, tenants get branded PDF receipts, and owners see live cashflow and occupancy from any device instead of chasing paperwork.</dd></div>
+                                </dl>
+
+                                <p class="b2b-arch-label">Under the hood</p>
                                 <ul class="b2b-arch" aria-label="Realigator architecture">
                                     <li class="b2b-arch-cell">
                                         <svg class="sb-icon" aria-hidden="true"><use href="#i-shield"/></svg>
@@ -325,13 +361,14 @@
                                 </ul>
 
                                 <div class="b2b-flagship-footer">
-                                    <a href="/realigator" class="btn btn-secondary btn-sm">View details &amp; specs</a>
+                                    <a href="mailto:silverbytestudio@gmail.com?subject=[Project%20Inquiry]%20Something%20like%20Realigator" class="btn btn-primary btn-sm">Build something like this</a>
+                                    <a href="/realigator" class="btn btn-secondary btn-sm">Full case study</a>
                                     <a href="https://github.com/hrud09/Realigator" target="_blank" rel="noopener noreferrer" class="btn-badge btn-badge-sm">
                                         <svg class="btn-badge-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                             <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
                                         </svg>
                                         <span class="btn-badge-content">
-                                            <span class="btn-badge-sub">VIEW ON</span>
+                                            <span class="btn-badge-sub">READ THE CODE ON</span>
                                             <span class="btn-badge-title">GitHub</span>
                                         </span>
                                     </a>
@@ -343,7 +380,7 @@
                         <article class="b2b-flagship" data-audience="b2b">
                             <div class="b2b-flagship-media">
                                 <img src="assets/images/bariwala-banner.jpg" alt="Bariwala rental management: properties, units, tenant billing and cashflow ledger" width="1376" height="768" loading="lazy">
-                                <span class="b2b-flagship-label">Mobile Suite &middot; B2B</span>
+                                <span class="b2b-flagship-label">Case study 02 &middot; Mobile suite</span>
                             </div>
                             <div class="b2b-flagship-body">
                                 <div class="b2b-flagship-head">
@@ -353,8 +390,14 @@
                                         <p class="b2b-flagship-kicker">Smart property &amp; rental ledger</p>
                                     </div>
                                 </div>
-                                <p class="b2b-flagship-desc">Offline-first rental property management for flat owners, building landlords and operators: multi-unit occupancy, tenant &amp; household profiles, automated rent + utility billing, partial/advance payment allocation and Fix4U maintenance.</p>
 
+                                <dl class="b2b-story">
+                                    <div class="b2b-story-row"><dt>The problem</dt><dd>Landlords collecting rent, utility bills and bKash/Nagad payments kept records in notebooks. Partial payments and advances got lost, and internet access was unreliable.</dd></div>
+                                    <div class="b2b-story-row"><dt>What we built</dt><dd>An offline-first Android &amp; iOS app for flat and building owners: units, tenant households, recurring rent + utility billing, automatic partial/advance allocation and maintenance tickets.</dd></div>
+                                    <div class="b2b-story-row b2b-story-row--result"><dt>The result</dt><dd>Every payment is accounted for, the app works with no connection, and the whole ledger is backed up with AES-256 encryption to the owner&rsquo;s own Google Drive.</dd></div>
+                                </dl>
+
+                                <p class="b2b-arch-label">Under the hood</p>
                                 <ul class="b2b-arch" aria-label="Bariwala architecture">
                                     <li class="b2b-arch-cell">
                                         <svg class="sb-icon" aria-hidden="true"><use href="#i-devices"/></svg>
@@ -379,13 +422,14 @@
                                 </ul>
 
                                 <div class="b2b-flagship-footer">
-                                    <a href="/bariwala" class="btn btn-secondary btn-sm">View details &amp; specs</a>
+                                    <a href="mailto:silverbytestudio@gmail.com?subject=[Project%20Inquiry]%20Something%20like%20Bariwala" class="btn btn-primary btn-sm">Build something like this</a>
+                                    <a href="/bariwala" class="btn btn-secondary btn-sm">Full case study</a>
                                     <a href="https://github.com/hrud09/Bariwala" target="_blank" rel="noopener noreferrer" class="btn-badge btn-badge-sm">
                                         <svg class="btn-badge-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                             <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
                                         </svg>
                                         <span class="btn-badge-content">
-                                            <span class="btn-badge-sub">VIEW ON</span>
+                                            <span class="btn-badge-sub">READ THE CODE ON</span>
                                             <span class="btn-badge-title">GitHub</span>
                                         </span>
                                     </a>
@@ -396,12 +440,12 @@
                         <!-- Custom B2B capabilities -->
                         <article class="b2b-capabilities" data-audience="b2b">
                             <div class="b2b-cap-intro">
-                                <p class="b2b-cap-kicker">Bespoke engineering</p>
+                                <p class="b2b-cap-kicker">What we build for you</p>
                                 <h3 class="b2b-cap-title">Custom business &amp; team software</h3>
-                                <p class="b2b-cap-desc">Operational workflows, client management platforms, desktop batch utilities and secure internal tools, built with the same care we ship our own apps.</p>
+                                <p class="b2b-cap-desc">Booking and operations systems, client and tenant portals, billing and invoicing, inventory, field-staff mobile apps and desktop batch tools. If your team does it in a spreadsheet today, we can turn it into software, built with the same care we put into our own products.</p>
                                 <div class="b2b-cap-actions">
-                                    <a href="mailto:silverbytestudio@gmail.com?subject=[Business%20Inquiry]%20Silverbyte%20Studio" class="btn btn-primary btn-sm">Start a project conversation</a>
-                                    <a href="#support" class="btn-quiet">Consult with our team &rarr;</a>
+                                    <a href="mailto:silverbytestudio@gmail.com?subject=[Project%20Inquiry]%20Free%20scoping%20call" class="btn btn-primary btn-sm">Book a free scoping call</a>
+                                    <a href="#process" class="btn-quiet btn btn-sm">How a project works &rarr;</a>
                                 </div>
                             </div>
 
@@ -440,6 +484,89 @@
                                 </li>
                             </ul>
                         </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Engagement: process, guarantees, FAQ, CTA -->
+            <section id="process" class="section section-hire">
+                <div class="container">
+                    <div class="section-header text-center">
+                        <p class="eyebrow">How we work</p>
+                        <h2 class="section-title">From first call to launch</h2>
+                        <p class="section-subtitle">A clear, low-risk path. You see working software every week, not slide decks.</p>
+                    </div>
+
+                    <ol class="hire-steps">
+                        <li class="hire-step">
+                            <span class="hire-step-num">1</span>
+                            <h3>Free scoping call</h3>
+                            <p>We learn how your team works today and where it hurts. You leave with a written scope, timeline and fixed quote.</p>
+                        </li>
+                        <li class="hire-step">
+                            <span class="hire-step-num">2</span>
+                            <h3>Design &amp; prototype</h3>
+                            <p>Clickable screens of the key flows, so you can try the product and change your mind before a line of production code.</p>
+                        </li>
+                        <li class="hire-step">
+                            <span class="hire-step-num">3</span>
+                            <h3>Build in weekly releases</h3>
+                            <p>Every week you get a build to test on your own devices, and a short update on what&rsquo;s done and what&rsquo;s next.</p>
+                        </li>
+                        <li class="hire-step">
+                            <span class="hire-step-num">4</span>
+                            <h3>Launch &amp; support</h3>
+                            <p>We publish to the stores or your servers, train your team, and stay on to fix issues and add features as you grow.</p>
+                        </li>
+                    </ol>
+
+                    <div class="hire-grid">
+                        <div class="hire-promises">
+                            <h3 class="hire-subtitle">What you can count on</h3>
+                            <ul class="hire-promise-list">
+                                <li><svg class="sb-icon" aria-hidden="true"><use href="#i-check"/></svg><span><strong>You own everything.</strong> Full source code, designs and accounts are handed over to you.</span></li>
+                                <li><svg class="sb-icon" aria-hidden="true"><use href="#i-check"/></svg><span><strong>Fixed scope, fixed price.</strong> Agreed in writing before work starts. No surprise invoices.</span></li>
+                                <li><svg class="sb-icon" aria-hidden="true"><use href="#i-check"/></svg><span><strong>Proof every week.</strong> Working builds you can tap through, not status reports.</span></li>
+                                <li><svg class="sb-icon" aria-hidden="true"><use href="#i-check"/></svg><span><strong>Direct line to engineers.</strong> No account managers relaying messages.</span></li>
+                                <li><svg class="sb-icon" aria-hidden="true"><use href="#i-check"/></svg><span><strong>Your data stays yours.</strong> Row-level security, encrypted backups and private deployments by default.</span></li>
+                                <li><svg class="sb-icon" aria-hidden="true"><use href="#i-check"/></svg><span><strong>We ship.</strong> Store publishing, hosting and deployment are part of the job, not extras.</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="hire-faq">
+                            <h3 class="hire-subtitle">Questions clients ask</h3>
+                            <details>
+                                <summary>How much does a project cost?</summary>
+                                <p>It depends on scope, so every project gets a fixed quote after the free scoping call. Small internal tools and single-platform apps cost far less than multi-platform SaaS products. We&rsquo;ll also tell you what to cut to fit your budget.</p>
+                            </details>
+                            <details>
+                                <summary>How long until we have something working?</summary>
+                                <p>You get a clickable prototype within the first couple of weeks and a working build every week after that. Launch dates are set in the scope before we start.</p>
+                            </details>
+                            <details>
+                                <summary>Can you work with our existing systems?</summary>
+                                <p>Yes. We can build on Supabase, your own backend or an existing database, and integrate with payment providers, Google Drive and the tools your team already uses.</p>
+                            </details>
+                            <details>
+                                <summary>What happens after launch?</summary>
+                                <p>We keep supporting it: bug fixes, OS and store updates, and new features as your team asks for them. Because you own the code, you&rsquo;re never locked in.</p>
+                            </details>
+                            <details>
+                                <summary>Will you sign an NDA?</summary>
+                                <p>Of course. Send it over before the scoping call and we&rsquo;ll sign it before you share anything confidential.</p>
+                            </details>
+                        </div>
+                    </div>
+
+                    <div class="hire-cta">
+                        <div>
+                            <h3 class="hire-cta-title">Tell us what slows your team down</h3>
+                            <p class="hire-cta-text">Send a few lines about your business and the problem. We reply within one business day with next steps. No obligation.</p>
+                        </div>
+                        <div class="hire-cta-actions">
+                            <a href="mailto:silverbytestudio@gmail.com?subject=[Project%20Inquiry]%20Free%20scoping%20call" class="btn gx-btn-red">Book a free scoping call</a>
+                            <span class="hire-cta-mail">or email <a href="mailto:silverbytestudio@gmail.com">silverbytestudio@gmail.com</a></span>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -571,6 +698,9 @@
                 </div>
 
                 <div class="contact-channels">
+                    <a href="mailto:silverbytestudio@gmail.com?subject=[Business%20Inquiry]%20Silverbyte%20Studio" class="btn btn-primary btn-sm">
+                        Start a Project
+                    </a>
                     <a href="mailto:silverbytestudio@gmail.com?subject=[App%20Support]%20Linko" class="btn btn-secondary btn-sm">
                         Linko Support
                     </a>
@@ -591,9 +721,6 @@
                     </a>
                     <a href="mailto:silverbytestudio@gmail.com?subject=[Player%20Support]%20Triple%20Tiles" class="btn btn-secondary btn-sm">
                         Game Support
-                    </a>
-                    <a href="mailto:silverbytestudio@gmail.com?subject=[Business%20Inquiry]%20Silverbyte%20Studio" class="btn btn-secondary btn-sm">
-                        Business Inquiry
                     </a>
                 </div>
             </div>
