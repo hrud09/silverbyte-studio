@@ -73,13 +73,13 @@
 .sectionTitle {
   font-size: var(--font-size-xl);
   font-weight: 800;
-  color: var(--color-text);
+  color: var(--color-on-dark);
   letter-spacing: -0.02em;
 }
 
 .sectionSubtitle {
   font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
+  color: var(--color-on-dark-secondary);
 }
 
 .categoryGrid {

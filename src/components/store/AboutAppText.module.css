@@ -5,13 +5,13 @@
 .heading {
   font-size: var(--font-size-lg);
   font-weight: 700;
-  color: var(--color-text);
+  color: var(--color-on-dark);
   margin-bottom: var(--space-3);
 }
 
 .shortDesc {
   font-size: var(--font-size-base);
-  color: var(--color-text);
+  color: var(--color-on-dark);
   line-height: 1.6;
   margin-bottom: var(--space-3);
 }
@@ -54,7 +54,7 @@
 }
 
 .paragraph {
-  color: var(--color-text);
+  color: var(--color-on-dark);
 }
 
 .toggleBtn {

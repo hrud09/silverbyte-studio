@@ -17,7 +17,7 @@
   padding: var(--space-3) var(--space-5);
   font-size: var(--font-size-sm);
   font-weight: 500;
-  color: var(--color-text-secondary);
+  color: var(--color-on-dark-secondary);
   border: none;
   border-bottom: 2px solid transparent;
   margin-bottom: -2px;

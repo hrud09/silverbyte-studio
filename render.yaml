@@ -19,6 +19,10 @@ services:
         generateValue: true
       - key: NEXT_PUBLIC_BASE_URL
         sync: false
+      # Only used by the seed when the database has no admin yet. Leave unset and the
+      # seed prints a random one-time password to the build log instead.
+      - key: ADMIN_INITIAL_PASSWORD
+        sync: false
       # GitHub Releases storage. GITHUB_REPO is "owner/repo" and must be public so
       # release assets download straight from GitHub's CDN.
       - key: GITHUB_TOKEN

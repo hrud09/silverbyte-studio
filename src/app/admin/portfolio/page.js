@@ -2,14 +2,14 @@
 
 import React, { useEffect, useState } from 'react';
 import { Save, ExternalLink, RefreshCw } from 'lucide-react';
-import { useToast } from '@/components/ui/Toast';
+import { useToast } from '@/components/admin/ToastContext';
 import styles from './portfolio.module.css';
 
 export default function AdminPortfolioPage() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const { addToast } = useToast();
+  const { toast } = useToast();
 
   const loadPortfolio = async () => {
     setLoading(true);
@@ -19,10 +19,10 @@ export default function AdminPortfolioPage() {
       if (json.success) {
         setData(json.data);
       } else {
-        addToast(json.error || 'Failed to load portfolio data', 'error');
+        toast.error(json.error || 'Failed to load portfolio data');
       }
     } catch {
-      addToast('Failed to load portfolio data', 'error');
+      toast.error('Failed to load portfolio data');
     } finally {
       setLoading(false);
     }
@@ -44,12 +44,12 @@ export default function AdminPortfolioPage() {
       const json = await res.json();
       if (json.success) {
         setData(json.data);
-        addToast('Portfolio saved to database and live on /', 'success');
+        toast.success('Portfolio saved to database and live on /');
       } else {
-        addToast(json.error || 'Failed to save portfolio', 'error');
+        toast.error(json.error || 'Failed to save portfolio');
       }
     } catch {
-      addToast('Failed to save portfolio', 'error');
+      toast.error('Failed to save portfolio');
     } finally {
       setSaving(false);
     }

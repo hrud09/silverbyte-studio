@@ -71,6 +71,12 @@
   --color-text-secondary: #7b5a44;
   --color-text-tertiary: #8f6e56;
   --color-text-inverse: #fbf1dc;
+  /* Text that sits directly on --color-background (not on a cream surface card).
+     --color-text* above is for cream surfaces and is unreadable on the dark page. */
+  --color-on-dark: #fbf1dc;
+  --color-on-dark-secondary: #d6bc93;
+  --color-on-dark-tertiary: #b89a74;
+  --color-success-on-dark: #9ccc65;
   --color-border: #241812;
   --color-border-light: #c9ad85;
   --color-divider: #d6bc93;

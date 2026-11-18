@@ -21,7 +21,7 @@
 }
 
 .crumbLink {
-  color: var(--color-text-secondary);
+  color: var(--color-on-dark-secondary);
   text-decoration: none;
 }
 
@@ -30,11 +30,11 @@
 }
 
 .crumbSep {
-  color: var(--color-text-tertiary);
+  color: var(--color-on-dark-tertiary);
 }
 
 .crumbActive {
-  color: var(--color-text);
+  color: var(--color-on-dark);
   font-weight: 600;
 }
 
@@ -46,7 +46,7 @@
 .pageTitle {
   font-size: var(--font-size-3xl);
   font-weight: 800;
-  color: var(--color-text);
+  color: var(--color-on-dark);
   letter-spacing: -0.02em;
 }
 
@@ -56,7 +56,7 @@
 
 .resultCount {
   font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
+  color: var(--color-on-dark-secondary);
   margin-top: 4px;
 }
 
@@ -79,7 +79,7 @@
 .facetLabel {
   font-size: var(--font-size-sm);
   font-weight: 600;
-  color: var(--color-text-secondary);
+  color: var(--color-on-dark-secondary);
   flex-shrink: 0;
 }
 

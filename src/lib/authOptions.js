@@ -26,41 +26,22 @@ export const authOptions = {
           console.warn('Could not query user table during auth:', dbErr.message);
         }
 
-        let isAuthorized = false;
-
-        if (adminUser && adminUser.passwordHash) {
-          isAuthorized = await bcrypt.compare(inputPassword, adminUser.passwordHash);
-        }
-
-        // Fallback: master initial password or recovery
-        if (!isAuthorized && inputPassword === '270909') {
-          isAuthorized = true;
-          // If no user exists yet in the database, lazily seed the initial admin account
-          if (!adminUser) {
-            try {
-              const defaultHash = await bcrypt.hash('270909', 10);
-              adminUser = await prisma.user.create({
-                data: {
-                  email: 'admin@silverbytestudios.com',
-                  name: 'Admin',
-                  role: 'ADMIN',
-                  passwordHash: defaultHash,
-                },
-              });
-            } catch (seedErr) {
-              console.warn('Could not auto-seed admin user:', seedErr.message);
-            }
-          }
-        }
+        // Only the stored password hash grants access. There is deliberately no
+        // master/recovery password: the admin account is created by prisma/seed.js
+        // (see ADMIN_INITIAL_PASSWORD), and a lost password is reset in the database.
+        const isAuthorized = Boolean(
+          adminUser?.passwordHash &&
+          (await bcrypt.compare(inputPassword, adminUser.passwordHash))
+        );
 
         if (!isAuthorized) {
           throw new Error('Invalid password');
         }
 
         return {
-          id: adminUser ? adminUser.id : '1',
-          email: adminUser?.email || 'admin@silverbytestudios.com',
-          name: adminUser?.name || 'Admin',
+          id: adminUser.id,
+          email: adminUser.email,
+          name: adminUser.name || 'Admin',
           role: 'ADMIN',
           avatar: adminUser?.avatar || null,
         };

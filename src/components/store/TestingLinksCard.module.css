@@ -49,13 +49,13 @@
 .title {
   font-size: 1.125rem;
   font-weight: 700;
-  color: var(--color-text);
+  color: var(--color-on-dark);
   margin: 0;
 }
 
 .subtitle {
   font-size: 0.8125rem;
-  color: var(--color-text-secondary);
+  color: var(--color-on-dark-secondary);
   margin-top: 2px;
 }
 
