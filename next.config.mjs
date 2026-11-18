@@ -39,15 +39,24 @@ const nextConfig = {
       bodySizeLimit: '500mb',
     },
   },
+  async redirects() {
+    return [
+      {
+        source: '/portfolio-admin',
+        destination: '/admin/portfolio',
+        permanent: false,
+      },
+    ];
+  },
   async rewrites() {
     return {
       beforeFiles: [
-        { source: '/', destination: '/index.html' },
-        { source: '/portfolio-admin', destination: '/portfolio-admin/index.html' },
-        ...PORTFOLIO_HTML_PAGES.map((slug) => ({
-          source: `/${slug}`,
-          destination: `/${slug}.html`,
-        })),
+        { source: '/', destination: '/api/portfolio/render/index' },
+        { source: '/index.html', destination: '/api/portfolio/render/index' },
+        ...PORTFOLIO_HTML_PAGES.flatMap((slug) => [
+          { source: `/${slug}`, destination: `/api/portfolio/render/${slug}` },
+          { source: `/${slug}.html`, destination: `/api/portfolio/render/${slug}` },
+        ]),
       ],
     };
   },

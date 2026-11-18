@@ -1,4 +1,6 @@
 require('dotenv').config();
+const fs = require('node:fs');
+const path = require('node:path');
 const { PrismaClient } = require('@prisma/client');
 const { PrismaPg } = require('@prisma/adapter-pg');
 const { Pool } = require('pg');
@@ -9,16 +11,15 @@ const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
-async function main() {
-  console.log('🌱 Cleaning and initializing fresh Red Apps database...\n');
+const CATEGORY_MAP = {
+  games: 'games',
+  business: 'business',
+  apps: 'utilities',
+  desktop: 'productivity',
+};
 
-  // ─── Clean up any dummy/preset apps and analytics ───
-  console.log('🧹 Removing all dummy apps, versions, assets, and analytics events...');
-  await prisma.analyticsEvent.deleteMany({});
-  await prisma.appAsset.deleteMany({});
-  await prisma.appVersion.deleteMany({});
-  await prisma.app.deleteMany({});
-  console.log('✅ Database cleaned. All dummy apps removed.');
+async function main() {
+  console.log('🌱 Syncing Silverbyte Studio unified database...\n');
 
   // ─── Admin User ───
   const passwordHash = await bcrypt.hash('admin123', 10);
@@ -37,32 +38,112 @@ async function main() {
 
   // ─── Categories ───
   const categoryData = [
-    { name: 'Games', slug: 'games', icon: 'Gamepad2', color: '#D32F2F', order: 0 },
-    { name: 'Productivity', slug: 'productivity', icon: 'BarChart3', color: '#1976D2', order: 1 },
-    { name: 'Utilities', slug: 'utilities', icon: 'Wrench', color: '#388E3C', order: 2 },
-    { name: 'Entertainment', slug: 'entertainment', icon: 'Tv', color: '#7B1FA2', order: 3 },
-    { name: 'Tools', slug: 'tools', icon: 'Settings', color: '#F57C00', order: 4 },
-    { name: 'Lifestyle', slug: 'lifestyle', icon: 'Heart', color: '#C2185B', order: 5 },
-    { name: 'Education', slug: 'education', icon: 'GraduationCap', color: '#00796B', order: 6 },
-    { name: 'Communication', slug: 'communication', icon: 'MessageSquare', color: '#303F9F', order: 7 },
+    { name: 'Games', slug: 'games', icon: 'Gamepad2', color: '#e05a4f', order: 0 },
+    { name: 'Productivity', slug: 'productivity', icon: 'BarChart3', color: '#2bb5b8', order: 1 },
+    { name: 'Utilities', slug: 'utilities', icon: 'Wrench', color: '#a3ad2b', order: 2 },
+    { name: 'Business', slug: 'business', icon: 'Building2', color: '#f2b92e', order: 3 },
+    { name: 'Entertainment', slug: 'entertainment', icon: 'Tv', color: '#7b3fa8', order: 4 },
+    { name: 'Tools', slug: 'tools', icon: 'Settings', color: '#e05a4f', order: 5 },
+    { name: 'Lifestyle', slug: 'lifestyle', icon: 'Heart', color: '#c2185b', order: 6 },
+    { name: 'Education', slug: 'education', icon: 'GraduationCap', color: '#00796b', order: 7 },
+    { name: 'Communication', slug: 'communication', icon: 'MessageSquare', color: '#303f9f', order: 8 },
   ];
 
+  const categoriesBySlug = {};
   for (const cat of categoryData) {
-    await prisma.category.upsert({
+    const record = await prisma.category.upsert({
       where: { slug: cat.slug },
       update: {},
       create: { id: uuid(), ...cat },
     });
+    categoriesBySlug[cat.slug] = record;
   }
-  console.log('✅ Default categories initialized:', categoryData.length);
+  console.log('✅ Categories synced:', categoryData.length);
 
-  // ─── Settings ───
+  // ─── Portfolio Data (from public/content/site.json) ───
+  const siteJsonPath = path.join(__dirname, '..', 'public', 'content', 'site.json');
+  const siteData = JSON.parse(fs.readFileSync(siteJsonPath, 'utf8'));
+
+  await prisma.setting.upsert({
+    where: { key: 'portfolio_site_data' },
+    update: {},
+    create: {
+      id: uuid(),
+      key: 'portfolio_site_data',
+      value: JSON.stringify(siteData),
+    },
+  });
+  console.log('✅ Portfolio CMS data synced to Setting.portfolio_site_data');
+
+  // ─── Sync Studio Products into Store App Catalogue ───
+  for (const [index, product] of (siteData.products || []).entries()) {
+    const catSlug = CATEGORY_MAP[product.category] || 'utilities';
+    const category = categoriesBySlug[catSlug];
+    const slug = product.id;
+    const packageId = `com.silverbyte.${slug.replace(/[^a-z0-9]/gi, '')}`;
+    const linkUrl = product.link?.url || '';
+    const playStoreUrl = linkUrl.includes('play.google.com') ? linkUrl : null;
+    const website = !playStoreUrl && linkUrl ? linkUrl : `https://silverbytestudio.com/${slug}`;
+
+    const existing = await prisma.app.findUnique({ where: { slug } });
+    if (!existing) {
+      const app = await prisma.app.create({
+        data: {
+          id: uuid(),
+          slug,
+          name: product.name,
+          packageId,
+          shortDescription: product.description || product.navDesc || product.name,
+          fullDescription: product.description || '',
+          developerType: 'SILVER_BYTE',
+          developerName: 'Silverbyte Studio',
+          developerWebsite: 'https://silverbytestudio.com',
+          appType: 'NORMAL',
+          categoryId: category?.id || null,
+          tags: [product.category, product.shippedCategory, product.audience].filter(Boolean).join(','),
+          status: 'PUBLISHED',
+          featured: Boolean(product.show?.showcase),
+          featuredOrder: index,
+          website,
+          playStoreUrl,
+        },
+      });
+
+      const assets = [];
+      if (product.icon) {
+        assets.push({
+          id: uuid(),
+          appId: app.id,
+          type: 'ICON',
+          url: `/${product.icon.replace(/^\//, '')}`,
+          fileName: path.basename(product.icon),
+          order: 0,
+        });
+      }
+      if (product.banner) {
+        assets.push({
+          id: uuid(),
+          appId: app.id,
+          type: 'FEATURE',
+          url: `/${product.banner.replace(/^\//, '')}`,
+          fileName: path.basename(product.banner),
+          order: 1,
+        });
+      }
+      if (assets.length > 0) {
+        await prisma.appAsset.createMany({ data: assets });
+      }
+    }
+  }
+  console.log('✅ Studio products synced to App catalogue:', (siteData.products || []).length);
+
+  // ─── Store Settings ───
   const settings = [
     { key: 'store_announcement', value: '' },
-    { key: 'privacy_policy', value: 'This is the Silver Red Store privacy policy. Silver Byte Studios respects your privacy and is committed to protecting your personal data.' },
-    { key: 'terms_of_service', value: 'These are the Silver Red Store terms of service. By using Silver Red Store, you agree to these terms.' },
-    { key: 'featured_banner_title', value: 'Discover Amazing Apps' },
-    { key: 'featured_banner_subtitle', value: 'A personal Apps and Games store by Silver Byte Studios.' },
+    { key: 'privacy_policy', value: 'This is the Silverbyte Studio App Store privacy policy.' },
+    { key: 'terms_of_service', value: 'These are the Silverbyte Studio App Store terms of service.' },
+    { key: 'featured_banner_title', value: 'Silverbyte Studio App Store' },
+    { key: 'featured_banner_subtitle', value: 'Polished apps and games built and shipped in-house.' },
   ];
 
   for (const s of settings) {
@@ -72,10 +153,8 @@ async function main() {
       create: { id: uuid(), ...s },
     });
   }
-  console.log('✅ Settings initialized');
-
-  console.log('\n🎉 Fresh database setup complete!');
-  console.log('   Admin login: admin@silverbytestudios.com / admin123');
+  console.log('✅ Store settings synced');
+  console.log('\n🎉 Unified database ready!');
 }
 
 main()

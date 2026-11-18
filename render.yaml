@@ -5,7 +5,7 @@ services:
     # Schema sync runs at build, not at start: the free tier spins down after idle and
     # re-runs the start command on every wake, which would put a Neon round-trip in
     # front of every cold start.
-    buildCommand: npm install && npx prisma generate && npx prisma db push && npm run build
+    buildCommand: npm install && npx prisma generate && npx prisma db push && npx prisma db seed && npm run build
     startCommand: npm run start
     envVars:
       # Next.js 16 requires Node >= 20.9.

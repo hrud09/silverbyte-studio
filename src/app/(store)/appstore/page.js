@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Layers, Building2, Users, Sparkles, Clock, Flame } from 'lucide-react';
 import styles from './page.module.css';
 
-export const revalidate = 5;
+export const dynamic = 'force-dynamic';
 
 export default async function StoreHomePage() {
   let featuredApps = [];

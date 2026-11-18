@@ -6,7 +6,7 @@ import StoreFooter from '@/components/store/StoreFooter';
 import { ToastProvider } from '@/components/ui/Toast';
 import styles from './layout.module.css';
 
-export const revalidate = 5;
+export const dynamic = 'force-dynamic';
 
 export default async function StoreLayout({ children }) {
   let categories = [];
