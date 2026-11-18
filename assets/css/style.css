@@ -5139,7 +5139,15 @@ header.site-header,
     transform: rotate(180deg);
 }
 
-/* For Business / For Customers toggle call-to-action (.gx-btn .gx-btn-red) */
+/* Screen-switcher CTA group (App Store + For Business / For Customers) */
+.nav-cta-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+/* For Business / For Customers / App Store call-to-action (.gx-btn) */
 .nav-cta {
     display: inline-flex;
     align-items: center;
@@ -5196,6 +5204,20 @@ header.site-header,
     background-color: #2bb5b8;
     border-color: var(--gx-edge);
     color: #fff6e6;
+}
+
+.nav-cta--store {
+    background-color: var(--gx-gold);
+    color: var(--gx-ink);
+    text-shadow: 0 1px 0 rgba(255, 250, 235, 0.7);
+}
+
+.nav-cta--store:hover {
+    color: var(--gx-ink);
+}
+
+.nav-cta--store:hover .nav-cta-icon {
+    transform: translateY(-1px);
 }
 
 .site-nav a:focus-visible,
@@ -5620,6 +5642,18 @@ header.site-header,
         padding: 0.7rem 0.75rem;
         border-radius: 6px;
         border: 2px solid var(--gx-edge);
+    }
+
+    .nav-cta-group {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.65rem;
+        margin-top: 1.25rem;
+    }
+
+    .nav-cta-group .nav-cta {
+        margin-top: 0;
     }
 
     .nav-cta {
