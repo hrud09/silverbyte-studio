@@ -1,0 +1,303 @@
+.subtitle {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.hintText {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.errorBanner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+  font-size: var(--font-size-sm);
+}
+
+/* Upload progress, painted behind the file card rather than as a separate bar. */
+.progressFill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--color-primary);
+  opacity: 0.1;
+  transition: width 200ms ease-out;
+  z-index: 0;
+}
+
+/* ——— Visibility picker ——— */
+
+.visibilityGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.visibilityOption {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: var(--space-3);
+  text-align: left;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.visibilityOption:hover {
+  border-color: var(--color-gray-400);
+}
+
+.visibilityOption svg {
+  color: var(--color-text-tertiary);
+}
+
+.visibilityOption.selected {
+  border-color: var(--color-primary);
+  background: var(--color-primary-ghost);
+}
+
+.visibilityOption.selected svg {
+  color: var(--color-primary);
+}
+
+.visibilityTitle {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.visibilityDesc {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-secondary);
+}
+
+/* ——— Expiration Picker ——— */
+
+.expiryChipGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.expiryChip {
+  padding: 6px 12px;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.expiryChip:hover {
+  border-color: var(--color-gray-400);
+  color: var(--color-text);
+}
+
+.expiryChip.selected {
+  border-color: var(--color-primary);
+  background: var(--color-primary-ghost);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.customExpiryRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.customExpiryInput {
+  width: 90px;
+}
+
+.customExpirySelect {
+  width: 110px;
+}
+
+.expiryMetaTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-warning);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+}
+
+/* ——— Share step ——— */
+
+.shareSummary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.shareTitle {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+.shareMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+}
+
+.linkRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-gray-50);
+}
+
+.linkText {
+  flex: 1;
+  min-width: 0;
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: var(--font-size-sm);
+  color: var(--color-info);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  /* Two lines is enough for any share URL; a third means something has gone wrong. */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.linkText:hover {
+  text-decoration: underline;
+}
+
+.qrRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.qrFrame {
+  flex-shrink: 0;
+  padding: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  line-height: 0;
+}
+
+.qrSide {
+  min-width: 0;
+}
+
+.qrHeading {
+  margin: 0 0 var(--space-1);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.qrBody {
+  margin: 0 0 var(--space-3);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-secondary);
+}
+
+.qrActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* ——— Email ——— */
+
+.emailBlock {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-divider);
+}
+
+.emailHeading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.emailHeading svg {
+  color: var(--color-text-tertiary);
+}
+
+.optionalTag {
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-variant);
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  text-transform: lowercase;
+}
+
+.sentBanner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--color-success-bg);
+  color: var(--color-success);
+  font-size: var(--font-size-xs);
+}
+
+.emailFields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.emailActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+@media (max-width: 560px) {
+  .visibilityGroup {
+    grid-template-columns: 1fr;
+  }
+
+  .qrRow {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .qrFrame {
+    align-self: center;
+  }
+
+  .qrActions {
+    justify-content: center;
+  }
+}

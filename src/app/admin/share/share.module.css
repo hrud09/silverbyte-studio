@@ -1,0 +1,217 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.heading {
+  margin: 0 0 var(--space-1);
+  font-size: var(--font-size-2xl);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--color-text);
+}
+
+.subheading {
+  margin: 0;
+  max-width: 62ch;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* ——— Summary strip ——— */
+
+.summaryRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.summaryItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.summaryValue {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--color-text);
+}
+
+.summaryLabel {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wider);
+  color: var(--color-text-tertiary);
+}
+
+/* ——— Table cells ——— */
+
+.titleCell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.visibilityDot {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.visibilityDot.private {
+  background: var(--color-surface-variant);
+  color: var(--color-text-secondary);
+}
+
+.visibilityDot.public {
+  background: var(--color-info-bg);
+  color: var(--color-info);
+}
+
+.titleInfo {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.titleText {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.titleText.revoked {
+  color: var(--color-text-tertiary);
+  text-decoration: line-through;
+}
+
+.fileNameText {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.linkCell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.tokenCode {
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: var(--font-size-xs);
+  padding: 3px 7px;
+  border-radius: var(--radius-xs);
+  background: var(--color-surface-variant);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.inlineIconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: var(--radius-xs);
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.inlineIconBtn:hover {
+  color: var(--color-primary);
+  background: var(--color-primary-ghost);
+}
+
+.downloadsCell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.downloadCount {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.expiryCount {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-warning);
+}
+
+.subtleText {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.emailedText {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 180px;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.emailedText span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ——— QR dialog ——— */
+
+.qrFrame {
+  display: inline-block;
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  line-height: 0;
+}
+
+.qrUrl {
+  margin: var(--space-3) 0 0;
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 640px) {
+  .pageHeader {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .summaryRow {
+    gap: var(--space-5);
+  }
+}

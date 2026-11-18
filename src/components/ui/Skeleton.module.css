@@ -1,0 +1,55 @@
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-gray-200) 0%,
+    var(--color-gray-100) 50%,
+    var(--color-gray-200) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+  display: block;
+}
+
+.text {
+  height: 14px;
+  width: 100%;
+  margin-bottom: var(--space-2);
+  border-radius: var(--radius-xs);
+}
+
+.rectangular {
+  border-radius: var(--radius-md);
+}
+
+.circular {
+  border-radius: var(--radius-full);
+}
+
+.card {
+  border-radius: var(--radius-lg);
+  height: 200px;
+  width: 100%;
+}
+
+.appCardSkeleton {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+  gap: var(--space-3);
+  min-width: 140px;
+}
+
+.appCardMeta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

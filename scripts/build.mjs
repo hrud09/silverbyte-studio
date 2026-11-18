@@ -11,11 +11,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { renderPage, validate } from '../assets/js/cms-render.js';
+import { renderPage, validate } from '../public/assets/js/cms-render.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const publicDir = path.join(root, 'public');
 const check = process.argv.includes('--check');
-const data = JSON.parse(fs.readFileSync(path.join(root, 'content/site.json'), 'utf8'));
+const data = JSON.parse(fs.readFileSync(path.join(publicDir, 'content/site.json'), 'utf8'));
 
 const problems = validate(data);
 if (problems.length) {
@@ -24,8 +25,8 @@ if (problems.length) {
 }
 
 let stale = 0;
-for (const file of fs.readdirSync(root).filter(f => f.endsWith('.html'))) {
-    const full = path.join(root, file);
+for (const file of fs.readdirSync(publicDir).filter(f => f.endsWith('.html'))) {
+    const full = path.join(publicDir, file);
     const before = fs.readFileSync(full, 'utf8');
     const after = renderPage(before, data, file);
     if (after === before) continue;

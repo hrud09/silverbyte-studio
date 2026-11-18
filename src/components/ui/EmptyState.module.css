@@ -1,0 +1,46 @@
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12) var(--space-6);
+  text-align: center;
+  width: 100%;
+}
+
+.iconWrapper {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background-color: var(--color-gray-100);
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--space-4);
+}
+
+.icon {
+  stroke-width: 1.5;
+}
+
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+
+.description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  max-width: 380px;
+  line-height: 1.5;
+  margin-bottom: var(--space-5);
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}

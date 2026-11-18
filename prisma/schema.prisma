@@ -1,0 +1,134 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         String   @default("ADMIN") // ADMIN, DEVELOPER, CONTENT_MANAGER, ANALYST
+  avatar       String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Category {
+  id    String @id @default(uuid())
+  slug  String @unique
+  name  String
+  icon  String @default("Grid") // Lucide icon name
+  color String @default("#D32F2F")
+  order Int    @default(0)
+  apps  App[]
+}
+
+model App {
+  id               String   @id @default(uuid())
+  slug             String   @unique
+  name             String
+  packageId        String   @unique // e.g., com.silverbyte.fileman
+  shortDescription String
+  fullDescription  String   @default("")
+  developerType    String   @default("SILVER_BYTE") // SILVER_BYTE ("From Silver Byte Studios"), OTHER ("From Other Developers")
+  developerName    String   @default("Silver Byte Studios")
+  developerWebsite String?  // Developer's portfolio, website, or profile
+  developerEmail   String?  // Developer's contact/support email
+  developerDetails String?  // Bio, credits, or notes about other developer
+  appType          String   @default("NORMAL") // NORMAL ("Normal Apps"), MOD ("Mod Apps")
+  modDetails       String?  // Highlighted features/modifications of modded apps
+  categoryId       String?
+  category         Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  tags             String   @default("") // comma-separated
+  status           String   @default("DRAFT") // PUBLISHED, DRAFT, ARCHIVED
+  featured         Boolean  @default(false)
+  featuredOrder    Int      @default(0)
+  website          String?
+  privacyPolicyUrl String?
+  supportUrl       String?
+  playStoreUrl     String?  // Direct Play Store app test link (Android closed/open testing)
+  playStoreWebUrl  String?  // Play Store web opt-in test link (Join on Web)
+  webAppUrl        String?  // Live Web version / Web App test link
+  isTesting        Boolean  @default(false)
+  testingTrack     String   @default("") // e.g., CLOSED_TESTING, OPEN_TESTING, INTERNAL_TESTING, BETA
+  testingInstructions String @default("") // Guide and instructions for testers
+  downloads        Int      @default(0)
+  pageViews        Int      @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  versions AppVersion[]
+  assets   AppAsset[]
+  events   AnalyticsEvent[]
+}
+
+model AppVersion {
+  id          String   @id @default(uuid())
+  appId       String
+  app         App      @relation(fields: [appId], references: [id], onDelete: Cascade)
+  versionName String   // e.g., "2.1.0"
+  versionCode Int      // e.g., 21
+  changelog   String   @default("")
+  fileName    String?  // original file name
+  filePath    String?  // storage path
+  fileSize    Int      @default(0) // bytes
+  minOsVersion String  @default("Android 8.0")
+  platform    String   @default("Android") // Android, iOS, Web, Windows
+  status      String   @default("PUBLISHED") // PUBLISHED, DRAFT, DISABLED
+  downloads   Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  events AnalyticsEvent[]
+}
+
+model AppAsset {
+  id       String @id @default(uuid())
+  appId    String
+  app      App    @relation(fields: [appId], references: [id], onDelete: Cascade)
+  type     String // ICON, FEATURE, SCREENSHOT, PROMO
+  url      String
+  fileName String @default("")
+  order    Int    @default(0)
+}
+
+model AnalyticsEvent {
+  id           String     @id @default(uuid())
+  type         String     // DOWNLOAD, PAGE_VIEW, SEARCH
+  appId        String?
+  app          App?       @relation(fields: [appId], references: [id], onDelete: Cascade)
+  appVersionId String?
+  appVersion   AppVersion? @relation(fields: [appVersionId], references: [id], onDelete: SetNull)
+  metadata     String     @default("{}") // JSON string
+  createdAt    DateTime   @default(now())
+}
+
+model Setting {
+  id    String @id @default(uuid())
+  key   String @unique
+  value String @default("")
+}
+
+/// A one-off build handed to someone directly, outside the store catalogue.
+/// Deliberately not an App: a Quick Share has no slug, category, icon or version
+/// history, and must never surface in search, listings or sitemaps.
+model QuickShare {
+  id             String    @id @default(uuid())
+  token          String    @unique // the unguessable segment of the /s/... link
+  title          String
+  fileName       String
+  filePath       String // storage key or absolute release URL, same shape as AppVersion.filePath
+  fileSize       Int       @default(0)
+  isPrivate      Boolean   @default(true)
+  isActive       Boolean   @default(true) // cleared to revoke a leaked link without deleting the record
+  expiresAt      DateTime? // optional expiry timestamp; when expired, share and file are auto-deleted
+  downloads      Int       @default(0)
+  lastDownloadAt DateTime?
+  lastEmailedTo  String    @default("")
+  lastEmailedAt  DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}

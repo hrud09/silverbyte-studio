@@ -1,0 +1,297 @@
+/* ————— Section shell —————
+   Each shelf sits on its own tinted panel so categories read as distinct
+   blocks rather than one continuous scroll. Tone variants below only swap
+   the custom properties. */
+.section {
+  position: relative;
+  width: 100%;
+  margin: var(--space-5) 0;
+  padding: var(--space-6) var(--space-6) var(--space-4);
+  border-radius: var(--radius-2xl);
+  border: 3.5px solid var(--gx-edge);
+  box-shadow: 0 6px 0 var(--gx-shadow);
+  overflow: hidden;
+  background:
+    radial-gradient(120% 130% at 0% 0%, var(--section-glow) 0%, transparent 60%),
+    linear-gradient(155deg, var(--section-bg-start) 0%, var(--section-bg-end) 100%);
+}
+
+/* Dot grid fading out toward the shelf */
+.section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 1px 1px, var(--section-dot) 1px, transparent 0);
+  background-size: 22px 22px;
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9) 0%, transparent 62%);
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9) 0%, transparent 62%);
+}
+
+/* Corner glow */
+.section::after {
+  content: '';
+  position: absolute;
+  top: -90px;
+  right: -70px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, var(--section-blob) 0%, transparent 70%);
+}
+
+/* ————— Tone variants (Workshop Wood Panels) ————— */
+.tonePlain {
+  --section-accent: #f2b92e;
+  --section-bg-start: #5a3e31;
+  --section-bg-end: #473026;
+  --section-border: #241812;
+  --section-glow: rgba(242, 185, 46, 0.10);
+  --section-blob: rgba(242, 185, 46, 0.14);
+  --section-dot: rgba(251, 241, 220, 0.06);
+  --section-chip-bg: rgba(36, 24, 18, 0.55);
+}
+
+.toneRed {
+  --section-accent: #e05a4f;
+  --section-bg-start: #5e3a32;
+  --section-bg-end: #462a24;
+  --section-border: #241812;
+  --section-glow: rgba(224, 90, 79, 0.14);
+  --section-blob: rgba(224, 90, 79, 0.18);
+  --section-dot: rgba(251, 241, 220, 0.06);
+  --section-chip-bg: rgba(36, 24, 18, 0.55);
+}
+
+.toneIndigo {
+  --section-accent: #f2b92e;
+  --section-bg-start: #543b30;
+  --section-bg-end: #3d2a21;
+  --section-border: #241812;
+  --section-glow: rgba(242, 185, 46, 0.12);
+  --section-blob: rgba(242, 185, 46, 0.16);
+  --section-dot: rgba(251, 241, 220, 0.06);
+  --section-chip-bg: rgba(36, 24, 18, 0.55);
+}
+
+.toneAmber {
+  --section-accent: #f2b92e;
+  --section-bg-start: #5c402f;
+  --section-bg-end: #442e22;
+  --section-border: #241812;
+  --section-glow: rgba(242, 185, 46, 0.14);
+  --section-blob: rgba(242, 185, 46, 0.18);
+  --section-dot: rgba(251, 241, 220, 0.06);
+  --section-chip-bg: rgba(36, 24, 18, 0.55);
+}
+
+.toneTeal {
+  --section-accent: #2bb5b8;
+  --section-bg-start: #4c3d35;
+  --section-bg-end: #392c25;
+  --section-border: #241812;
+  --section-glow: rgba(43, 181, 184, 0.14);
+  --section-blob: rgba(43, 181, 184, 0.18);
+  --section-dot: rgba(251, 241, 220, 0.06);
+  --section-chip-bg: rgba(36, 24, 18, 0.55);
+}
+
+/* ————— Header ————— */
+.header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+  gap: var(--space-4);
+}
+
+.titleArea {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mainTitleRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.iconChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  background-color: var(--section-chip-bg);
+  color: var(--section-accent);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  font-weight: 400;
+  color: #fbf1dc;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 0 #241812;
+}
+
+.subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-top: 2px;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+
+.seeAllLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--section-accent);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+}
+
+.seeAllLink:hover {
+  background-color: var(--section-chip-bg);
+}
+
+.scrollButtons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.arrowBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background-color: rgba(255, 255, 255, 0.75);
+  border: 1px solid var(--section-border);
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.arrowBtn:hover {
+  background-color: #FFFFFF;
+  color: var(--section-accent);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Shelf Layout */
+.shelfWrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.shelf {
+  display: flex;
+  gap: var(--space-4);
+  overflow-x: auto;
+  /* Bleed to the panel edges so cards scroll past the padding */
+  margin: 0 calc(var(--space-6) * -1);
+  padding: var(--space-2) var(--space-6) var(--space-4);
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.shelf::-webkit-scrollbar {
+  display: none;
+}
+
+.shelfItem {
+  flex: 0 0 240px;
+  max-width: 240px;
+  animation: itemReveal 420ms var(--transition-spring) backwards;
+}
+
+/* Grid Layout */
+.grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-4);
+  padding-bottom: var(--space-2);
+}
+
+.grid > * {
+  animation: itemReveal 420ms var(--transition-spring) backwards;
+}
+
+.shelfItem:nth-child(1), .grid > *:nth-child(1) { animation-delay: 0ms; }
+.shelfItem:nth-child(2), .grid > *:nth-child(2) { animation-delay: 40ms; }
+.shelfItem:nth-child(3), .grid > *:nth-child(3) { animation-delay: 80ms; }
+.shelfItem:nth-child(4), .grid > *:nth-child(4) { animation-delay: 120ms; }
+.shelfItem:nth-child(5), .grid > *:nth-child(5) { animation-delay: 160ms; }
+.shelfItem:nth-child(6), .grid > *:nth-child(6) { animation-delay: 200ms; }
+.shelfItem:nth-child(n+7), .grid > *:nth-child(n+7) { animation-delay: 240ms; }
+
+@keyframes itemReveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shelfItem, .grid > * {
+    animation: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    margin: var(--space-4) 0;
+    padding: var(--space-5) var(--space-4) var(--space-3);
+    border-radius: var(--radius-xl);
+  }
+  .shelf {
+    margin: 0 calc(var(--space-4) * -1);
+    padding: var(--space-2) var(--space-4) var(--space-4);
+  }
+  .mainTitleRow {
+    gap: var(--space-2);
+  }
+  .iconChip {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+  }
+  .scrollButtons {
+    display: none;
+  }
+  .shelfItem {
+    flex: 0 0 210px;
+    max-width: 210px;
+  }
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: var(--space-3);
+  }
+}

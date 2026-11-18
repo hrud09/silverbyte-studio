@@ -1,0 +1,324 @@
+.card {
+  background-color: var(--gx-paper);
+  border: 3px solid var(--gx-edge);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  box-shadow: 0 5px 0 var(--gx-shadow);
+  height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 0 var(--gx-shadow);
+  border-color: var(--gx-gold);
+}
+
+.cardClickArea {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-4);
+  text-decoration: none;
+  flex: 1;
+}
+
+.iconWrapper {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  margin-bottom: var(--space-3);
+}
+
+.appIcon {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.featuredBadge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: linear-gradient(135deg, #FFB300, #F57C00);
+  color: #FFFFFF;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.modBadge {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #ffffff;
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  font-size: 0.625rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  box-shadow: 0 2px 5px rgba(217, 119, 6, 0.4);
+  letter-spacing: 0.04em;
+  z-index: 2;
+}
+
+.testingBadge {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  background: #d32f2f;
+  color: #FFFFFF;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.appName {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.developerName {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.officialBadge {
+  display: inline-flex;
+  color: #0284c7;
+}
+
+.categoryPills {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.shortDesc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+  margin: var(--space-2) 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-top: auto;
+  padding-top: var(--space-1);
+}
+
+.downloadCount {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+
+/* Footer Section */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--color-border-light);
+  background-color: var(--color-surface-variant);
+  gap: 8px;
+}
+
+.footerActions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.quickShareCardBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md, 8px);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border-light, rgba(255, 255, 255, 0.1));
+  color: var(--color-text-secondary, #a1a1aa);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.quickShareCardBtn:hover {
+  background: rgba(220, 38, 38, 0.15);
+  border-color: rgba(220, 38, 38, 0.3);
+  color: #ef4444;
+}
+
+.versionInfo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.versionText {
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.downloadBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0.25rem 0.75rem;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.downloadBtn:hover {
+  background-color: var(--color-primary-hover);
+  box-shadow: 0 2px 6px rgba(211, 47, 47, 0.3);
+}
+
+/* Compact Card Variant */
+.compactCard {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.compactCard:hover {
+  background: var(--color-surface-variant);
+  border-color: var(--color-gray-300);
+}
+
+.compactIconWrapper {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.compactIcon {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+}
+
+.compactModBadge {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  background: #f59e0b;
+  color: #ffffff;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(217, 119, 6, 0.4);
+}
+
+.compactMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.compactTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.compactTitle {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.modMiniTag {
+  font-size: 0.5625rem;
+  font-weight: 800;
+  background: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fde68a;
+  padding: 1px 4px;
+  border-radius: 4px;
+  line-height: 1;
+}
+
+.compactCategory {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.compactStats {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.compactDownloads {
+  font-size: var(--font-size-xs);
+}

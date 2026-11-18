@@ -1,0 +1,248 @@
+.wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.downloadButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0.75rem 2rem;
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: #FFFFFF;
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(211, 47, 47, 0.35);
+  transition: background-color var(--transition-base), box-shadow var(--transition-base),
+    transform var(--transition-base);
+  user-select: none;
+  /* The progress fill is a child painted edge-to-edge; without this it squares off
+     the button's rounded corners. */
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.downloadButton:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(211, 47, 47, 0.45);
+}
+
+.downloadButton:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.downloadButton:disabled {
+  cursor: wait;
+}
+
+/* Busy states keep full opacity: the fill and the percentage are the feedback, so
+   dimming the button here would only make them harder to read. */
+.downloadButton.downloading {
+  background-color: var(--color-primary-hover);
+  cursor: progress;
+}
+
+.downloadButton.success {
+  background-color: var(--color-success);
+  box-shadow: 0 4px 14px rgba(46, 125, 50, 0.35);
+  animation: pop 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.downloadButton.error {
+  background-color: var(--color-danger);
+  box-shadow: 0 4px 14px rgba(211, 47, 47, 0.35);
+  animation: shake 0.4s ease-in-out;
+}
+
+/* ---- Progress fill ---------------------------------------------------------- */
+
+/* Width is bound to real bytes received. The transition smooths the steps between
+   progress events so the fill glides instead of ratcheting. */
+.fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  z-index: 0;
+  overflow: hidden;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.32) 100%
+  );
+  transition: width 240ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: width;
+}
+
+/* Barber-pole stripes travelling across the filled region — the classic cue that
+   work is happening even while the percentage sits still on a slow chunk. */
+.fill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.16) 0px,
+    rgba(255, 255, 255, 0.16) 10px,
+    transparent 10px,
+    transparent 20px
+  );
+  background-size: 28px 28px;
+  animation: stripes 0.65s linear infinite;
+}
+
+/* A highlight that sweeps the whole button on a loop. */
+.fillShine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 90px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 100%
+  );
+  filter: blur(2px);
+  animation: shine 1.5s ease-in-out infinite;
+}
+
+/* Label rides above the fill. */
+.label {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.percent {
+  font-variant-numeric: tabular-nums;
+  /* Digits change every frame; a fixed advance keeps the label from twitching. */
+  min-width: 3.5ch;
+  text-align: left;
+}
+
+.byteCount {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary, #6b7280);
+  font-variant-numeric: tabular-nums;
+  animation: fadeIn 0.25s ease-out;
+}
+
+/* ---- Icons ------------------------------------------------------------------ */
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+.bounceIcon {
+  animation: bounce 0.9s ease-in-out infinite;
+}
+
+.checkIcon {
+  animation: checkPop 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.downloadButton:hover:not(:disabled) .downloadIcon {
+  animation: nudge 0.6s ease-in-out infinite;
+}
+
+.errorText {
+  font-size: var(--font-size-xs);
+  color: var(--color-danger);
+  font-weight: 500;
+  max-width: 320px;
+  line-height: 1.4;
+}
+
+.noticeText {
+  font-size: var(--font-size-xs);
+  color: var(--color-warning);
+  font-weight: 500;
+  max-width: 320px;
+  line-height: 1.4;
+}
+
+/* ---- Keyframes -------------------------------------------------------------- */
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes stripes {
+  from { background-position: 0 0; }
+  to   { background-position: 28px 0; }
+}
+
+@keyframes shine {
+  0%   { left: -90px; }
+  60%  { left: 100%; }
+  100% { left: 100%; }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(3px); }
+}
+
+@keyframes nudge {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(2px); }
+}
+
+@keyframes pop {
+  0%   { transform: scale(1); }
+  45%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+@keyframes checkPop {
+  0%   { transform: scale(0.3) rotate(-18deg); opacity: 0; }
+  60%  { transform: scale(1.25) rotate(4deg);  opacity: 1; }
+  100% { transform: scale(1) rotate(0deg);     opacity: 1; }
+}
+
+@keyframes shake {
+  0%, 100%   { transform: translateX(0); }
+  20%, 60%   { transform: translateX(-5px); }
+  40%, 80%   { transform: translateX(5px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Progress must stay legible without motion, so the fill keeps its width binding
+   and only the decorative loops are dropped. */
+@media (prefers-reduced-motion: reduce) {
+  .fill { transition: none; }
+  .fill::before,
+  .fillShine,
+  .bounceIcon,
+  .downloadIcon,
+  .checkIcon {
+    animation: none;
+  }
+  .downloadButton.success,
+  .downloadButton.error {
+    animation: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    width: 100%;
+  }
+  .downloadButton {
+    width: 100%;
+  }
+}

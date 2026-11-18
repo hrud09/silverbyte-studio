@@ -1,0 +1,121 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+/* The tone is carried on the left edge rather than the whole panel: a warning that
+   floods the page competes with the table it is trying to caveat. */
+.card.ok {
+  border-left: 3px solid var(--color-border);
+}
+
+.card.warning {
+  border-left: 3px solid var(--color-warning);
+  background: var(--color-warning-bg);
+  border-color: var(--color-warning-bg);
+}
+
+.card.danger {
+  border-left: 3px solid var(--color-danger);
+  background: var(--color-danger-bg);
+  border-color: var(--color-danger-bg);
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--color-text-tertiary);
+}
+
+.card.warning .icon {
+  color: var(--color-warning);
+}
+
+.card.danger .icon {
+  color: var(--color-danger);
+}
+
+.text {
+  flex: 1;
+  min-width: 0;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.body {
+  margin: var(--space-2) 0 0;
+  max-width: 70ch;
+  font-size: var(--font-size-sm);
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+.inlineUrl,
+.blockUrl {
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: var(--radius-xs);
+  background: var(--color-surface-variant);
+  color: var(--color-text);
+  word-break: break-all;
+}
+
+.blockUrl {
+  display: inline-block;
+  margin-top: var(--space-2);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.form .input {
+  flex: 1;
+  min-width: 220px;
+}
+
+.hint {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.hint code {
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  padding: 1px 5px;
+  border-radius: var(--radius-xs);
+  background: rgba(0, 0, 0, 0.06);
+  word-break: break-all;
+}
+
+.hintWarn {
+  color: var(--color-danger);
+  font-weight: 500;
+}

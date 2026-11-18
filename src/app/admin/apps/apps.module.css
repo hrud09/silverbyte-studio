@@ -1,0 +1,116 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.heading {
+  font-size: 1.625rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.subheading {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-top: 4px;
+}
+
+.filterTabs {
+  display: flex;
+  gap: var(--space-2);
+  border-bottom: 1px solid var(--color-divider);
+  padding-bottom: 1px;
+  overflow-x: auto;
+}
+
+.filterTab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+  margin-bottom: -1px;
+}
+
+.filterTab:hover {
+  color: var(--color-text);
+}
+
+.filterTab.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+  font-weight: 600;
+}
+
+.tabCount {
+  padding: 1px 7px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  background: var(--color-gray-100);
+  color: var(--color-text-secondary);
+}
+
+.filterTab.active .tabCount {
+  background: var(--color-primary-lighter);
+  color: var(--color-primary-dark);
+}
+
+.appRowCell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.appIconImg {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--color-gray-100);
+  border: 1px solid var(--color-border-light);
+}
+
+.appInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.appTitleLink {
+  font-weight: 600;
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color var(--transition-fast);
+}
+
+.appTitleLink:hover {
+  color: var(--color-primary);
+}
+
+.packageIdText {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+  font-family: monospace;
+}
