@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { User, Lock, Shield, CheckCircle, AlertCircle, Save } from 'lucide-react';
+import { User } from 'lucide-react';
 import { useToast } from '@/components/admin/ToastContext';
 import { useSession } from 'next-auth/react';
 import styles from './profile.module.css';
@@ -15,12 +15,6 @@ export default function AdminProfilePage() {
   const [role, setRole] = useState('ADMIN');
   const [isLoading, setIsLoading] = useState(true);
   const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
-
-  // Password fields
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [isChangingPassword, setIsChangingPassword] = useState(false);
 
   useEffect(() => {
     async function loadProfile() {
@@ -68,53 +62,10 @@ export default function AdminProfilePage() {
     }
   };
 
-  const handleChangePassword = async (e) => {
-    e.preventDefault();
-    if (!currentPassword || !newPassword) {
-      toast.error('Please provide current and new password');
-      return;
-    }
-
-    if (newPassword.length < 6) {
-      toast.error('New password must be at least 6 characters');
-      return;
-    }
-
-    if (newPassword !== confirmPassword) {
-      toast.error('New passwords do not match');
-      return;
-    }
-
-    setIsChangingPassword(true);
-    try {
-      const res = await fetch('/api/user/password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          currentPassword,
-          newPassword,
-          confirmPassword,
-        }),
-      });
-
-      const json = await res.json();
-      if (!res.ok) throw new Error(json.error || 'Failed to change password');
-
-      toast.success('Password updated successfully!');
-      setCurrentPassword('');
-      setNewPassword('');
-      setConfirmPassword('');
-    } catch (err) {
-      toast.error(err.message || 'Password update failed');
-    } finally {
-      setIsChangingPassword(false);
-    }
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1 className={styles.title}>Admin Profile & Security</h1>
+        <h1 className={styles.title}>Admin Profile</h1>
         <p className={styles.subtitle}>
           This account manages the studio portfolio and Silver Red Store.
         </p>
@@ -175,68 +126,6 @@ export default function AdminProfilePage() {
           </form>
         </div>
 
-        {/* Change Password Card */}
-        <div id="password" className={styles.card}>
-          <div className={styles.cardHeader}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <Lock size={20} color="var(--color-primary)" />
-              <h2 className={styles.cardTitle}>Change Password</h2>
-            </div>
-          </div>
-
-          <form onSubmit={handleChangePassword} className={styles.cardBody}>
-            <div className="input-group">
-              <label className="input-label" htmlFor="currentPassword">Current Password</label>
-              <input
-                type="password"
-                className="input"
-                placeholder="••••••••"
-                id="currentPassword"
-                autoComplete="current-password"
-                value={currentPassword}
-                onChange={(e) => setCurrentPassword(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="input-group">
-              <label className="input-label" htmlFor="newPassword">New Password</label>
-              <input
-                type="password"
-                className="input"
-                placeholder="At least 6 characters"
-                id="newPassword"
-                autoComplete="new-password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="input-group">
-              <label className="input-label" htmlFor="confirmPassword">Confirm New Password</label>
-              <input
-                type="password"
-                className="input"
-                placeholder="Repeat new password"
-                id="confirmPassword"
-                autoComplete="new-password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="btn btn-primary"
-              disabled={isChangingPassword}
-              style={{ alignSelf: 'flex-start', marginTop: 'var(--space-2)' }}
-            >
-              {isChangingPassword ? 'Updating...' : 'Update Password'}
-            </button>
-          </form>
-        </div>
       </div>
     </div>
   );

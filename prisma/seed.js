@@ -6,7 +6,6 @@ const path = require('node:path');
 const { PrismaClient } = require('@prisma/client');
 const { PrismaPg } = require('@prisma/adapter-pg');
 const { Pool } = require('pg');
-const bcrypt = require('bcryptjs');
 const { v4: uuid } = require('uuid');
 
 const pool = new Pool({
@@ -30,29 +29,19 @@ async function main() {
   console.log('🌱 Syncing Silverbyte Studio unified database...\n');
 
   // ─── Admin User ───
-  // Created only when no admin exists yet, and never with a password that lives in
-  // the code. Set ADMIN_INITIAL_PASSWORD for the first deploy; otherwise a random
-  // one is generated and printed once to this (build) log. An existing admin's
-  // password is never touched.
   const existingAdmin = await prisma.user.findFirst({ where: { role: 'ADMIN' } });
   if (existingAdmin) {
     console.log('✅ Admin user ready:', existingAdmin.email);
   } else {
-    const fromEnv = process.env.ADMIN_INITIAL_PASSWORD;
-    const initialPassword = fromEnv || require('node:crypto').randomBytes(12).toString('base64url');
     const admin = await prisma.user.create({
       data: {
         id: uuid(),
         email: 'admin@silverbytestudios.com',
         name: 'Admin',
-        passwordHash: await bcrypt.hash(initialPassword, 10),
         role: 'ADMIN',
       },
     });
     console.log('✅ Admin user created:', admin.email);
-    if (!fromEnv) {
-      console.log(`🔑 Generated initial admin password (shown once, change it after logging in): ${initialPassword}`);
-    }
   }
 
   // ─── Categories ───

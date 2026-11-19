@@ -19,10 +19,6 @@ services:
         generateValue: true
       - key: NEXT_PUBLIC_BASE_URL
         sync: false
-      # Only used by the seed when the database has no admin yet. Leave unset and the
-      # seed prints a random one-time password to the build log instead.
-      - key: ADMIN_INITIAL_PASSWORD
-        sync: false
       # GitHub Releases storage. GITHUB_REPO is "owner/repo" and must be public so
       # release assets download straight from GitHub's CDN.
       - key: GITHUB_TOKEN
@@ -31,8 +27,9 @@ services:
         sync: false
       - key: GITHUB_RELEASE_PREFIX
         sync: false
-      # Optional. Lets Quick Share send download links from the server; without them
-      # the console falls back to the operator's own mail client.
+      # Set the owner mailbox and sender credentials to enable email sign-in.
+      - key: ADMIN_LOGIN_EMAIL
+        sync: false
       - key: RESEND_API_KEY
         sync: false
       - key: EMAIL_FROM

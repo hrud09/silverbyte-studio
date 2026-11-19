@@ -262,7 +262,7 @@ export default function AdminHeader({
                 onClick={() => setShowUserMenu(false)}
               >
                 <User size={16} />
-                <span>Profile & Password</span>
+                <span>Profile</span>
               </Link>
 
               <Link

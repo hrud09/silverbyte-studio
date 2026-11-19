@@ -1,4 +1,3 @@
-import bcrypt from 'bcryptjs';
 import prisma from '@/lib/db';
 import { apiResponse, apiError } from '@/lib/utils';
 import { requireAuth } from '@/lib/auth';
@@ -44,7 +43,7 @@ export async function PUT(request) {
     }
 
     const body = await request.json();
-    const { name, email, currentPassword, newPassword, avatar } = body;
+    const { name, email, avatar } = body;
 
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },
@@ -66,24 +65,6 @@ export async function PUT(request) {
         return apiError('Email is already in use by another account', 409);
       }
       updateData.email = targetEmail;
-    }
-
-    // Password change verification
-    if (newPassword) {
-      if (!currentPassword) {
-        return apiError('Current password is required to set a new password', 400);
-      }
-
-      const isValid = await bcrypt.compare(currentPassword, user.passwordHash);
-      if (!isValid) {
-        return apiError('Current password is incorrect', 400);
-      }
-
-      if (newPassword.length < 6) {
-        return apiError('New password must be at least 6 characters long', 400);
-      }
-
-      updateData.passwordHash = await bcrypt.hash(newPassword, 10);
     }
 
     const updatedUser = await prisma.user.update({

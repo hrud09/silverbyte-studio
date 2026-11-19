@@ -10,7 +10,7 @@
     "db:migrate": "npx prisma migrate dev",
     "db:seed": "node prisma/seed.js",
     "db:reset": "npx prisma migrate reset --force",
-    "admin:reset-password": "node scripts/reset-admin-password.mjs",
+    "admin:link": "node scripts/admin-link.mjs",
     "db:studio": "npx prisma studio",
     "r2:cors": "node scripts/r2-cors.mjs"
   },
@@ -22,7 +22,6 @@
     "@aws-sdk/s3-request-presigner": "^3.1172.0",
     "@prisma/adapter-pg": "^7.9.1",
     "@prisma/client": "^7.9.1",
-    "bcryptjs": "^3.0.3",
     "chart.js": "^4.5.1",
     "dotenv": "^17.4.2",
     "lucide-react": "^1.31.0",

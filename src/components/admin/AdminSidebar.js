@@ -40,7 +40,7 @@ export default function AdminSidebar({
     { label: 'Categories', href: '/admin/categories', icon: FolderTree },
     { label: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
     { label: 'Settings', href: '/admin/settings', icon: Settings },
-    { label: 'Profile & Password', href: '/admin/profile', icon: User },
+    { label: 'Profile', href: '/admin/profile', icon: User },
   ];
 
   const isActive = (item) => {

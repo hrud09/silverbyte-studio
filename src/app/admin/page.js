@@ -1,11 +1,10 @@
 import Link from 'next/link';
-import { ArrowRight, Globe, Lock, Smartphone } from 'lucide-react';
+import { ArrowRight, Globe, Smartphone } from 'lucide-react';
 import styles from './dashboard.module.css';
 
 const destinations = [
   { href: '/admin/portfolio', title: 'Studio Portfolio', description: 'Edit the homepage and featured products.', icon: Globe },
   { href: '/admin/store', title: 'Silver Red Store', description: 'Manage apps, publish releases and review downloads.', icon: Smartphone },
-  { href: '/admin/profile#password', title: 'Admin Password', description: 'Change the password for both admin areas.', icon: Lock },
 ];
 
 export default function AdminDashboard() {

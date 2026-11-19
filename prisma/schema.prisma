@@ -10,7 +10,7 @@ model User {
   id           String   @id @default(uuid())
   email        String   @unique
   name         String
-  passwordHash String
+  passwordHash String?
   role         String   @default("ADMIN") // ADMIN, DEVELOPER, CONTENT_MANAGER, ANALYST
   avatar       String?
   createdAt    DateTime @default(now())
@@ -131,4 +131,12 @@ model QuickShare {
   lastEmailedAt  DateTime?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
+}
+
+// Separate from public site settings. Only a digest of each link is persisted.
+model AdminSignInLink {
+  channel   String   @id
+  digest    String   @unique
+  userId    String
+  expiresAt DateTime
 }
