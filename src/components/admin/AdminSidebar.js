@@ -32,14 +32,15 @@ export default function AdminSidebar({
 
   const navItems = [
     { label: 'Dashboard', href: '/admin', icon: LayoutDashboard, exact: true },
+    { label: 'Studio Portfolio', href: '/admin/portfolio', icon: Globe },
+    { label: 'Silver Red Store', href: '/admin/store', icon: LayoutDashboard },
     { label: 'All Apps', href: '/admin/apps', icon: Smartphone },
     { label: 'Releases', href: '/admin/releases', icon: Layers },
     { label: 'Quick Share', href: '/admin/share', icon: Share2 },
     { label: 'Categories', href: '/admin/categories', icon: FolderTree },
-    { label: 'Portfolio CMS', href: '/admin/portfolio', icon: Globe },
     { label: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
     { label: 'Settings', href: '/admin/settings', icon: Settings },
-    { label: 'Profile', href: '/admin/profile', icon: User },
+    { label: 'Profile & Password', href: '/admin/profile', icon: User },
   ];
 
   const isActive = (item) => {
@@ -79,13 +80,13 @@ export default function AdminSidebar({
             <div className={styles.logoIcon}>
               <img
                 src="/logo.png"
-                alt="Silver Red Store"
+                alt=""
                 className={styles.logoImg}
               />
             </div>
             {!isCollapsed && (
               <div className={styles.brandText}>
-                <span className={styles.brandTitle}>Silver Red Store</span>
+                <span className={styles.brandTitle}>Silverbyte Studio</span>
                 <span className={styles.brandBadge}>Console</span>
               </div>
             )}

@@ -10,6 +10,7 @@
     "db:migrate": "npx prisma migrate dev",
     "db:seed": "node prisma/seed.js",
     "db:reset": "npx prisma migrate reset --force",
+    "admin:reset-password": "node scripts/reset-admin-password.mjs",
     "db:studio": "npx prisma studio",
     "r2:cors": "node scripts/r2-cors.mjs"
   },

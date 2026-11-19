@@ -116,7 +116,7 @@ export default function AdminProfilePage() {
       <div className={styles.header}>
         <h1 className={styles.title}>Admin Profile & Security</h1>
         <p className={styles.subtitle}>
-          Manage administrator account information and update credentials
+          This account manages the studio portfolio and Silver Red Store.
         </p>
       </div>
 
@@ -176,7 +176,7 @@ export default function AdminProfilePage() {
         </div>
 
         {/* Change Password Card */}
-        <div className={styles.card}>
+        <div id="password" className={styles.card}>
           <div className={styles.cardHeader}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
               <Lock size={20} color="var(--color-primary)" />
@@ -186,11 +186,13 @@ export default function AdminProfilePage() {
 
           <form onSubmit={handleChangePassword} className={styles.cardBody}>
             <div className="input-group">
-              <label className="input-label">Current Password</label>
+              <label className="input-label" htmlFor="currentPassword">Current Password</label>
               <input
                 type="password"
                 className="input"
                 placeholder="••••••••"
+                id="currentPassword"
+                autoComplete="current-password"
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 required
@@ -198,11 +200,13 @@ export default function AdminProfilePage() {
             </div>
 
             <div className="input-group">
-              <label className="input-label">New Password</label>
+              <label className="input-label" htmlFor="newPassword">New Password</label>
               <input
                 type="password"
                 className="input"
                 placeholder="At least 6 characters"
+                id="newPassword"
+                autoComplete="new-password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 required
@@ -210,11 +214,13 @@ export default function AdminProfilePage() {
             </div>
 
             <div className="input-group">
-              <label className="input-label">Confirm New Password</label>
+              <label className="input-label" htmlFor="confirmPassword">Confirm New Password</label>
               <input
                 type="password"
                 className="input"
                 placeholder="Repeat new password"
+                id="confirmPassword"
+                autoComplete="new-password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required

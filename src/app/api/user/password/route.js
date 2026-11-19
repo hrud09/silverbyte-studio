@@ -15,7 +15,7 @@ export async function POST(request) {
     const body = await request.json();
     const { currentPassword, newPassword, confirmPassword } = body;
 
-    if (!currentPassword || !newPassword) {
+    if (typeof currentPassword !== 'string' || !currentPassword || typeof newPassword !== 'string' || !newPassword) {
       return apiError('Current password and new password are required', 400);
     }
 
@@ -23,7 +23,11 @@ export async function POST(request) {
       return apiError('New password must be at least 6 characters', 400);
     }
 
-    if (confirmPassword && newPassword !== confirmPassword) {
+    if (bcrypt.truncates(newPassword)) {
+      return apiError('New password must fit within 72 UTF-8 bytes', 400);
+    }
+
+    if (confirmPassword !== undefined && newPassword !== confirmPassword) {
       return apiError('Passwords do not match', 400);
     }
 
@@ -41,10 +45,12 @@ export async function POST(request) {
     }
 
     const newHash = await bcrypt.hash(newPassword, 10);
-    await prisma.user.update({
-      where: { id: user.id },
+    const updated = await prisma.user.updateMany({
+      where: { id: user.id, role: 'ADMIN', passwordHash: user.passwordHash },
       data: { passwordHash: newHash },
     });
+
+    if (!updated.count) return apiError('Password changed. Please sign in again.', 409);
 
     return apiResponse({ message: 'Password updated successfully' });
   } catch (error) {

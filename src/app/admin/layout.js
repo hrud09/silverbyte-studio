@@ -1,8 +1,8 @@
 import AdminLayoutClient from './AdminLayoutClient';
 
 export const metadata = {
-  title: 'Admin Console | Silver Red Store',
-  description: 'Silver Byte Studios App Management Console',
+  title: 'Admin Console | Silverbyte Studio',
+  description: 'Manage the studio portfolio and Silver Red Store',
 };
 
 export default function AdminLayout({ children }) {

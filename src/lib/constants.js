@@ -2,6 +2,7 @@
  * Silver Red Store — Platform Constants
  */
 
+export const PORTFOLIO_SETTING_KEY = 'portfolio_site_data';
 export const PLATFORM_NAME = 'Silver Red Store';
 export const DEVELOPER_NAME = 'Silver Byte Studios';
 export const PLATFORM_DESCRIPTION = 'A personal Apps and Games store by Silver Byte Studios.';

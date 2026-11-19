@@ -3,7 +3,7 @@ import path from 'node:path';
 import prisma from '@/lib/db';
 import { renderPage, validate } from '../../public/assets/js/cms-render.js';
 
-export const PORTFOLIO_SETTING_KEY = 'portfolio_site_data';
+import { PORTFOLIO_SETTING_KEY } from '@/lib/constants';
 
 function readFallbackSiteJson() {
   const filePath = path.join(process.cwd(), 'public', 'content', 'site.json');

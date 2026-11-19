@@ -185,3 +185,25 @@
     grid-template-columns: 1fr;
   }
 }
+
+.destinations {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: var(--space-5);
+}
+
+.destination {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.destination:hover, .destination:focus-visible {
+  border-color: var(--color-primary);
+}

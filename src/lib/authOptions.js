@@ -21,7 +21,7 @@ export const authOptions = {
         try {
           adminUser = await prisma.user.findFirst({
             where: { role: 'ADMIN' },
-          }) || await prisma.user.findFirst();
+          });
         } catch (dbErr) {
           console.warn('Could not query user table during auth:', dbErr.message);
         }
@@ -58,7 +58,6 @@ export const authOptions = {
       if (trigger === 'update' && session) {
         if (session.name) token.name = session.name;
         if (session.avatar !== undefined) token.avatar = session.avatar;
-        if (session.role) token.role = session.role;
       }
       return token;
     },
@@ -78,5 +77,5 @@ export const authOptions = {
     strategy: 'jwt',
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
-  secret: process.env.NEXTAUTH_SECRET || 'red-apps-secret-change-in-production-2026',
+  secret: process.env.NEXTAUTH_SECRET,
 };

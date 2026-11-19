@@ -4,13 +4,14 @@ import React, { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
-import { Lock, Mail, Eye, EyeOff, AlertCircle, ArrowLeft, ShieldCheck } from 'lucide-react';
+import { Lock, Eye, EyeOff, AlertCircle, ArrowLeft, ShieldCheck } from 'lucide-react';
 import styles from './login.module.css';
 
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') || '/admin';
+  const requestedPath = searchParams.get('callbackUrl') || '';
+  const callbackUrl = /^\/admin(?:\/[a-zA-Z0-9_-]+)*$/.test(requestedPath) ? requestedPath : '/admin';
 
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -52,12 +53,12 @@ function LoginForm() {
         <div className={styles.logoIcon}>
           <img
             src="/logo.png"
-            alt="Silver Red Store"
+            alt=""
             className={styles.logoImg}
           />
         </div>
-        <h1 className={styles.brandTitle}>Silver Red Store Console</h1>
-        <p className={styles.brandSubtitle}>A personal Apps and Games store by Silver Byte Studios.</p>
+        <h1 className={styles.brandTitle}>Silverbyte Studio Admin</h1>
+        <p className={styles.brandSubtitle}>Sign in to manage the studio portfolio and Silver Red Store.</p>
       </div>
 
       {/* Error Alert */}

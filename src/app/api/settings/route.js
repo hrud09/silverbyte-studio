@@ -1,3 +1,4 @@
+import { PORTFOLIO_SETTING_KEY } from '@/lib/constants';
 import prisma from '@/lib/db';
 import { apiResponse, apiError } from '@/lib/utils';
 import { requireAuth } from '@/lib/auth';
@@ -6,7 +7,7 @@ export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const settingsList = await prisma.setting.findMany();
+    const settingsList = await prisma.setting.findMany({ where: { key: { not: PORTFOLIO_SETTING_KEY } } });
 
     // Map into key-value object
     const settings = {};
@@ -36,6 +37,7 @@ export async function PUT(request) {
 
     const updates = [];
     for (const [key, value] of Object.entries(body)) {
+      if (key === PORTFOLIO_SETTING_KEY) continue;
       const stringValue = typeof value === 'string' ? value : JSON.stringify(value);
       updates.push(
         prisma.setting.upsert({
@@ -49,7 +51,7 @@ export async function PUT(request) {
     await Promise.all(updates);
 
     // Return updated settings map
-    const allSettings = await prisma.setting.findMany();
+    const allSettings = await prisma.setting.findMany({ where: { key: { not: PORTFOLIO_SETTING_KEY } } });
     const result = {};
     for (const s of allSettings) {
       result[s.key] = s.value;

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Save, ExternalLink, RefreshCw } from 'lucide-react';
 import { useToast } from '@/components/admin/ToastContext';
 import styles from './portfolio.module.css';
@@ -11,26 +11,20 @@ export default function AdminPortfolioPage() {
   const [saving, setSaving] = useState(false);
   const { toast } = useToast();
 
-  const loadPortfolio = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch('/api/portfolio');
-      const json = await res.json();
-      if (json.success) {
+  const loadPortfolio = useCallback(async () => {
+    return fetch('/api/portfolio')
+      .then(async (res) => {
+        const json = await res.json();
+        if (!json.success) throw new Error(json.error || 'Failed to load portfolio data');
         setData(json.data);
-      } else {
-        toast.error(json.error || 'Failed to load portfolio data');
-      }
-    } catch {
-      toast.error('Failed to load portfolio data');
-    } finally {
-      setLoading(false);
-    }
-  };
+      })
+      .catch((err) => toast.error(err.message || 'Failed to load portfolio data'))
+      .finally(() => setLoading(false));
+  }, [toast]);
 
   useEffect(() => {
     loadPortfolio();
-  }, []);
+  }, [loadPortfolio]);
 
   const handleSave = async () => {
     if (!data) return;
@@ -76,7 +70,8 @@ export default function AdminPortfolioPage() {
         <div className={styles.headerRow}>
           <div>
             <h1 className={styles.title}>Portfolio CMS</h1>
-            <p className={styles.subtitle}>Loading studio portfolio data from PostgreSQL...</p>
+            <p className={styles.subtitle}>{loading ? 'Loading portfolio…' : 'Portfolio could not be loaded.'}</p>
+            {!loading && <button type="button" onClick={loadPortfolio}>Retry</button>}
           </div>
         </div>
       </div>
@@ -93,7 +88,7 @@ export default function AdminPortfolioPage() {
           </p>
         </div>
         <div className={styles.actions}>
-          <button type="button" onClick={loadPortfolio} className={styles.previewBtn}>
+          <button type="button" onClick={() => { setLoading(true); loadPortfolio(); }} className={styles.previewBtn}>
             <RefreshCw size={15} />
             Reload
           </button>
@@ -113,9 +108,24 @@ export default function AdminPortfolioPage() {
         </div>
       </div>
 
-      {/* Hero Settings */}
+      <section className={styles.card}>
+        <h2 className={styles.cardTitle}>Homepage</h2>
+        <label className={styles.field}>
+          <span className={styles.label}>Default space</span>
+          <select className={styles.select} value={data.settings?.defaultSpace || 'customers'}
+            onChange={(e) => setData({ ...data, settings: { ...data.settings, defaultSpace: e.target.value } })}>
+            <option value="customers">For Customers</option>
+            <option value="business">For Business</option>
+          </select>
+        </label>
+      </section>
       <section className={styles.card}>
         <h2 className={styles.cardTitle}>Hero Banner</h2>
+        <label className={styles.toggleLabel}>
+          <input type="checkbox" checked={data.hero?.show !== false}
+            onChange={(e) => updateHero('show', e.target.checked)} />
+          Show hero banner
+        </label>
         <div className={styles.grid2}>
           <div className={styles.field}>
             <label className={styles.label}>Eyebrow</label>
@@ -142,6 +152,25 @@ export default function AdminPortfolioPage() {
             onChange={(e) => updateHero('lead', e.target.value)}
           />
         </div>
+      </section>
+
+      <section className={styles.card}>
+        <h2 className={styles.cardTitle}>Homepage sections</h2>
+        {Object.entries(data.sections || {}).map(([section, fields]) => (
+          <details key={section}>
+            <summary>{section.charAt(0).toUpperCase() + section.slice(1)}</summary>
+            <div className={styles.grid2}>
+              {Object.keys(fields).filter((key) => typeof fields[key] === 'string').map((key) => (
+                <label key={key} className={styles.field}>
+                  <span className={styles.label}>{key}</span>
+                  <input className={styles.input} value={fields[key]} onChange={(e) => setData({
+                    ...data, sections: { ...data.sections, [section]: { ...fields, [key]: e.target.value } },
+                  })} />
+                </label>
+              ))}
+            </div>
+          </details>
+        ))}
       </section>
 
       {/* Products */}

@@ -41,6 +41,11 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      ...['/admin/index.html', '/portfolio-admin/index.html'].map((source) => ({
+        source,
+        destination: '/admin/portfolio',
+        permanent: false,
+      })),
       {
         source: '/portfolio-admin',
         destination: '/admin/portfolio',
