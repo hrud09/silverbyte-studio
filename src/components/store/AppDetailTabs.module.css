@@ -1,15 +1,33 @@
 .container {
-  margin: var(--space-6) 0;
+  margin: var(--space-6) 0 var(--space-8);
 }
 
+/* Tab content sits on a parchment sheet — the portfolio's .gx-paper */
 .panel {
-  padding-top: var(--space-5);
+  margin-top: var(--space-3);
+  padding: clamp(1.1rem, 3vw, 1.75rem);
+  color: #4a2e22;
+  background-color: #f3e3c3;
+  background-image:
+    radial-gradient(circle at 18% 22%, rgba(201, 160, 105, 0.18), transparent 38%),
+    radial-gradient(circle at 82% 78%, rgba(201, 160, 105, 0.2), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 30%);
+  border: 3px solid var(--gx-edge);
+  border-radius: 8px;
+  box-shadow:
+    inset 0 0 0 3px #e8d2a8,
+    inset 0 -5px 0 rgba(150, 110, 70, 0.22),
+    0 5px 0 var(--gx-shadow),
+    0 12px 22px rgba(0, 0, 0, 0.4);
 }
 
 .sectionHeading {
-  font-size: var(--font-size-lg);
-  font-weight: 700;
-  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #4a2e22;
 }
 
 /* What's New */
@@ -46,17 +64,19 @@
   flex-direction: column;
   gap: 4px;
   padding: var(--space-4);
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-lg);
+  background: #fbf1dc;
+  border: 2px solid #d9bf93;
+  border-radius: 8px;
+  box-shadow: inset 0 3px 0 rgba(150, 110, 70, 0.12);
 }
 
 .specLabel {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-tertiary);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  color: #9a6a1c;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .specValue {
@@ -78,9 +98,10 @@
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-lg);
+  background: #fbf1dc;
+  border: 2px solid var(--gx-edge);
+  border-radius: 7px;
+  box-shadow: inset 0 -2px 0 rgba(150, 110, 70, 0.25), 0 2px 0 var(--gx-edge);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--color-text);
@@ -89,8 +110,8 @@
 }
 
 .devLinkItem:hover {
-  background-color: var(--color-surface-variant);
-  border-color: var(--color-gray-400);
+  background-color: #f2b92e;
+  transform: translateY(-1px);
 }
 
 .extIcon {
@@ -118,20 +139,24 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #fef3c7;
-  color: #b45309;
-  border: 1px solid #fde68a;
+  background: var(--gx-red);
+  color: #fff6e6;
+  border: 2px solid var(--gx-edge);
   padding: 4px 12px;
-  border-radius: var(--radius-full);
-  font-size: var(--font-size-sm);
-  font-weight: 700;
+  border-radius: 5px;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  box-shadow: 0 2px 0 var(--gx-edge);
 }
 
 .modDetailsBox {
   padding: var(--space-4);
-  background: var(--color-surface);
-  border: 1px solid rgba(245, 158, 11, 0.3);
-  border-radius: var(--radius-lg);
+  background: #fbf1dc;
+  border: 2px solid #d9bf93;
+  border-radius: 8px;
+  box-shadow: inset 0 3px 0 rgba(150, 110, 70, 0.12);
 }
 
 .modDetailsText {
@@ -152,9 +177,10 @@
 .studioCard,
 .thirdPartyCard {
   padding: var(--space-5);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-xl);
+  background: #fbf1dc;
+  border: 2px solid #d9bf93;
+  border-radius: 8px;
+  box-shadow: inset 0 3px 0 rgba(150, 110, 70, 0.12);
 }
 
 .studioHeader {
@@ -187,8 +213,10 @@
 }
 
 .studioTitle {
-  font-size: var(--font-size-md);
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
   color: var(--color-text);
   margin: 0;
 }
@@ -209,8 +237,9 @@
 .devBioBox {
   margin-top: var(--space-2);
   padding: var(--space-3);
-  background: var(--color-surface-variant);
-  border-radius: var(--radius-md);
+  background: #f3e3c3;
+  border: 2px dashed rgba(134, 104, 79, 0.45);
+  border-radius: 8px;
 }
 
 .devBioText {

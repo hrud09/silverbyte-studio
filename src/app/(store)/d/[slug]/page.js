@@ -106,7 +106,7 @@ export default async function QuickDownloadPage({ params }) {
               ) : null}
               {app.category && <span className={styles.badge}>{app.category.name}</span>}
               {isMod && (
-                <span className={styles.badge} style={{ background: 'rgba(234, 179, 8, 0.15)', color: '#eab308' }}>
+                <span className={`${styles.badge} ${styles.badgeMod}`}>
                   <Zap size={11} style={{ display: 'inline', marginRight: 3 }} />
                   MOD APP
                 </span>

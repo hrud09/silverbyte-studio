@@ -74,7 +74,7 @@ export default function QuickDownloadClient({ app, latestVersion, downloadUrl, s
 
       <a
         href={downloadUrl}
-        className={styles.mainActionBtn}
+        className={`gx-btn gx-btn-red ${styles.mainActionBtn}`}
         onClick={() => setAutoStart(false)}
       >
         <Download size={20} />
@@ -82,17 +82,17 @@ export default function QuickDownloadClient({ app, latestVersion, downloadUrl, s
       </a>
 
       <div className={styles.subActionsRow}>
-        <button type="button" onClick={copyQuickLink} className={styles.subBtn}>
+        <button type="button" onClick={copyQuickLink} className={`gx-btn gx-btn-wood gx-btn-sm ${styles.subBtn}`}>
           {copied ? <Check size={14} style={{ color: '#22c55e' }} /> : <Copy size={14} />}
           <span>{copied ? 'Link Copied!' : 'Copy Quick Link'}</span>
         </button>
 
-        <button type="button" onClick={shareNative} className={styles.subBtn}>
+        <button type="button" onClick={shareNative} className={`gx-btn gx-btn-wood gx-btn-sm ${styles.subBtn}`}>
           <Share2 size={14} />
           <span>Share</span>
         </button>
 
-        <Link href={storeUrl} className={styles.subBtn}>
+        <Link href={storeUrl} className={`gx-btn gx-btn-wood gx-btn-sm ${styles.subBtn}`}>
           <ExternalLink size={14} />
           <span>Store Details</span>
         </Link>

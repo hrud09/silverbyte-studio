@@ -8,15 +8,21 @@
   position: relative;
 }
 
+/* Same stage as the portfolio's .showcase: dark wood, gold top rail, hard drop shadow */
 .bannerCard {
   position: relative;
-  border-radius: var(--radius-2xl);
+  border: 3px solid var(--gx-edge);
+  border-top: 5px solid var(--gx-gold);
+  border-radius: 12px;
   overflow: hidden;
   min-height: 380px;
   display: flex;
   align-items: flex-end;
-  background-color: #1A1A2E;
-  box-shadow: var(--shadow-xl);
+  background-color: #2e201a;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.1),
+    0 5px 0 var(--gx-shadow),
+    0 12px 22px rgba(0, 0, 0, 0.4);
 }
 
 /* Blurred fill layer — only used where the graphic is contained (mobile) */
@@ -43,9 +49,9 @@
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(10, 10, 20, 0.15) 0%,
-    rgba(10, 10, 20, 0.3) 60%,
-    rgba(10, 10, 20, 0.45) 100%
+    rgba(28, 20, 16, 0.1) 0%,
+    rgba(28, 20, 16, 0.3) 55%,
+    rgba(28, 20, 16, 0.55) 100%
   );
 }
 
@@ -77,10 +83,10 @@
   pointer-events: none;
   background: linear-gradient(
     180deg,
-    rgba(8, 8, 16, 0) 0%,
-    rgba(8, 8, 16, 0.5) 36%,
-    rgba(8, 8, 16, 0.8) 68%,
-    rgba(8, 8, 16, 0.93) 100%
+    rgba(28, 20, 16, 0) 0%,
+    rgba(28, 20, 16, 0.65) 36%,
+    rgba(28, 20, 16, 0.9) 68%,
+    rgba(28, 20, 16, 0.96) 100%
   );
   -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.5) 22%, #000 45%);
   mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.5) 22%, #000 45%);
@@ -105,34 +111,63 @@
 .appIcon {
   width: 72px;
   height: 72px;
-  border-radius: 18px;
+  border-radius: 12px;
   object-fit: cover;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: #2e201a;
+  border: 2.5px solid var(--gx-edge);
+  box-shadow: 0 3px 0 var(--gx-edge);
 }
 
 .titleArea {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
 }
 
 .appName {
-  font-size: var(--font-size-2xl);
-  font-weight: 800;
-  color: #FFFFFF;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-weight: 400;
+  color: #fbf1dc;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  text-shadow:
+    0 3px 0 #241812,
+    0 -1px 0 #241812,
+    2px 0 0 #241812,
+    -2px 0 0 #241812,
+    0 6px 10px rgba(0, 0, 0, 0.35);
+}
+
+/* The portfolio's .showcase-tag */
+.heroTag {
+  order: -1;
+  padding: 0.18rem 0.5rem 0.22rem;
+  border: 2px solid var(--gx-edge);
+  border-radius: 5px;
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  color: #4a2e22;
+  background: var(--gx-gold);
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.2), 0 2px 0 var(--gx-edge);
 }
 
 .appDeveloper {
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 500;
+  color: #e3cca3;
+  font-weight: 600;
 }
 
 .shortDesc {
-  font-size: var(--font-size-sm);
-  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f0dfbf;
   line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -148,42 +183,10 @@
   margin-top: var(--space-2);
 }
 
-.installBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: 0.75rem 1.5rem;
-  background-color: var(--color-primary);
-  color: #FFFFFF;
-  font-size: var(--font-size-sm);
-  font-weight: 700;
-  border-radius: var(--radius-lg);
-  text-decoration: none;
-  box-shadow: 0 4px 12px rgba(211, 47, 47, 0.4);
-  transition: all var(--transition-base);
-}
-
-.installBtn:hover {
-  background-color: var(--color-primary-hover);
-  transform: translateY(-1px);
-}
-
+/* Buttons use the portfolio's .gx-btn sprites; only spacing is set here. */
+.installBtn,
 .detailsBtn {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.75rem 1.25rem;
-  background: rgba(255, 255, 255, 0.12);
-  color: #FFFFFF;
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-  border-radius: var(--radius-lg);
   text-decoration: none;
-  backdrop-filter: blur(6px);
-  transition: all var(--transition-base);
-}
-
-.detailsBtn:hover {
-  background: rgba(255, 255, 255, 0.22);
 }
 
 /* Nav Buttons */
@@ -192,22 +195,29 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 3;
-  width: 44px;
-  height: 44px;
-  background: rgba(0, 0, 0, 0.45);
-  color: #FFFFFF;
-  border-radius: var(--radius-full);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  width: 40px;
+  height: 40px;
+  color: #fbf1dc;
+  border: 2.5px solid var(--gx-edge);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #7a5643, #5a3e31);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.25),
+    0 2px 0 var(--gx-edge);
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(8px);
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: filter 0.15s ease;
 }
 
 .navBtn:hover {
-  background: rgba(0, 0, 0, 0.75);
+  filter: brightness(1.12);
+}
+
+.navBtn:active {
+  box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.25), 0 0 0 var(--gx-edge);
 }
 
 .prevBtn {
@@ -228,20 +238,28 @@
   gap: 6px;
 }
 
+/* The portfolio's .showcase-dot */
 .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.35);
-  border: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+  background: #2e201a;
+  border: 2px solid var(--gx-edge);
+  box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.35);
   cursor: pointer;
-  transition: all var(--transition-base);
+  transition: width var(--transition-base), background var(--transition-fast);
   padding: 0;
 }
 
-.activeDot {
-  width: 24px;
-  background: var(--color-primary);
+.dot:hover {
+  background: #7a5643;
+}
+
+.activeDot,
+.activeDot:hover {
+  width: 26px;
+  background: var(--gx-gold);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.35), 0 1px 0 var(--gx-edge);
 }
 
 @media (max-width: 900px) {
@@ -260,7 +278,6 @@
   .bannerCard {
     min-height: 0;
     aspect-ratio: 1024 / 500;
-    border-radius: var(--radius-xl);
   }
 
   .backdropFill {
@@ -284,9 +301,9 @@
   .backdropOverlay {
     background: linear-gradient(
       180deg,
-      rgba(10, 10, 20, 0) 0%,
-      rgba(10, 10, 20, 0.1) 45%,
-      rgba(10, 10, 20, 0.35) 100%
+      rgba(28, 20, 16, 0) 0%,
+      rgba(28, 20, 16, 0.1) 45%,
+      rgba(28, 20, 16, 0.35) 100%
     );
   }
 
@@ -312,12 +329,17 @@
   .appIcon {
     width: 46px;
     height: 46px;
-    border-radius: 12px;
-    border-width: 1.5px;
+    border-radius: 10px;
+    border-width: 2px;
   }
 
   .appName {
-    font-size: var(--font-size-base);
+    font-size: 1.05rem;
+    text-shadow: 0 2px 0 #241812, 0 -1px 0 #241812, 1.5px 0 0 #241812, -1.5px 0 0 #241812;
+  }
+
+  .heroTag {
+    display: none;
   }
 
   .appDeveloper {
@@ -336,9 +358,9 @@
 
   .installBtn,
   .detailsBtn {
-    padding: 0.5rem 0.875rem;
-    font-size: var(--font-size-xs);
-    border-radius: var(--radius-md);
+    min-height: 34px;
+    padding: 0.4rem 0.8rem 0.46rem;
+    font-size: 0.75rem;
     gap: 6px;
   }
 
@@ -359,12 +381,12 @@
   }
 
   .dot {
-    width: 6px;
-    height: 6px;
+    width: 10px;
+    height: 10px;
   }
 
   .activeDot {
-    width: 18px;
+    width: 20px;
   }
 }
 
@@ -381,6 +403,6 @@
 
   .installBtn,
   .detailsBtn {
-    padding: 0.4375rem 0.75rem;
+    padding: 0.38rem 0.7rem 0.44rem;
   }
 }

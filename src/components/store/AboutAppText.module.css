@@ -1,24 +1,29 @@
 .container {
-  margin: var(--space-6) 0;
+  margin: 0;
 }
 
 .heading {
-  font-size: var(--font-size-lg);
-  font-weight: 700;
-  color: var(--color-on-dark);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #4a2e22;
   margin-bottom: var(--space-3);
 }
 
 .shortDesc {
-  font-size: var(--font-size-base);
-  color: var(--color-on-dark);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #4a2e22;
   line-height: 1.6;
   margin-bottom: var(--space-3);
 }
 
 .fullDesc {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #6b4e3c;
   line-height: 1.6;
   position: relative;
   overflow: hidden;
@@ -54,7 +59,7 @@
 }
 
 .paragraph {
-  color: var(--color-on-dark);
+  color: #6b4e3c;
 }
 
 .toggleBtn {
@@ -62,9 +67,12 @@
   align-items: center;
   gap: 4px;
   margin-top: var(--space-3);
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-  color: var(--color-primary);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #b33930;
   background: none;
   border: none;
   cursor: pointer;

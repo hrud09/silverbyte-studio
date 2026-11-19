@@ -77,6 +77,9 @@ export default function HeroBanner({ featuredApps = [] }) {
               />
               <div className={styles.titleArea}>
                 <h1 className={styles.appName}>{currentApp.name}</h1>
+                {currentApp.category?.name && (
+                  <span className={styles.heroTag}>{currentApp.category.name}</span>
+                )}
                 <p className={styles.appDeveloper}>
                   {currentApp.developerName || 'Silver Byte Studios'}
                 </p>
@@ -86,11 +89,11 @@ export default function HeroBanner({ featuredApps = [] }) {
             <p className={styles.shortDesc}>{currentApp.shortDescription}</p>
 
             <div className={styles.actionsRow}>
-              <Link href={`/apps/${currentApp.slug}`} className={styles.installBtn}>
+              <Link href={`/apps/${currentApp.slug}`} className={`gx-btn gx-btn-red ${styles.installBtn}`}>
                 <Download size={18} />
                 <span>Install App</span>
               </Link>
-              <Link href={`/apps/${currentApp.slug}`} className={styles.detailsBtn}>
+              <Link href={`/apps/${currentApp.slug}`} className={`gx-btn gx-btn-wood ${styles.detailsBtn}`}>
                 <span>Learn More</span>
               </Link>
             </div>
@@ -125,6 +128,7 @@ export default function HeroBanner({ featuredApps = [] }) {
                     onClick={() => setCurrentIndex(idx)}
                     className={`${styles.dot} ${idx === currentIndex ? styles.activeDot : ''}`}
                     aria-label={`Slide ${idx + 1}`}
+                    aria-current={idx === currentIndex ? 'true' : undefined}
                   />
                 ))}
               </div>

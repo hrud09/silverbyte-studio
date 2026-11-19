@@ -1,7 +1,7 @@
 import prisma from '@/lib/db';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ChevronRight, Zap } from 'lucide-react';
+import { Zap } from 'lucide-react';
 import CategoryIcon from '@/components/store/CategoryIcon';
 import AppCard from '@/components/store/AppCard';
 import EmptyState from '@/components/ui/EmptyState';
@@ -104,19 +104,21 @@ export default async function CategoryPage({ params, searchParams }) {
     <div className={styles.pageContainer}>
       <div className={styles.container}>
         {/* Breadcrumbs */}
-        <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
-          <Link href="/appstore" className={styles.crumbLink}>Store</Link>
-          <ChevronRight size={14} className={styles.crumbSep} />
-          <span className={styles.crumbActive}>{category.name}</span>
+        <nav className="breadcrumb-nav" aria-label="Breadcrumb">
+          <ol className="breadcrumb-list">
+            <li className="breadcrumb-item"><Link href="/appstore">App Store</Link></li>
+            <li className="breadcrumb-separator" aria-hidden="true">/</li>
+            <li className="breadcrumb-item current" aria-current="page">{category.name}</li>
+          </ol>
         </nav>
 
         {/* Category Header */}
         <div className={styles.header}>
           <div
             className={styles.iconWrapper}
-            style={{ backgroundColor: `${category.color || '#D32F2F'}15` }}
+            style={{ backgroundColor: category.color || 'var(--gx-gold)' }}
           >
-            <CategoryIcon name={category.icon} size={36} color={category.color || '#D32F2F'} />
+            <CategoryIcon name={category.icon} size={34} color="#fff6e6" />
           </div>
 
           <div className={styles.headerInfo}>
@@ -192,7 +194,7 @@ export default async function CategoryPage({ params, searchParams }) {
             title={`No matching ${category.name} apps`}
             description="No published apps in this category match your selected origin or type filters."
             action={
-              <Link href={`/category/${slug}`} className={styles.backBtn}>
+              <Link href={`/category/${slug}`} className={`gx-btn gx-btn-red ${styles.backBtn}`}>
                 Clear Category Filters
               </Link>
             }

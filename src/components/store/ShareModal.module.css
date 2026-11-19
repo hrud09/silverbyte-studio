@@ -1,21 +1,6 @@
+/* Styled by the portfolio's .gx-btn sprite */
 .shareTriggerBtn {
-  display: inline-flex;
-  align-items: center;
   gap: var(--space-2, 8px);
-  padding: 0.625rem 1.25rem;
-  font-size: var(--font-size-sm, 0.875rem);
-  font-weight: 600;
-  color: var(--color-text, #ffffff);
-  background-color: var(--color-surface, #18181b);
-  border: 1px solid var(--color-border, rgba(255, 255, 255, 0.15));
-  border-radius: var(--radius-lg, 12px);
-  cursor: pointer;
-  transition: all var(--transition-fast, 0.2s);
-}
-
-.shareTriggerBtn:hover {
-  background-color: var(--color-surface-variant, #27272a);
-  border-color: var(--color-gray-400, rgba(255, 255, 255, 0.3));
 }
 
 .modalContent {

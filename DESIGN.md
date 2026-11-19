@@ -97,3 +97,11 @@ The palette pairs warm dark-roast wood panels with high-contrast cream parchment
 - **Product cards (`.portal-card`):** every card has a banner of the same height (`clamp(170px, 17vw, 200px)`, 180px on phones). A product with no artwork gets `.portal-card-banner--icon`, its icon on a dark-wood stage (the CMS renderer adds it automatically). Icon and title are top-aligned, titles use `line-height: 1.2`, and the footer actions sit on the card's bottom edge (`margin-top: auto`), so footers line up across a row.
 - **Contact channels:** an even button grid (`minmax(190px, 1fr)`), one column at 480px and below.
 - **Footer links:** CSS columns in sentence-case Nunito (4 columns on desktop, 2 on phones), read top to bottom.
+
+---
+
+## 5. App Store (Next.js `/appstore`, `/apps/*`, `/category/*`, `/search`)
+
+- **Shared chrome:** the store renders the portfolio's own header and footer, taken from the CMS-rendered `terms.html` template by `src/lib/portfolioChrome.js` (App Store CTA marked current, store legal links appended to the footer). Menus are wired by `src/components/store/PortfolioChrome.js`, a port of `initSiteNav` in `assets/js/main.js`. Change the portfolio header/footer and the store follows.
+- **Shared stylesheet:** the store layout loads `/assets/css/style.css`, so store pages can use the portfolio classes directly (`.gx-btn*`, `.gx-badge*`, `.gx-slot`, `.gx-nails`, `.product-hero*`, `.breadcrumb-*`, `.tag-list`). Avoid `.btn`, `.badge`, `.container` and `.section*` in store markup: `src/app/globals.css` defines its own versions for the admin.
+- **Store surfaces:** shelves and the category grid are nailed `.gx-wood` panels; app cards are `.portal-card` frames (wood frame, parchment sheet); the hero carousel is a `.showcase` stage; tab content, version history and legal pages are parchment sheets; search and filters are chip sprites on a recessed dark-wood bar.

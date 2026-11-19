@@ -110,7 +110,7 @@ export default function ShareModal({ app, triggerButton = null }) {
         <button
           type="button"
           onClick={handleShareClick}
-          className={styles.shareTriggerBtn}
+          className={`gx-btn gx-btn-paper ${styles.shareTriggerBtn}`}
           aria-label={`Quick share ${app.name}`}
         >
           <Share2 size={16} />

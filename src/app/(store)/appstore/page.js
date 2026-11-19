@@ -181,7 +181,7 @@ export default async function StoreHomePage() {
 
         {/* 8. Browse by Category Grid (Only populated categories shown) */}
         {populatedCategories.length > 0 && (
-          <section className={styles.categoriesSection}>
+          <section className={`gx-nails ${styles.categoriesSection}`}>
             <div className={styles.sectionHeader}>
               <div className={styles.sectionTitleRow}>
                 <span className={styles.sectionIconChip}>
@@ -203,9 +203,9 @@ export default async function StoreHomePage() {
                 >
                   <div
                     className={styles.catIconWrapper}
-                    style={{ backgroundColor: `${cat.color || '#D32F2F'}15` }}
+                    style={{ backgroundColor: cat.color || 'var(--gx-gold)' }}
                   >
-                    <CategoryIcon name={cat.icon} size={28} color={cat.color || '#D32F2F'} />
+                    <CategoryIcon name={cat.icon} size={26} color="#fff6e6" />
                   </div>
                   <div className={styles.catInfo}>
                     <h3 className={styles.catName}>{cat.name}</h3>

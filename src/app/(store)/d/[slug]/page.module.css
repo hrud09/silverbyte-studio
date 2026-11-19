@@ -1,53 +1,72 @@
+/* Quick Share download page — a nailed wood panel with the portfolio's gold rail */
 .container {
-  max-width: 800px;
+  max-width: min(800px, 100%);
   margin: 0 auto;
-  padding: 2.5rem 1.25rem 4rem;
+  padding: 2.5rem clamp(1rem, 4vw, 1.5rem) 4rem;
 }
 
 .card {
-  background: var(--bg-surface, #18181b);
-  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  color: #f8ecd4;
+  background-color: #5a3e31;
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(0, 0, 0, 0.12)),
+    repeating-linear-gradient(0deg, transparent 0, transparent 5px, rgba(0, 0, 0, 0.06) 5px, rgba(0, 0, 0, 0.06) 6px),
+    repeating-linear-gradient(90deg, transparent 0, transparent 70px, rgba(0, 0, 0, 0.12) 70px, rgba(0, 0, 0, 0.12) 72px);
+  border: 3px solid var(--gx-edge);
+  border-top: 5px solid var(--gx-gold);
+  border-radius: 12px;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.25),
+    0 5px 0 var(--gx-shadow),
+    0 12px 22px rgba(0, 0, 0, 0.4);
 }
 
 .topBadgeRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+  border-bottom: 2px dashed rgba(36, 24, 18, 0.65);
 }
 
 .quickShareTag {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 12px;
-  background: rgba(220, 38, 38, 0.15);
-  color: #ef4444;
-  border: 1px solid rgba(220, 38, 38, 0.3);
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
+  padding: 0.26rem 0.58rem 0.3rem;
+  border: 2px solid var(--gx-edge);
+  border-radius: 5px;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
+  color: #fff6e6;
+  background: var(--gx-red);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.22), 0 2px 0 var(--gx-edge);
 }
 
 .storeLinkText {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  color: var(--text-muted, #a1a1aa);
-  font-size: 0.85rem;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #f0dfbf;
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.15s ease;
 }
 
 .storeLinkText:hover {
-  color: var(--text-primary, #ffffff);
+  color: var(--gx-gold);
 }
 
 .hero {
@@ -65,13 +84,14 @@
 }
 
 .iconWrapper {
-  width: 96px;
-  height: 96px;
-  border-radius: 20px;
+  width: 88px;
+  height: 88px;
+  border-radius: 14px;
   overflow: hidden;
   flex-shrink: 0;
-  background: #27272a;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  background: #2e201a;
+  border: 3px solid var(--gx-edge);
+  box-shadow: 0 4px 0 var(--gx-shadow);
 }
 
 .icon {
@@ -82,23 +102,37 @@
 
 .heroMeta {
   flex: 1;
+  min-width: 0;
 }
 
 .title {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--text-primary, #ffffff);
-  margin: 0 0 0.35rem;
-  line-height: 1.2;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.5vw, 2.1rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.12;
+  color: #fbf1dc;
+  text-shadow: 0 3px 0 #241812, 0 -1px 0 #241812, 2px 0 0 #241812, -2px 0 0 #241812;
+  margin: 0 0 0.4rem;
 }
 
 .devRow {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--text-secondary, #d4d4d8);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: #e3cca3;
   font-size: 0.95rem;
   margin-bottom: 0.75rem;
+}
+
+@media (max-width: 640px) {
+  .devRow,
+  .badges {
+    justify-content: center;
+  }
 }
 
 .badges {
@@ -107,19 +141,32 @@
   gap: 8px;
 }
 
+/* The portfolio's paper badge sprite */
 .badge {
-  padding: 3px 10px;
-  border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  background: var(--bg-muted, rgba(255, 255, 255, 0.06));
-  color: var(--text-secondary, #a1a1aa);
+  display: inline-flex;
+  align-items: center;
+  padding: 0.22rem 0.55rem 0.26rem;
+  border: 2px solid var(--gx-edge);
+  border-radius: 5px;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #4a2e22;
+  background: var(--gx-paper);
+  box-shadow: inset 0 -2px 0 rgba(150, 110, 70, 0.25), 0 2px 0 var(--gx-edge);
 }
 
+.badgeMod {
+  background: var(--gx-gold);
+}
+
+/* Recessed slot (.gx-slot) holding the download action */
 .downloadBox {
-  background: rgba(24, 24, 27, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
+  background-color: #2e201a;
+  border: 3px solid var(--gx-edge);
+  border-radius: 10px;
+  box-shadow: inset 0 4px 0 rgba(0, 0, 0, 0.35), 0 2px 0 rgba(255, 255, 255, 0.06);
   padding: 1.5rem;
   text-align: center;
   margin-bottom: 2rem;
@@ -127,40 +174,23 @@
 
 .countdownText {
   font-size: 1rem;
-  color: var(--text-secondary, #d4d4d8);
+  font-weight: 700;
+  color: #f0dfbf;
   margin-bottom: 1rem;
 }
 
 .countdownNumber {
-  font-weight: 700;
-  color: #ef4444;
-  font-size: 1.2rem;
+  font-family: var(--font-display);
+  color: var(--gx-gold);
+  font-size: 1.25rem;
 }
 
 .mainActionBtn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
   width: 100%;
   max-width: 380px;
-  padding: 0.85rem 1.75rem;
-  background: #dc2626;
-  color: #ffffff;
+  min-height: 50px;
   font-size: 1.05rem;
-  font-weight: 600;
-  border-radius: 12px;
   text-decoration: none;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35);
-  border: none;
-  cursor: pointer;
-}
-
-.mainActionBtn:hover {
-  background: #b91c1c;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.45);
 }
 
 .subActionsRow {
@@ -172,24 +202,7 @@
 }
 
 .subBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0.5rem 1rem;
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text-secondary, #d4d4d8);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  font-size: 0.85rem;
-  font-weight: 500;
   text-decoration: none;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.subBtn:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
 }
 
 .qrSection {
@@ -197,26 +210,31 @@
   flex-direction: column;
   align-items: center;
   padding-top: 1.5rem;
-  border-top: 1px dashed var(--border-color, rgba(255, 255, 255, 0.1));
+  border-top: 2px dashed rgba(36, 24, 18, 0.65);
 }
 
 .qrTitle {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-secondary, #a1a1aa);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #f9d872;
   margin-bottom: 1rem;
+  text-align: center;
 }
 
 .qrFrame {
   padding: 12px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background: var(--gx-paper-light);
+  border: 3px solid var(--gx-edge);
+  border-radius: 10px;
+  box-shadow: 0 4px 0 var(--gx-shadow);
   display: inline-block;
   margin-bottom: 0.5rem;
 }
 
 .qrSubtitle {
   font-size: 0.8rem;
-  color: var(--text-muted, #71717a);
+  font-weight: 600;
+  color: #c9ad85;
 }

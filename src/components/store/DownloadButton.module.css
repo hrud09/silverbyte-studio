@@ -5,23 +5,33 @@
   gap: 6px;
 }
 
+/* The portfolio's chunky red .gx-btn sprite, with room for a progress fill */
 .downloadButton {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  padding: 0.75rem 2rem;
-  font-size: var(--font-size-md);
-  font-weight: 700;
-  color: #FFFFFF;
-  background-color: var(--color-primary);
-  border: none;
-  border-radius: var(--radius-lg);
+  min-height: 48px;
+  padding: 0.62rem 1.6rem 0.68rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  color: #fff6e6;
+  background-color: var(--gx-red);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0 45%, rgba(0, 0, 0, 0) 45%);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.28);
+  border: 2.5px solid var(--gx-edge);
+  border-radius: 7px;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(211, 47, 47, 0.35);
-  transition: background-color var(--transition-base), box-shadow var(--transition-base),
-    transform var(--transition-base);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -4px 0 rgba(0, 0, 0, 0.22),
+    0 3px 0 var(--gx-edge);
+  transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.15s ease;
   user-select: none;
   /* The progress fill is a child painted edge-to-edge; without this it squares off
      the button's rounded corners. */
@@ -30,13 +40,20 @@
 }
 
 .downloadButton:hover:not(:disabled) {
-  background-color: var(--color-primary-hover);
+  filter: brightness(1.08) saturate(1.05);
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(211, 47, 47, 0.45);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -4px 0 rgba(0, 0, 0, 0.22),
+    0 4px 0 var(--gx-edge);
 }
 
 .downloadButton:active:not(:disabled) {
-  transform: scale(0.98);
+  transform: translateY(3px);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.22),
+    0 0 0 var(--gx-edge);
 }
 
 .downloadButton:disabled {
@@ -46,19 +63,17 @@
 /* Busy states keep full opacity: the fill and the percentage are the feedback, so
    dimming the button here would only make them harder to read. */
 .downloadButton.downloading {
-  background-color: var(--color-primary-hover);
+  background-color: #b33930;
   cursor: progress;
 }
 
 .downloadButton.success {
-  background-color: var(--color-success);
-  box-shadow: 0 4px 14px rgba(46, 125, 50, 0.35);
+  background-color: var(--gx-olive);
   animation: pop 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .downloadButton.error {
-  background-color: var(--color-danger);
-  box-shadow: 0 4px 14px rgba(211, 47, 47, 0.35);
+  background-color: #b33930;
   animation: shake 0.4s ease-in-out;
 }
 
@@ -131,7 +146,8 @@
 
 .byteCount {
   font-size: var(--font-size-xs);
-  color: var(--color-text-secondary, #6b7280);
+  color: #e3cca3;
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
   animation: fadeIn 0.25s ease-out;
 }
@@ -156,16 +172,16 @@
 
 .errorText {
   font-size: var(--font-size-xs);
-  color: var(--color-danger);
-  font-weight: 500;
+  color: #f3a196;
+  font-weight: 700;
   max-width: 320px;
   line-height: 1.4;
 }
 
 .noticeText {
   font-size: var(--font-size-xs);
-  color: var(--color-warning);
-  font-weight: 500;
+  color: #f9d872;
+  font-weight: 700;
   max-width: 320px;
   line-height: 1.4;
 }

@@ -1,22 +1,20 @@
+/* Dark wood panel with the portfolio's teal rail */
 .card {
-  background: linear-gradient(135deg, rgba(211, 47, 47, 0.08) 0%, rgba(26, 26, 26, 0.95) 100%);
-  border: 1px solid rgba(211, 47, 47, 0.25);
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
-  margin-top: var(--space-6);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   position: relative;
-  overflow: hidden;
-}
-
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #d32f2f, #ff5252, #ff9800);
+  margin-top: var(--space-6);
+  padding: var(--space-6);
+  color: #f8ecd4;
+  background-color: #3d2a21;
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.14)),
+    repeating-linear-gradient(0deg, transparent 0, transparent 6px, rgba(0, 0, 0, 0.07) 6px, rgba(0, 0, 0, 0.07) 7px);
+  border: 3px solid var(--gx-edge);
+  border-top: 5px solid var(--gx-teal);
+  border-radius: 10px;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.07),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.25),
+    0 5px 0 var(--gx-shadow);
 }
 
 .header {
@@ -40,22 +38,28 @@
   justify-content: center;
   width: 36px;
   height: 36px;
-  border-radius: var(--radius-md);
-  background: rgba(211, 47, 47, 0.15);
-  color: #ff5252;
-  border: 1px solid rgba(211, 47, 47, 0.3);
+  border-radius: 8px;
+  background: var(--gx-teal);
+  color: #fff6e6;
+  border: 2.5px solid var(--gx-edge);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.3), inset 0 -3px 0 rgba(0, 0, 0, 0.2), 0 2px 0 var(--gx-edge);
 }
 
 .title {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: var(--color-on-dark);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #fbf1dc;
+  text-shadow: 0 2px 0 #241812, 0 -1px 0 #241812, 1.5px 0 0 #241812, -1.5px 0 0 #241812;
   margin: 0;
 }
 
 .subtitle {
-  font-size: 0.8125rem;
-  color: var(--color-on-dark-secondary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #e3cca3;
   margin-top: 2px;
 }
 
@@ -63,33 +67,38 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 10px;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  background: rgba(255, 152, 0, 0.15);
-  color: #ffb74d;
-  border: 1px solid rgba(255, 152, 0, 0.3);
-  letter-spacing: 0.02em;
+  padding: 0.26rem 0.58rem 0.3rem;
+  border-radius: 5px;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--gx-gold);
+  color: #4a2e22;
+  border: 2px solid var(--gx-edge);
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.2), 0 2px 0 var(--gx-edge);
 }
 
 .instructionsBox {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  background-color: #2e201a;
+  border: 3px solid var(--gx-edge);
+  border-radius: 10px;
+  box-shadow: inset 0 4px 0 rgba(0, 0, 0, 0.35);
   padding: var(--space-4);
   margin-bottom: var(--space-5);
-  font-size: 0.875rem;
-  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #f0dfbf;
   line-height: 1.6;
 }
 
 .instructionsTitle {
-  font-size: 0.75rem;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-weight: 700;
-  color: var(--color-text-tertiary);
+  letter-spacing: 0.05em;
+  font-weight: 400;
+  color: #f9d872;
   margin-bottom: var(--space-2);
 }
 
@@ -108,51 +117,38 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: 14px 18px;
-  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  border-radius: 8px;
   text-decoration: none;
-  transition: all var(--transition-fast);
   cursor: pointer;
-  border: 1px solid transparent;
+  color: #fff6e6;
+  border: 2.5px solid var(--gx-edge);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0 45%, rgba(0, 0, 0, 0) 45%);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.28);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.3), inset 0 -4px 0 rgba(0, 0, 0, 0.22), 0 3px 0 var(--gx-edge);
+  transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.15s ease;
+}
+
+.actionBtn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.actionBtn:active {
+  transform: translateY(3px);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25), 0 0 0 var(--gx-edge);
 }
 
 .playStoreBtn {
-  background: #1b5e20;
-  color: #ffffff;
-  border-color: #2e7d32;
-}
-
-.playStoreBtn:hover {
-  background: #2e7d32;
-  border-color: #43a047;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+  background-color: var(--gx-olive);
 }
 
 .playWebBtn {
-  background: #0d47a1;
-  color: #ffffff;
-  border-color: #1565c0;
-}
-
-.playWebBtn:hover {
-  background: #1565c0;
-  border-color: #1976d2;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(21, 101, 192, 0.3);
+  background-color: var(--gx-teal);
 }
 
 .webAppBtn {
-  background: #4a148c;
-  color: #ffffff;
-  border-color: #6a1b9a;
-}
-
-.webAppBtn:hover {
-  background: #6a1b9a;
-  border-color: #7b1fa2;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(106, 27, 154, 0.3);
+  background-color: #7b3fa8;
 }
 
 .btnIcon {
@@ -162,8 +158,9 @@
   flex-shrink: 0;
   width: 32px;
   height: 32px;
-  border-radius: var(--radius-sm);
-  background: rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  border: 2px solid var(--gx-edge);
+  background: rgba(36, 24, 18, 0.35);
 }
 
 .btnText {
@@ -174,7 +171,10 @@
 }
 
 .btnTitle {
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
   font-size: 0.9375rem;
   line-height: 1.2;
 }
@@ -196,18 +196,19 @@
 .stepsGuide {
   margin-top: var(--space-5);
   padding-top: var(--space-4);
-  border-top: 1px solid var(--color-border);
+  border-top: 2px dashed rgba(134, 104, 79, 0.45);
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
 }
 
 .stepsTitle {
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--color-text-tertiary);
+  color: #f9d872;
   margin-bottom: 4px;
 }
 
@@ -215,8 +216,9 @@
   display: flex;
   align-items: flex-start;
   gap: var(--space-2);
-  font-size: 0.8125rem;
-  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #f0dfbf;
 }
 
 .stepNum {
@@ -225,11 +227,13 @@
   justify-content: center;
   width: 18px;
   height: 18px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  color: white;
+  border-radius: 5px;
+  border: 2px solid var(--gx-edge);
+  background: var(--gx-gold);
+  color: #4a2e22;
+  font-family: var(--font-display);
   font-size: 0.6875rem;
-  font-weight: 700;
+  font-weight: 400;
   flex-shrink: 0;
   margin-top: 2px;
 }

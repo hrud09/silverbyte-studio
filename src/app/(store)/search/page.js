@@ -1,6 +1,6 @@
 import prisma from '@/lib/db';
 import Link from 'next/link';
-import { Search, ChevronRight, Filter, Zap, CheckCircle2, Users } from 'lucide-react';
+import { Search, Filter, Zap, CheckCircle2, Users } from 'lucide-react';
 import AppCard from '@/components/store/AppCard';
 import EmptyState from '@/components/ui/EmptyState';
 import styles from './page.module.css';
@@ -124,10 +124,12 @@ export default async function SearchPage({ searchParams }) {
     <div className={styles.pageContainer}>
       <div className={styles.container}>
         {/* Breadcrumbs */}
-        <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
-          <Link href="/appstore" className={styles.crumbLink}>Store</Link>
-          <ChevronRight size={14} className={styles.crumbSep} />
-          <span className={styles.crumbActive}>Search</span>
+        <nav className="breadcrumb-nav" aria-label="Breadcrumb">
+          <ol className="breadcrumb-list">
+            <li className="breadcrumb-item"><Link href="/appstore">App Store</Link></li>
+            <li className="breadcrumb-separator" aria-hidden="true">/</li>
+            <li className="breadcrumb-item current" aria-current="page">Search</li>
+          </ol>
         </nav>
 
         {/* Search Title & Summary */}
@@ -223,7 +225,7 @@ export default async function SearchPage({ searchParams }) {
             title={query ? `No results found for "${query}"` : 'No apps match your filter criteria'}
             description="Try selecting different filters or searching with general keywords like 'game', 'tool', or 'note'."
             action={
-              <Link href="/search" className={styles.backBtn}>
+              <Link href="/search" className={`gx-btn gx-btn-red ${styles.backBtn}`}>
                 Clear All Filters
               </Link>
             }

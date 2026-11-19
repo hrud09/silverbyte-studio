@@ -57,6 +57,7 @@ export default function AppCard({ app, variant = 'standard' }) {
 
   return (
     <div className={styles.card}>
+      <div className={styles.body}>
       <Link href={`/apps/${app.slug}`} className={styles.cardClickArea}>
         {/* App Icon */}
         <div className={styles.iconWrapper}>
@@ -149,13 +150,14 @@ export default function AppCard({ app, variant = 'standard' }) {
           />
           <Link
             href={`/apps/${app.slug}`}
-            className={styles.downloadBtn}
+            className={`gx-btn gx-btn-red gx-btn-sm ${styles.downloadBtn}`}
             title="View & Install App"
           >
             <Download size={14} />
             <span>Get</span>
           </Link>
         </div>
+      </div>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import prisma from '@/lib/db';
 import Link from 'next/link';
-import { ShieldCheck, ChevronRight, Lock } from 'lucide-react';
+import { ShieldCheck, Lock } from 'lucide-react';
 import styles from './page.module.css';
 
 export const dynamic = 'force-dynamic';
@@ -43,10 +43,12 @@ If you have any questions or feedback regarding our privacy practices, please co
     <div className={styles.pageContainer}>
       <div className={styles.container}>
         {/* Breadcrumbs */}
-        <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
-          <Link href="/appstore" className={styles.crumbLink}>Store</Link>
-          <ChevronRight size={14} className={styles.crumbSep} />
-          <span className={styles.crumbActive}>Privacy Policy</span>
+        <nav className="breadcrumb-nav" aria-label="Breadcrumb">
+          <ol className="breadcrumb-list">
+            <li className="breadcrumb-item"><Link href="/appstore">App Store</Link></li>
+            <li className="breadcrumb-separator" aria-hidden="true">/</li>
+            <li className="breadcrumb-item current" aria-current="page">Privacy Policy</li>
+          </ol>
         </nav>
 
         <div className={styles.card}>

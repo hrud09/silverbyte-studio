@@ -2,7 +2,8 @@ import { Suspense } from 'react';
 import prisma from '@/lib/db';
 import StoreHeader from '@/components/store/StoreHeader';
 import CategoryNav from '@/components/store/CategoryNav';
-import StoreFooter from '@/components/store/StoreFooter';
+import { PortfolioHeader, PortfolioFooter } from '@/components/store/PortfolioChrome';
+import { getPortfolioChrome } from '@/lib/portfolioChrome';
 import { ToastProvider } from '@/components/ui/Toast';
 import styles from './layout.module.css';
 
@@ -29,15 +30,22 @@ export default async function StoreLayout({ children }) {
     console.error('Error fetching categories for store layout:', err);
   }
 
+  const chrome = await getPortfolioChrome();
+
   return (
     <ToastProvider>
+      {/* The portfolio's own stylesheet: shared tokens, sprite primitives, header and footer. */}
+      <link rel="stylesheet" href="/assets/css/style.css" precedence="portfolio" />
       <div className={styles.storeShell}>
-        <StoreHeader />
-        <Suspense fallback={<div style={{ minHeight: 48 }} />}>
-          <CategoryNav categories={categories} />
-        </Suspense>
+        <PortfolioHeader html={chrome.header} />
+        <div className={styles.storeBar}>
+          <StoreHeader />
+          <Suspense fallback={<div style={{ minHeight: 48 }} />}>
+            <CategoryNav categories={categories} />
+          </Suspense>
+        </div>
         <main className={styles.mainContent}>{children}</main>
-        <StoreFooter />
+        <PortfolioFooter html={chrome.footer} />
       </div>
     </ToastProvider>
   );

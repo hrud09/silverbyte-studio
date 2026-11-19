@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Search, Sparkles, X, ChevronRight } from 'lucide-react';
+import { Search, X, ChevronRight } from 'lucide-react';
 import { getAppIconUrl } from '@/lib/utils';
 import Skeleton from '@/components/ui/Skeleton';
 import styles from './StoreHeader.module.css';
@@ -65,21 +65,15 @@ export default function StoreHeader() {
   };
 
   return (
-    <header className={styles.header}>
+    <div className={styles.header}>
       <div className={styles.container}>
         {/* Brand Logo */}
         <Link href="/appstore" className={styles.brand}>
-          <div className={styles.logoBadge}>
-            <img
-              src="/logo.png"
-              alt="Silver Red Store"
-              className={styles.logoImg}
-            />
-          </div>
-          <div className={styles.brandMeta}>
+          <img src="/logo.png" alt="" className={styles.logoImg} width="34" height="34" />
+          <span className={styles.brandMeta}>
             <span className={styles.brandTitle}>Silver Red Store</span>
-            <span className={styles.brandSubtitle}>A personal Apps and Games store by Silver Byte Studios.</span>
-          </div>
+            <span className={styles.brandSubtitle}>Apps &amp; games, direct from the studio</span>
+          </span>
         </Link>
 
         {/* Global Search with Real-time Suggestions */}
@@ -184,23 +178,7 @@ export default function StoreHeader() {
           )}
         </div>
 
-        {/* Shortcuts & Silverbyte Studio Screen Switcher */}
-        <div className={styles.navActions}>
-          <Link href="/category/games" className={styles.navLink}>
-            Games
-          </Link>
-          <Link href="/category/productivity" className={styles.navLink}>
-            Productivity
-          </Link>
-          <span className={styles.navDivider} aria-hidden="true" />
-          <a href="/" className={styles.studioPill}>
-            Studio
-          </a>
-          <a href="/business" className={styles.navLink}>
-            Business
-          </a>
-        </div>
       </div>
-    </header>
+    </div>
   );
 }

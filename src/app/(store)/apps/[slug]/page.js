@@ -4,14 +4,12 @@ import Link from 'next/link';
 import {
   ShieldCheck,
   Sparkles,
-  ChevronRight,
   FlaskConical,
   ExternalLink,
   Globe,
   Smartphone,
   Zap,
   CheckCircle2,
-  Info,
 } from 'lucide-react';
 import { formatRelativeTime, formatFileSize, formatCompactNumber, getAppIconUrl, getAppFeatureUrl, resolveMediaUrl } from '@/lib/utils';
 import ScreenshotGallery from '@/components/store/ScreenshotGallery';
@@ -173,105 +171,98 @@ export default async function AppDetailPage({ params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div className={styles.pageContainer}>
-        <div className={styles.mainWrapper}>
-          {/* Breadcrumbs */}
-          <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
-            <Link href="/appstore" className={styles.crumbLink}>Store</Link>
-            <ChevronRight size={14} className={styles.crumbSep} />
-            {app.category && (
-              <>
-                <Link href={`/category/${app.category.slug}`} className={styles.crumbLink}>
-                  {app.category.name}
-                </Link>
-                <ChevronRight size={14} className={styles.crumbSep} />
-              </>
-            )}
-            <span className={styles.crumbActive}>{app.name}</span>
+      <div className={`product-page-container ${styles.pageContainer}`}>
+          {/* Breadcrumbs — the portfolio's plaque trail */}
+          <nav className="breadcrumb-nav" aria-label="Breadcrumb">
+            <ol className="breadcrumb-list">
+              <li className="breadcrumb-item"><Link href="/appstore">App Store</Link></li>
+              <li className="breadcrumb-separator" aria-hidden="true">/</li>
+              {app.category && (
+                <>
+                  <li className="breadcrumb-item">
+                    <Link href={`/category/${app.category.slug}`}>{app.category.name}</Link>
+                  </li>
+                  <li className="breadcrumb-separator" aria-hidden="true">/</li>
+                </>
+              )}
+              <li className="breadcrumb-item current" aria-current="page">{app.name}</li>
+            </ol>
           </nav>
 
-          {/* App Hero Header */}
-          <div className={styles.heroHeader}>
-            <div className={styles.appIconWrapper}>
+          {/* Product hero — same card as the portfolio's product pages */}
+          <article className={`product-hero ${styles.productHero}`}>
+            <div className="product-hero-banner">
               <AppIconImg
-                src={iconUrl}
-                alt={`${app.name} icon`}
-                className={styles.appIcon}
-                fallbackSrc={`/api/placeholder/icon/${app.slug}`}
+                src={featureUrl}
+                alt={`${app.name} feature graphic`}
+                className={styles.featureImg}
+                fallbackSrc={`/api/placeholder/feature/${app.slug}`}
               />
             </div>
 
-            <div className={styles.heroDetails}>
-              <div className={styles.titleRow}>
-                <h1 className={styles.appTitle}>{app.name}</h1>
-                {isMod && (
-                  <span className={styles.modBadge} title="Mod App / Enhanced Build">
-                    <Zap size={12} />
-                    <span>MOD APP</span>
-                  </span>
-                )}
-                {app.featured && (
-                  <span className={styles.featuredBadge} title="Featured App">
-                    <Sparkles size={12} />
-                    <span>Featured</span>
-                  </span>
-                )}
-                {(app.isTesting || app.playStoreUrl || app.playStoreWebUrl) && (
-                  <span className={styles.testingBadge}>
-                    <FlaskConical size={12} />
-                    <span>{app.testingTrack ? app.testingTrack.replace(/_/g, ' ') : 'Testing'}</span>
-                  </span>
-                )}
+            <div className={`product-hero-body ${styles.heroBody}`}>
+              <div className="product-header-main">
+                <AppIconImg
+                  src={iconUrl}
+                  alt={`${app.name} icon`}
+                  className="product-icon-large"
+                  fallbackSrc={`/api/placeholder/icon/${app.slug}`}
+                />
+                <div className="product-title-group">
+                  <h1>{app.name}</h1>
+                  <div className="tag-list">
+                    {app.category && (
+                      <Link href={`/category/${app.category.slug}`} className="gx-badge gx-badge-paper">
+                        {app.category.name}
+                      </Link>
+                    )}
+                    <span className={`gx-badge ${isSilverByte ? 'gx-badge-teal' : 'gx-badge-wood'}`}>
+                      {isSilverByte && <CheckCircle2 size={12} />}
+                      {isSilverByte ? 'Official Silver Byte' : (app.developerName || 'Other Developer')}
+                    </span>
+                    {isMod && (
+                      <span className="gx-badge" title="Mod App / Enhanced Build">
+                        <Zap size={12} />
+                        <span>Mod App</span>
+                      </span>
+                    )}
+                    {app.featured && (
+                      <span className="gx-badge gx-badge-gold" title="Featured App">
+                        <Sparkles size={12} />
+                        <span>Featured</span>
+                      </span>
+                    )}
+                    {(app.isTesting || app.playStoreUrl || app.playStoreWebUrl) && (
+                      <span className="gx-badge gx-badge-olive">
+                        <FlaskConical size={12} />
+                        <span>{app.testingTrack ? app.testingTrack.replace(/_/g, ' ') : 'Testing'}</span>
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
 
-              <div className={styles.developerRow}>
-                <span className={styles.developerName}>
-                  {app.developerName || (isSilverByte ? 'Silver Byte Studios' : 'Other Developer')}
-                  {isSilverByte && <CheckCircle2 size={13} style={{ color: '#0284c7' }} />}
-                </span>
-                <span className={styles.originBadge}>
-                  {isSilverByte ? 'Official Silver Byte' : 'Other Developer'}
-                </span>
-                {app.category && (
-                  <>
-                    <span className={styles.dotSep}>•</span>
-                    <Link href={`/category/${app.category.slug}`} className={styles.categoryLink}>
-                      {app.category.name}
-                    </Link>
-                  </>
-                )}
-              </div>
+              {app.shortDescription && <p className="product-tagline">{app.shortDescription}</p>}
 
-              {/* Stat Badges Row */}
+              {/* Stat slots */}
               <div className={styles.statsRow}>
-                <div className={styles.statItem}>
-                  <span className={styles.statVal}>
-                    {formatCompactNumber(app.downloads || 0)}
-                  </span>
+                <div className={`gx-slot ${styles.statItem}`}>
+                  <span className={styles.statVal}>{formatCompactNumber(app.downloads || 0)}</span>
                   <span className={styles.statSub}>Downloads</span>
                 </div>
-
-                <div className={styles.statDivider} />
-
-                <div className={styles.statItem}>
+                <div className={`gx-slot ${styles.statItem}`}>
                   <span className={styles.statVal}>
                     {latestVersion?.fileSize ? formatFileSize(latestVersion.fileSize) : '—'}
                   </span>
                   <span className={styles.statSub}>APK Size</span>
                 </div>
-
-                <div className={styles.statDivider} />
-
-                <div className={styles.statItem}>
+                <div className={`gx-slot ${styles.statItem}`}>
                   <span className={styles.statVal}>
                     {latestVersion?.versionName ? `v${latestVersion.versionName}` : '—'}
                   </span>
                   <span className={styles.statSub}>Latest</span>
                 </div>
-
-                <div className={styles.statDivider} />
-
-                <div className={styles.statItem}>
+                <div className={`gx-slot ${styles.statItem}`}>
                   <span className={styles.statVal}>
                     {formatRelativeTime(latestVersion?.createdAt || app.updatedAt)}
                   </span>
@@ -280,7 +271,7 @@ export default async function AppDetailPage({ params }) {
               </div>
 
               {/* Primary Download & Testing Action CTAs */}
-              <div className={styles.ctaRow}>
+              <div className={`product-actions-bar ${styles.ctaRow}`}>
                 <DownloadButton
                   appSlug={app.slug}
                   appName={app.name}
@@ -292,12 +283,12 @@ export default async function AppDetailPage({ params }) {
                     href={app.playStoreUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={styles.playStoreQuickBtn}
+                    className="gx-btn gx-btn-teal"
                     title="Open in Google Play Store (Android Testing)"
                   >
-                    <Smartphone size={14} />
-                    <span>Play Store (Android)</span>
-                    <ExternalLink size={12} />
+                    <Smartphone size={16} />
+                    <span>Play Store</span>
+                    <ExternalLink size={13} />
                   </a>
                 )}
 
@@ -306,12 +297,12 @@ export default async function AppDetailPage({ params }) {
                     href={app.playStoreWebUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={styles.playWebQuickBtn}
+                    className="gx-btn gx-btn-wood"
                     title="Join Google Play Testing Program on the Web"
                   >
-                    <Globe size={14} />
+                    <Globe size={16} />
                     <span>Join on Web</span>
-                    <ExternalLink size={12} />
+                    <ExternalLink size={13} />
                   </a>
                 )}
 
@@ -320,12 +311,12 @@ export default async function AppDetailPage({ params }) {
                     href={app.webAppUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={styles.webAppQuickBtn}
+                    className="gx-btn gx-btn-wood"
                     title="Open Live Web Application"
                   >
-                    <Globe size={14} />
+                    <Globe size={16} />
                     <span>Open Web App</span>
-                    <ExternalLink size={12} />
+                    <ExternalLink size={13} />
                   </a>
                 )}
 
@@ -341,28 +332,18 @@ export default async function AppDetailPage({ params }) {
                 </span>
               </div>
             </div>
-          </div>
+          </article>
 
           {/* Mod App Highlights Alert */}
           {isMod && app.modDetails && (
             <div className={styles.modAlertCard}>
               <Zap size={20} className={styles.modAlertIcon} />
               <div className={styles.modAlertContent}>
-                <h4 className={styles.modAlertTitle}>⚡ Mod App Highlights & Features</h4>
+                <h4 className={styles.modAlertTitle}>Mod App Highlights &amp; Features</h4>
                 <p className={styles.modAlertText}>{app.modDetails}</p>
               </div>
             </div>
           )}
-
-          {/* Feature Graphic Banner */}
-          <div className={styles.featureBanner}>
-            <AppIconImg
-              src={featureUrl}
-              alt={`${app.name} feature graphic`}
-              className={styles.featureImg}
-              fallbackSrc={`/api/placeholder/feature/${app.slug}`}
-            />
-          </div>
 
           {/* Screenshot Gallery */}
           <ScreenshotGallery screenshots={finalScreenshots} appName={app.name} />
@@ -385,7 +366,6 @@ export default async function AppDetailPage({ params }) {
               layout="shelf"
             />
           )}
-        </div>
       </div>
     </>
   );

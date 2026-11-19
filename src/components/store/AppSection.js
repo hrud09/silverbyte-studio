@@ -69,7 +69,7 @@ export default function AppSection({
   };
 
   return (
-    <section className={`${styles.section} ${toneClass}`}>
+    <section className={`gx-nails ${styles.section} ${toneClass}`}>
       {/* Section Header */}
       <div className={styles.header}>
         <div className={styles.titleArea}>
