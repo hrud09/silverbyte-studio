@@ -2,8 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { Readable } from 'node:stream';
 import prisma from '@/lib/db';
-import { normalizeStorageKey } from '@/lib/storage';
-import { isGitHubStorageConfigured, findAsset } from '@/lib/githubStorage';
+import { normalizeStorageKey, findStoredObject } from '@/lib/storage';
 import { PROXY_DOWNLOAD_MAX_BYTES } from '@/lib/constants';
 
 /**
@@ -84,9 +83,9 @@ export async function resolveBuildDownload({ app, version, proxy = false, forceP
     };
   }
 
-  // 1. GitHub Releases, by key or asset lookup.
-  if (isGitHubStorageConfigured()) {
-    const asset = await findAsset(normalizeStorageKey(version.filePath));
+  // 1. R2 or GitHub Releases, by key or object lookup.
+  {
+    const asset = await findStoredObject(version.filePath);
     if (asset) {
       if (forceProxy || (proxy && isProgressTrackable(asset.size))) {
         const streamed = await streamThroughServer(asset.url, downloadFileName, asset.size);
@@ -187,11 +186,9 @@ export async function resolveBuildDownload({ app, version, proxy = false, forceP
 export async function resolveStorageUrl(filePath, downloadFileName) {
   if (!filePath) return null;
 
-  if (isGitHubStorageConfigured()) {
-    const asset = await findAsset(normalizeStorageKey(filePath));
-    // Release assets on a public repo are permanent URLs on GitHub's CDN.
-    if (asset) return { url: asset.url, backend: 'github', permanent: true };
-  }
+  // R2 public-bucket URLs and release assets on a public repo are both permanent.
+  const stored = await findStoredObject(filePath);
+  if (stored) return { url: stored.url, backend: stored.backend, permanent: true };
 
   if (/^https?:\/\//.test(filePath)) {
     return { url: filePath, backend: 'external', permanent: true };

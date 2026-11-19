@@ -2,6 +2,7 @@
  * Reusable client-side upload handler with real-time progress.
  *
  * The server decides how the bytes should travel and reports it as a mode:
+ *   'direct' — PUT straight to a presigned Cloudflare R2 URL; never touches our server
  *   'stream' — POST straight to our streaming endpoint (GitHub Releases backend)
  *   'server' — multipart POST to /api/upload (local-disk development fallback)
  *
@@ -86,7 +87,30 @@ export async function uploadFileWithProgress({ file, folder = 'uploads', baseNam
     console.warn('Could not determine upload mode, falling back to server upload:', err);
   }
 
-  // Mode 1: stream through our server to GitHub Releases.
+  // Mode 1: direct to R2. The headers are part of the signature, so send them verbatim.
+  if (plan?.mode === 'direct' && plan.uploadUrl) {
+    const xhr = await xhrUpload({
+      method: 'PUT',
+      url: plan.uploadUrl,
+      body: file,
+      headers: plan.headers || { 'Content-Type': contentType },
+      onProgress,
+    });
+
+    if (xhr.status < 200 || xhr.status >= 300) {
+      // R2 answers with XML, not our JSON shape; a status of 0 is almost always CORS.
+      throw new Error(
+        xhr.status === 0
+          ? 'Upload to R2 was blocked. Check the bucket CORS policy allows PUT from this site.'
+          : `Upload to R2 failed (${xhr.status}): ${xhr.statusText || 'Unknown error'}`
+      );
+    }
+
+    if (onProgress) onProgress(100);
+    return { url: plan.url, key: plan.key, fileName: file.name, size: file.size };
+  }
+
+  // Mode 2: stream through our server to GitHub Releases.
   if (plan?.mode === 'stream' && plan.streamUrl) {
     const xhr = await xhrUpload({
       method: 'POST',
@@ -112,7 +136,7 @@ export async function uploadFileWithProgress({ file, folder = 'uploads', baseNam
     };
   }
 
-  // Mode 2: multipart POST to our own route (local disk fallback).
+  // Mode 3: multipart POST to our own route (local disk fallback).
   const formData = new FormData();
   formData.append('file', file);
   formData.append('folder', folder);

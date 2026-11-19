@@ -1,47 +1,13 @@
 import { apiResponse, apiError } from '@/lib/utils';
 import { requireAuth } from '@/lib/auth';
 import { isGitHubStorageConfigured, uploadAsset } from '@/lib/githubStorage';
+import { ALLOWED_FOLDERS, buildStorageName } from '@/lib/storageKeys';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 // Large builds on a slow connection need room; this is a single-admin upload path.
-export const maxDuration = 900;
-
-const ALLOWED_FOLDERS = new Set(['builds', 'icon', 'feature', 'screenshot', 'promo', 'uploads', 'shares']);
-
-/**
- * Decide the stored object name.
- *
- * GitHub derives a release asset's `Content-Disposition` filename from its asset
- * name, so whatever lands here is literally what a visitor sees in their Downloads
- * folder. A timestamp prefix guarantees uniqueness but reads as machine output
- * ("1787690805975-Adultik_Talk.apk"), so callers that can describe the file — the
- * release forms know the app slug and version — pass a `baseName` instead.
- *
- * `slug-v1-0` is unique at exactly the right granularity: one name per app version.
- * Re-uploading the same version overwrites it, which is the intended behaviour when
- * an admin replaces a build. Callers without that context (or with a half-filled
- * form) send nothing and keep the timestamped fallback rather than risk two
- * different builds colliding on one name.
- *
- * @param {string} originalName - the uploaded file's own name, for its extension
- * @param {string|null} baseName - caller-supplied, untrusted
- * @returns {string}
- */
-function buildStorageName(originalName, baseName) {
-  const safeBase = String(baseName || '')
-    .replace(/[^a-zA-Z0-9._-]/g, '-')
-    .replace(/-{2,}/g, '-')
-    .replace(/^[-.]+|[-.]+$/g, '')
-    .slice(0, 80);
-
-  if (!safeBase) {
-    return `${Date.now()}-${originalName.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-  }
-
-  const ext = (originalName.match(/\.[a-zA-Z0-9]{1,10}$/) || [''])[0].toLowerCase();
-  return `${safeBase}${ext}`;
-}
+// 300 s is the most Vercel allows; with R2 configured this route is not used at all.
+export const maxDuration = 300;
 
 /**
  * Stream an upload straight through to GitHub Releases.

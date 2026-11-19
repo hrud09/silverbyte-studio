@@ -1,6 +1,8 @@
 import { apiResponse, apiError } from '@/lib/utils';
 import { requireAuth } from '@/lib/auth';
 import { isGitHubStorageConfigured } from '@/lib/githubStorage';
+import { isR2StorageConfigured, createUploadUrl } from '@/lib/r2Storage';
+import { ALLOWED_FOLDERS, buildStorageName } from '@/lib/storageKeys';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,6 +18,25 @@ export async function POST(request) {
 
     if (!fileName) {
       return apiError('fileName is required', 400);
+    }
+
+    // R2: hand the browser a presigned URL so the bytes go straight into the bucket
+    // and never touch this server (required on Vercel, whose request bodies cap at ~4.5 MB).
+    if (isR2StorageConfigured()) {
+      if (!ALLOWED_FOLDERS.has(folder)) {
+        return apiError(`Unsupported folder "${folder}"`, 400);
+      }
+      const key = `${folder}/${buildStorageName(fileName, baseName)}`;
+      const { uploadUrl, headers, url } = await createUploadUrl({ key, contentType });
+
+      return apiResponse({
+        mode: 'direct',
+        directUpload: true,
+        uploadUrl,
+        headers,
+        url,
+        key,
+      });
     }
 
     // GitHub Releases: stream directly through server endpoint to avoid buffering

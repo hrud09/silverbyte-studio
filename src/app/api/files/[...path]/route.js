@@ -2,8 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { Readable } from 'node:stream';
 import { apiError } from '@/lib/utils';
-import { getActiveBackend } from '@/lib/storage';
-import { isGitHubStorageConfigured, findAsset } from '@/lib/githubStorage';
+import { getActiveBackend, findStoredObject } from '@/lib/storage';
 
 const MIME_TYPES = {
   '.png': 'image/png',
@@ -44,13 +43,11 @@ export async function GET(request, { params }) {
     const mimeType = MIME_TYPES[ext] || 'application/octet-stream';
     const fileName = path.basename(safeSubPath);
 
-    // 1. GitHub Releases: redirect rather than proxy. Serving the bytes ourselves
-    // would spend this server's bandwidth on a file GitHub will deliver for free.
-    if (isGitHubStorageConfigured()) {
-      const asset = await findAsset(safeSubPath);
-      if (asset) {
-        return Response.redirect(asset.url, 302);
-      }
+    // 1. R2 or GitHub Releases: redirect rather than proxy. Serving the bytes ourselves
+    // would spend this server's bandwidth on a file the CDN will deliver for free.
+    const stored = await findStoredObject(safeSubPath);
+    if (stored) {
+      return Response.redirect(stored.url, 302);
     }
 
     // 2. Check local disk candidate directories

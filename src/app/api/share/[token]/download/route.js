@@ -8,7 +8,8 @@ import { deleteQuickShare } from '@/lib/quickShare.server';
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 // A private share streams through this server, so the route lives as long as the download.
-export const maxDuration = 900;
+// 300 s is the ceiling on Vercel's plans with Fluid compute; higher values fail the deploy.
+export const maxDuration = 300;
 
 /**
  * Serve the build behind a share token.

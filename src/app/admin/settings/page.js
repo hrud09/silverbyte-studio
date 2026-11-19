@@ -220,7 +220,7 @@ export default function AdminSettingsPage() {
             onClick={() => setActiveTab('storage')}
           >
             <HardDrive size={16} />
-            <span>GitHub Releases Storage</span>
+            <span>File Storage</span>
           </button>
 
           <button
@@ -339,9 +339,13 @@ export default function AdminSettingsPage() {
           <div className={styles.tabBody}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
               <div>
-                <h3 className={styles.sectionHeader}>GitHub Releases Storage Integration</h3>
+                <h3 className={styles.sectionHeader}>
+                  {storageStatus?.activeBackend === 'r2' ? 'Cloudflare R2 Storage' : 'GitHub Releases Storage Integration'}
+                </h3>
                 <p className={styles.helpText}>
-                  Stores APK build binaries, icons, graphics, and screenshots directly in GitHub Releases with permanent unmetered CDN URLs and 2 GB per file limits.
+                  {storageStatus?.activeBackend === 'r2'
+                    ? 'Stores APK build binaries, icons, graphics, and screenshots in a Cloudflare R2 bucket. Uploads go straight from your browser to R2, and downloads have no egress fees. Files uploaded earlier to GitHub Releases keep working.'
+                    : 'Stores APK build binaries, icons, graphics, and screenshots directly in GitHub Releases with permanent unmetered CDN URLs and 2 GB per file limits.'}
                 </p>
               </div>
               <button
@@ -380,7 +384,9 @@ export default function AdminSettingsPage() {
                     Status: {storageStatus.status}
                   </div>
                   <div style={{ fontSize: '0.8125rem', opacity: 0.9 }}>
-                    {storageStatus.connected
+                    {storageStatus.connected && storageStatus.activeBackend === 'r2'
+                      ? `Connected to R2 bucket "${storageStatus.bucket}" with ${storageStatus.assetCount} stored files (${formatFileSize(storageStatus.totalBytes || 0)}), served from ${storageStatus.publicUrl}.`
+                      : storageStatus.connected
                       ? `Connected to repository "${storageStatus.repo}" with ${storageStatus.assetCount} stored release assets (${formatFileSize(storageStatus.totalBytes || 0)}). Direct GitHub CDN downloads are fully operational.`
                       : storageStatus.message}
                   </div>
@@ -397,13 +403,15 @@ export default function AdminSettingsPage() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 'var(--space-4)' }}>
               <div style={{ padding: '16px', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border-light)', background: 'var(--color-gray-50)' }}>
                 <div style={{ fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', color: 'var(--color-text-tertiary)', letterSpacing: '0.05em' }}>
-                  Target Repository
+                  {storageStatus?.activeBackend === 'r2' ? 'Target Bucket' : 'Target Repository'}
                 </div>
                 <div style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--color-text)', marginTop: 4 }}>
-                  {storageStatus?.repo || 'Not Configured'}
+                  {storageStatus?.bucket || storageStatus?.repo || 'Not Configured'}
                 </div>
                 <div style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginTop: 2 }}>
-                  {storageStatus?.private ? 'Private Repository' : 'Public Repository (Fast Direct CDN)'}
+                  {storageStatus?.activeBackend === 'r2'
+                    ? storageStatus?.publicUrl || 'Public bucket URL'
+                    : storageStatus?.private ? 'Private Repository' : 'Public Repository (Fast Direct CDN)'}
                 </div>
               </div>
 
@@ -412,7 +420,11 @@ export default function AdminSettingsPage() {
                   Active Storage Backend
                 </div>
                 <div style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--color-text)', marginTop: 4, textTransform: 'capitalize' }}>
-                  {storageStatus?.activeBackend === 'github' ? 'GitHub Releases (Cloud)' : 'Local Disk (Fallback)'}
+                  {storageStatus?.activeBackend === 'r2'
+                    ? 'Cloudflare R2 (Cloud)'
+                    : storageStatus?.activeBackend === 'github'
+                    ? 'GitHub Releases (Cloud)'
+                    : 'Local Disk (Fallback)'}
                 </div>
                 <div style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', marginTop: 2 }}>
                   Unmetered egress & high availability

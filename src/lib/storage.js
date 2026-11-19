@@ -7,6 +7,12 @@ import {
   findAsset,
   deleteAsset,
 } from '@/lib/githubStorage';
+import {
+  isR2StorageConfigured,
+  uploadObject,
+  findObject,
+  deleteObject,
+} from '@/lib/r2Storage';
 
 /**
  * Strip any stored-reference wrapper (absolute URL, leading slashes, `storage/`
@@ -28,15 +34,40 @@ export function normalizeStorageKey(keyOrUrl) {
 }
 
 /**
- * Which backend is actually serving files. GitHub Releases wins when configured
- * because it provides unmetered egress with permanent CDN URLs. Local disk is
- * the development fallback.
+ * Which backend receives new uploads. R2 wins when configured because it accepts
+ * direct browser uploads, which serverless hosts need. GitHub Releases is next, and
+ * stays readable even when R2 is active so files uploaded before the move keep working.
+ * Local disk is the development fallback.
  *
- * @returns {'github' | 'local'}
+ * @returns {'r2' | 'github' | 'local'}
  */
 export function getActiveBackend() {
+  if (isR2StorageConfigured()) return 'r2';
   if (isGitHubStorageConfigured()) return 'github';
   return 'local';
+}
+
+/**
+ * Find a stored reference in whichever cloud backend holds it: R2 first, then
+ * GitHub Releases. Returns the object's public URL and size, or null.
+ *
+ * @param {string} keyOrUrl
+ * @returns {Promise<{ url: string, size: number, backend: 'r2' | 'github' } | null>}
+ */
+export async function findStoredObject(keyOrUrl) {
+  if (!keyOrUrl) return null;
+
+  if (isR2StorageConfigured()) {
+    const obj = await findObject(keyOrUrl);
+    if (obj) return { url: obj.url, size: obj.size, backend: 'r2' };
+  }
+
+  if (isGitHubStorageConfigured()) {
+    const asset = await findAsset(normalizeStorageKey(keyOrUrl));
+    if (asset) return { url: asset.url, size: asset.size, backend: 'github' };
+  }
+
+  return null;
 }
 
 /**
@@ -52,6 +83,18 @@ export function getActiveBackend() {
 export async function uploadFile({ buffer, fileName, folder = 'uploads', contentType = 'application/octet-stream' }) {
   const safeName = `${Date.now()}-${fileName.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
   const key = `${folder}/${safeName}`;
+
+  if (isR2StorageConfigured()) {
+    const { url } = await uploadObject({ body: buffer, size: buffer.length, key, contentType });
+    return {
+      url,
+      key,
+      fileName,
+      size: buffer.length,
+      mimeType: contentType,
+      storage: 'r2',
+    };
+  }
 
   if (isGitHubStorageConfigured()) {
     const { url } = await uploadAsset({
@@ -98,12 +141,10 @@ export async function uploadFile({ buffer, fileName, folder = 'uploads', content
 export async function getDownloadUrl(keyOrUrl) {
   if (!keyOrUrl) return null;
 
-  if (isGitHubStorageConfigured()) {
-    // Release assets are permanent public URLs on GitHub's CDN — nothing to sign,
-    // nothing to expire, and the transfer never touches this server.
-    const asset = await findAsset(normalizeStorageKey(keyOrUrl));
-    if (asset) return asset.url;
-  }
+  // R2 objects and GitHub release assets are both permanent public URLs — nothing
+  // to sign, nothing to expire, and the transfer never touches this server.
+  const stored = await findStoredObject(keyOrUrl);
+  if (stored) return stored.url;
 
   return `/${normalizeStorageKey(keyOrUrl)}`;
 }
@@ -120,9 +161,15 @@ export async function getDownloadUrl(keyOrUrl) {
 export async function verifyStorageKeyExists(urlOrKey) {
   if (!urlOrKey || typeof urlOrKey !== 'string') return false;
 
-  const isExternal = /^(https?:)?\/\//.test(urlOrKey);
   const isDataOrBlob = urlOrKey.startsWith('data:') || urlOrKey.startsWith('blob:');
-  if (isExternal || isDataOrBlob) return true;
+  if (isDataOrBlob) return true;
+
+  // Our own R2 public URLs are checked like keys: a presigned upload the browser
+  // abandoned halfway must not get recorded as a working file.
+  if (isR2StorageConfigured() && (await findObject(urlOrKey))) return true;
+
+  const isExternal = /^(https?:)?\/\//.test(urlOrKey);
+  if (isExternal) return !isOwnR2Url(urlOrKey);
 
   if (isGitHubStorageConfigured() && (await findAsset(normalizeStorageKey(urlOrKey)))) {
     return true;
@@ -146,6 +193,10 @@ export async function verifyStorageKeyExists(urlOrKey) {
  */
 export async function deleteFile(keyOrUrl) {
   if (!keyOrUrl) return false;
+
+  if (isR2StorageConfigured() && (await deleteObject(keyOrUrl))) {
+    return true;
+  }
 
   const key = normalizeStorageKey(keyOrUrl);
 
@@ -171,4 +222,10 @@ export async function deleteFile(keyOrUrl) {
   }
 
   return false;
+}
+
+/** Does this absolute URL point into our R2 bucket's public address? */
+function isOwnR2Url(url) {
+  const base = (process.env.R2_PUBLIC_URL || '').trim().replace(/\/+$/, '').toLowerCase();
+  return Boolean(base) && url.toLowerCase().startsWith(`${base}/`);
 }

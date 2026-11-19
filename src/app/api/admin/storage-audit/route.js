@@ -5,6 +5,7 @@ import { apiResponse, apiError } from '@/lib/utils';
 import { requireAuth } from '@/lib/auth';
 import { normalizeStorageKey, getActiveBackend } from '@/lib/storage';
 import { isGitHubStorageConfigured, listAllAssets, keyToLocation } from '@/lib/githubStorage';
+import { isR2StorageConfigured, listAllObjects, toR2Key } from '@/lib/r2Storage';
 
 export const dynamic = 'force-dynamic';
 
@@ -78,15 +79,39 @@ export async function GET() {
     const references = await collectReferences();
     const backend = getActiveBackend();
     const usingGitHub = isGitHubStorageConfigured();
+    const usingR2 = isR2StorageConfigured();
 
     // One listing beats a per-reference existence check, and it also reveals orphans —
     // objects occupying storage that nothing in the DB points at.
-    const objects = usingGitHub ? await listAllAssets() : [];
-    const objectsByKey = new Map(objects.map((o) => [o.key, o]));
+    const githubObjects = usingGitHub ? await listAllAssets() : [];
+    const objectsByKey = new Map(githubObjects.map((o) => [o.key, o]));
+    const r2Objects = usingR2 ? await listAllObjects() : [];
+    const r2ByKey = new Map(r2Objects.map((o) => [o.key, o]));
+    const objects = [...r2Objects.map((o) => ({ ...o, store: 'r2' })), ...githubObjects];
 
     const matchedKeys = new Set();
+    const matchedR2Keys = new Set();
 
     const results = references.map((ref) => {
+      // R2 first: our own public URLs and bare keys both map onto bucket keys.
+      if (usingR2) {
+        const r2Key = toR2Key(ref.reference);
+        const hit = r2Key && r2ByKey.get(r2Key);
+        if (hit) {
+          matchedR2Keys.add(r2Key);
+          return { ...ref, status: 'ok', foundKey: r2Key, actualSize: hit.size, exactMatch: true };
+        }
+        if (r2Key && /^https?:\/\//.test(ref.reference)) {
+          return {
+            ...ref,
+            status: 'missing',
+            foundKey: null,
+            actualSize: null,
+            reason: `No object "${r2Key}" in R2 bucket ${process.env.R2_BUCKET}`,
+          };
+        }
+      }
+
       // An external URL (developer pasted a link elsewhere) isn't ours to verify.
       const isExternal = /^(https?:)?\/\//.test(ref.reference);
 
@@ -137,14 +162,18 @@ export async function GET() {
     });
 
     const orphans = objects
-      .filter((o) => !matchedKeys.has(o.key))
+      .filter((o) => (o.store === 'r2' ? !matchedR2Keys.has(o.key) : !matchedKeys.has(o.key)))
       .map((o) => ({ key: o.key, size: o.size, lastModified: o.lastModified }));
 
     const broken = results.filter((r) => r.status === 'missing');
 
     return apiResponse({
       backend,
-      container: usingGitHub ? process.env.GITHUB_REPO : 'local disk',
+      container: usingR2
+        ? `R2 bucket ${process.env.R2_BUCKET}`
+        : usingGitHub
+        ? process.env.GITHUB_REPO
+        : 'local disk',
       summary: {
         referencesChecked: results.length,
         ok: results.filter((r) => r.status === 'ok').length,

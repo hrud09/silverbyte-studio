@@ -1,6 +1,7 @@
 import { apiResponse, apiError } from '@/lib/utils';
 import { requireAuth } from '@/lib/auth';
 import { checkGitHubStorage } from '@/lib/githubStorage';
+import { isR2StorageConfigured, checkR2Storage } from '@/lib/r2Storage';
 import { getActiveBackend } from '@/lib/storage';
 
 export const dynamic = 'force-dynamic';
@@ -12,7 +13,9 @@ export async function GET() {
       return apiError('Unauthorized: Admin login required', 401);
     }
 
-    const result = await checkGitHubStorage();
+    // Report on whichever backend receives uploads. When R2 is active, GitHub is
+    // only consulted for files uploaded before the move, so it is not what to test.
+    const result = isR2StorageConfigured() ? await checkR2Storage() : await checkGitHubStorage();
 
     return apiResponse({
       ...result,
