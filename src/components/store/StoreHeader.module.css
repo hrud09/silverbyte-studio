@@ -15,7 +15,27 @@
   gap: var(--space-4);
 }
 
-/* Store title — same carved display type as the portfolio brand */
+/* Store brand group */
+.brandGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+
+.brandLogoLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: transform 0.12s ease;
+}
+
+.brandLogoLink:hover {
+  transform: translateY(-1px);
+}
+
+/* Retained for any legacy references */
 .brand {
   display: flex;
   align-items: center;
@@ -47,6 +67,19 @@
   min-width: 0;
 }
 
+.brandTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: nowrap;
+}
+
+.brandTitleLink {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
 .brandTitle {
   font-family: var(--font-display);
   font-size: 1.1rem;
@@ -56,10 +89,78 @@
   text-transform: uppercase;
   line-height: 1.15;
   text-shadow: 0 2px 0 #241812, 0 -1px 0 #241812, 1.5px 0 0 #241812, -1.5px 0 0 #241812;
+  transition: color 0.12s ease;
 }
 
+.brandTitleLink:hover .brandTitle,
 .brand:hover .brandTitle {
   color: var(--gx-gold);
+}
+
+/* Studio button beside store name */
+.studioBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.18rem 0.48rem 0.22rem;
+  background-color: var(--gx-gold);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0 45%, transparent 45%);
+  color: var(--gx-ink);
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-decoration: none;
+  border: 1.5px solid var(--gx-edge);
+  border-radius: 5px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2),
+    0 2px 0 var(--gx-edge);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+  transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.15s ease;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.studioBtn:hover {
+  filter: brightness(1.08) saturate(1.05);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.2),
+    0 3px 0 var(--gx-edge);
+  color: var(--gx-ink);
+}
+
+.studioBtn:active {
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+    0 0 0 var(--gx-edge);
+}
+
+.studioBtn:focus-visible {
+  outline: 2px solid var(--gx-gold);
+  outline-offset: 2px;
+}
+
+.studioIcon {
+  opacity: 0.75;
+  transition: transform 0.12s ease;
+}
+
+.studioBtn:hover .studioIcon {
+  opacity: 1;
+  transform: translate(1px, -1px);
+}
+
+.brandSubtitleLink {
+  display: inline-flex;
+  text-decoration: none;
 }
 
 .brandSubtitle {
@@ -69,6 +170,11 @@
   color: #c9ad85;
   line-height: 1.3;
   white-space: nowrap;
+  transition: color 0.12s ease;
+}
+
+.brandSubtitleLink:hover .brandSubtitle {
+  color: #fbf1dc;
 }
 
 /* Search — recessed parchment well */
@@ -273,10 +379,16 @@
   .container {
     gap: var(--space-3);
   }
-  .brandMeta {
+  .brandSubtitleLink {
     display: none;
   }
   .searchWrapper {
     max-width: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .brandTitleLink {
+    display: none;
   }
 }

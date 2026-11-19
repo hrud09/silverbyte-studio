@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Search, X, ChevronRight } from 'lucide-react';
+import { Search, X, ChevronRight, ExternalLink } from 'lucide-react';
 import { getAppIconUrl } from '@/lib/utils';
 import Skeleton from '@/components/ui/Skeleton';
 import styles from './StoreHeader.module.css';
@@ -67,14 +67,30 @@ export default function StoreHeader() {
   return (
     <div className={styles.header}>
       <div className={styles.container}>
-        {/* Brand Logo */}
-        <Link href="/appstore" className={styles.brand}>
-          <img src="/logo.png" alt="" className={styles.logoImg} width="34" height="34" />
-          <span className={styles.brandMeta}>
-            <span className={styles.brandTitle}>Silver Red Store</span>
-            <span className={styles.brandSubtitle}>Apps &amp; games, direct from the studio</span>
-          </span>
-        </Link>
+        {/* Brand Logo & Studio Link */}
+        <div className={styles.brandGroup}>
+          <Link href="/appstore" className={styles.brandLogoLink} aria-label="Silver Red Store">
+            <img src="/logo.png" alt="" className={styles.logoImg} width="34" height="34" />
+          </Link>
+          <div className={styles.brandMeta}>
+            <div className={styles.brandTitleRow}>
+              <Link href="/appstore" className={styles.brandTitleLink}>
+                <span className={styles.brandTitle}>Silver Red Store</span>
+              </Link>
+              <a
+                href="https://silverbytestudio.com"
+                className={styles.studioBtn}
+                title="Visit silverbytestudio.com"
+              >
+                <span>Studio</span>
+                <ExternalLink size={10} className={styles.studioIcon} />
+              </a>
+            </div>
+            <Link href="/appstore" className={styles.brandSubtitleLink}>
+              <span className={styles.brandSubtitle}>Apps &amp; games, direct from the studio</span>
+            </Link>
+          </div>
+        </div>
 
         {/* Global Search with Real-time Suggestions */}
         <div className={styles.searchWrapper} ref={searchRef}>
