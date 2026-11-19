@@ -12,7 +12,7 @@
   min-height: 100dvh;
 }
 
-/* Store toolbar: a recessed dark-wood shelf under the shared top bar. */
+/* Store toolbar: a recessed dark-wood shelf at the top of the store. */
 .storeBar {
   position: relative;
   z-index: 5;

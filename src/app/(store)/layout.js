@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import prisma from '@/lib/db';
 import StoreHeader from '@/components/store/StoreHeader';
 import CategoryNav from '@/components/store/CategoryNav';
-import { PortfolioHeader, PortfolioFooter } from '@/components/store/PortfolioChrome';
+import { PortfolioFooter } from '@/components/store/PortfolioChrome';
 import { getPortfolioChrome } from '@/lib/portfolioChrome';
 import { ToastProvider } from '@/components/ui/Toast';
 import styles from './layout.module.css';
@@ -34,10 +34,9 @@ export default async function StoreLayout({ children }) {
 
   return (
     <ToastProvider>
-      {/* The portfolio's own stylesheet: shared tokens, sprite primitives, header and footer. */}
+      {/* The portfolio's own stylesheet: shared tokens, sprite primitives and footer. */}
       <link rel="stylesheet" href="/assets/css/style.css" precedence="portfolio" />
       <div className={styles.storeShell}>
-        <PortfolioHeader html={chrome.header} />
         <div className={styles.storeBar}>
           <StoreHeader />
           <Suspense fallback={<div style={{ minHeight: 48 }} />}>
