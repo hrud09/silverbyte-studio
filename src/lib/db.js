@@ -5,7 +5,10 @@ import pg from 'pg';
 const globalForPrisma = globalThis;
 
 function createPrismaClient() {
-  const connectionString = process.env.DATABASE_URL || 'postgresql://placeholder:placeholder@localhost:5432/placeholder';
+  const connectionString = process.env.DATABASE_URL ||
+    process.env.POSTGRES_PRISMA_URL ||
+    process.env.POSTGRES_URL ||
+    'postgresql://placeholder:placeholder@localhost:5432/placeholder';
   const pool = new pg.Pool({ connectionString });
   const adapter = new PrismaPg(pool);
   return new PrismaClient({ adapter });
